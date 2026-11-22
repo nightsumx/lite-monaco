@@ -1,0 +1,6 @@
+[
+  {
+    "file": "controller/textAreaInput.test",
+    "reason": "已由 __tests__/core/parity-textarea-input.test.ts 逐条翻译覆盖(19 条真机录像的 DOM 事件回放,最终文档与选区 == 原版 final;录像数据在 __fixtures__/textarea-input-recordings.json)。不测原版 type{} 回调序列(lite-monaco 无此层)(原因存档:整文件测的是 Monaco 隐藏 <textarea> 输入协议,lite-monaco 是 contenteditable 无此层,缺失的概念:(1) ITextAreaWrapper 记录的 textarea 事件流(keydown/input/compositionstart/update/end/paste)-> TextAreaInput 回调 type{text,replacePrevCharCnt,replaceNextCharCnt,positionDelta};(2) TextAreaState 的 value/selectionStart/selectionEnd 镜像与 deduceInput 对前后 textarea 值做 diff 推导 replacePrev/replaceNext;(3) compositionend 后 textarea 值回填与 retype 重放;(4) textarea 选区/值与编辑器选区的同步(writeNativeTextAreaContent)。lite-monaco 的输入是浏览器直接改 contenteditable DOM,经 MutationObserver -> domchange.findDiff 读回 doc,没有 type 回调与 replacePrev/Next 语义,任何 shim 都只能自行合成 textarea 协议=在 shim 里实现被测行为,违反 README。对应行为(IME 选词/中间态/落定、DOM≡doc 双射)由自有 __tests__/core/input-harness.ts 的 imeCompose 等回放测试覆盖。)"
+  }
+]

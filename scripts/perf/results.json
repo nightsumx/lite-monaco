@@ -1,0 +1,191 @@
+{
+ "scroll_wrap_100k": {
+  "lite": {
+   "wrap_layout": 17.5,
+   "wrap_layout.cpu": 30.57,
+   "scroll100frames": 1661.7,
+   "scroll100frames.cpu": 823.31,
+   "toggle_wrap_off": 29.7,
+   "toggle_wrap_off.cpu": 16.55,
+   "toggle_wrap_on": 31.4,
+   "toggle_wrap_on.cpu": 17.82,
+   "resize_600": 31.4,
+   "resize_600.cpu": 5,
+   "resize_1000": 32,
+   "resize_1000.cpu": 0.59,
+   "heapMB": 89.02
+  },
+  "monaco": {
+   "wrap_layout": 14.2,
+   "wrap_layout.cpu": 87.79,
+   "scroll100frames": 1709.6,
+   "scroll100frames.cpu": 705.3,
+   "toggle_wrap_off": 29.7,
+   "toggle_wrap_off.cpu": 11.82,
+   "toggle_wrap_on": 32,
+   "toggle_wrap_on.cpu": 21.06,
+   "resize_600": 31.8,
+   "resize_600.cpu": 20.83,
+   "resize_1000": 31.9,
+   "resize_1000.cpu": 14.76,
+   "heapMB": 64.25
+  }
+ },
+ "longline_1M_chars": {
+  "lite": {
+   "paint": 26.3,
+   "paint.cpu": 74.76,
+   "reveal_mid": 34,
+   "reveal_mid.cpu": 34.32,
+   "insert_char_mid": 26.8,
+   "insert_char_mid.cpu": 17.59,
+   "hscroll40frames": 665,
+   "hscroll40frames.cpu": 19.95,
+   "selectAll": 40.5,
+   "selectAll.cpu": 40.68,
+   "wrap_on": 202.6,
+   "wrap_on.cpu": 204.41,
+   "wrap_off": 105.4,
+   "wrap_off.cpu": 105.49,
+   "heapMB": 10.35
+  },
+  "monaco": {
+   "paint": 8.5,
+   "paint.cpu": 14.25,
+   "reveal_mid": 27.4,
+   "reveal_mid.cpu": 13.37,
+   "insert_char_mid": 31.9,
+   "insert_char_mid.cpu": 5.5,
+   "hscroll40frames": 664.3,
+   "hscroll40frames.cpu": 8.88,
+   "selectAll": 31.7,
+   "selectAll.cpu": 0.96,
+   "wrap_on": 31.1,
+   "wrap_on.cpu": 14.44,
+   "wrap_off": 32.2,
+   "wrap_off.cpu": 3.73,
+   "heapMB": 14.84,
+   "__pageerrors": 1
+  }
+ },
+ "minified_20x100k": {
+  "lite": {
+   "paint": 7.8,
+   "paint.cpu": 127.1,
+   "click_end_line": 57.4,
+   "click_end_line.cpu": 57.74,
+   "type_char": 24.4,
+   "type_char.cpu": 10.66,
+   "wrap_on": 152.3,
+   "wrap_on.cpu": 152.58,
+   "heapMB": 8.61
+  },
+  "monaco": {
+   "paint": 15.2,
+   "paint.cpu": 407.61,
+   "click_end_line": 28,
+   "click_end_line.cpu": 25.7,
+   "type_char": 24.8,
+   "type_char.cpu": 6.59,
+   "wrap_on": 32.5,
+   "wrap_on.cpu": 17.03,
+   "heapMB": 15.1
+  }
+ },
+ "wide_10k_lines_1000_chars": {
+  "lite": {
+   "paint": 27,
+   "paint.cpu": 43.07,
+   "wrap_on": 31.6,
+   "wrap_on.cpu": 32.94,
+   "scroll100frames_wrapped": 1662.3,
+   "scroll100frames_wrapped.cpu": 770.08,
+   "heapMB": 20.75
+  },
+  "monaco": {
+   "paint": 8.6,
+   "paint.cpu": 15.51,
+   "wrap_on": 51.8,
+   "wrap_on.cpu": 56.7,
+   "scroll100frames_wrapped": 1662.6,
+   "scroll100frames_wrapped.cpu": 443.26,
+   "heapMB": 27.12
+  }
+ },
+ "typing_wrap": {
+  "lite": {
+   "key_to_paint.p50": 32.5,
+   "key_to_paint.p95": 34.1,
+   "key_to_paint.max": 34.4,
+   "key_to_paint.longtask": 0,
+   "key_to_paint.cpu_per_event": 7.36,
+   "backspace_to_paint.p50": 32.5,
+   "backspace_to_paint.p95": 34.5,
+   "backspace_to_paint.max": 34.5,
+   "backspace_to_paint.longtask": 0,
+   "backspace_to_paint.cpu_per_event": 4.69,
+   "enter_to_paint.p50": 32.8,
+   "enter_to_paint.p95": 34.5,
+   "enter_to_paint.max": 34.5,
+   "enter_to_paint.longtask": 0,
+   "enter_to_paint.cpu_per_event": 8.33,
+   "heapMB": 86.81
+  },
+  "monaco": {
+   "key_to_paint.p50": 31.7,
+   "key_to_paint.p95": 34.4,
+   "key_to_paint.max": 101.2,
+   "key_to_paint.longtask": 158,
+   "key_to_paint.cpu_per_event": 8.28,
+   "backspace_to_paint.p50": 32.8,
+   "backspace_to_paint.p95": 97.5,
+   "backspace_to_paint.max": 97.5,
+   "backspace_to_paint.longtask": 79,
+   "backspace_to_paint.cpu_per_event": 8.46,
+   "enter_to_paint.p50": 32.4,
+   "enter_to_paint.p95": 32.8,
+   "enter_to_paint.max": 32.8,
+   "enter_to_paint.longtask": 0,
+   "enter_to_paint.cpu_per_event": 5.16,
+   "heapMB": 48.39
+  }
+ },
+ "typing_longline": {
+  "lite": {
+   "key_to_paint.p50": 32.7,
+   "key_to_paint.p95": 35.6,
+   "key_to_paint.max": 43.8,
+   "key_to_paint.longtask": 0,
+   "key_to_paint.cpu_per_event": 8.76,
+   "backspace_to_paint.p50": 32.7,
+   "backspace_to_paint.p95": 33.9,
+   "backspace_to_paint.max": 33.9,
+   "backspace_to_paint.longtask": 0,
+   "backspace_to_paint.cpu_per_event": 5.27,
+   "enter_to_paint.p50": 32.9,
+   "enter_to_paint.p95": 34.2,
+   "enter_to_paint.max": 34.2,
+   "enter_to_paint.longtask": 0,
+   "enter_to_paint.cpu_per_event": 8.92,
+   "heapMB": 10.91
+  },
+  "monaco": {
+   "key_to_paint.p50": 32.7,
+   "key_to_paint.p95": 34.6,
+   "key_to_paint.max": 46.4,
+   "key_to_paint.longtask": 0,
+   "key_to_paint.cpu_per_event": 4.81,
+   "backspace_to_paint.p50": 32.7,
+   "backspace_to_paint.p95": 33.7,
+   "backspace_to_paint.max": 33.7,
+   "backspace_to_paint.longtask": 0,
+   "backspace_to_paint.cpu_per_event": 3.33,
+   "enter_to_paint.p50": 32.2,
+   "enter_to_paint.p95": 33,
+   "enter_to_paint.max": 33,
+   "enter_to_paint.longtask": 0,
+   "enter_to_paint.cpu_per_event": 5.22,
+   "heapMB": 27.72
+  }
+ }
+}

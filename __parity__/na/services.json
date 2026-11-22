@@ -1,0 +1,14 @@
+[
+  {
+    "file": "standalone/test/browser/standaloneServices.test",
+    "reason": "测的是 StandaloneKeybindingService:它挂在 platform 的 IContextKeyService / ICommandService / INotificationService / ITelemetryService 依赖注入容器上,把 addDynamicKeybinding 的规则解析成 ResolvedKeybinding,并向 domNode(含 null target = 全局)的 keydown 派发。lite-monaco 的键位派发是逐 view 绑定(api/commands.ts 的 addViewKeybinding / addKeybindingRules,规则在 view 的 keymap 里匹配),没有「按 DOM 节点 + 全局 null target 挂接 keydown」的服务对象,也没有 platform DI 容器;要接就得在垫片里实现一整个 StandaloneKeybindingService(规则表 + 修饰键解析 + 派发),即实现被测行为。"
+  },
+  {
+    "file": "common/services/textResourceConfigurationService.test",
+    "reason": "测的是 TextResourceConfigurationService:建立在 platform 的分层 IConfigurationService(ConfigurationTarget 的 default/user/workspace/folder 多层合并)+ IWorkspaceContextService(按资源找工作区文件夹)+ IModelService/ILanguageService(按资源的语言取 [lang] 覆盖)之上,断言 getValue(resource, position, section) 按资源所在文件夹与光标处语言解析的结果和 updateValue 写入哪一层。lite-monaco 的配置是单层 EditorOptions(updateOptions),按语言只有 api/options 的 per-language override,没有 ConfigurationTarget 分层、工作区文件夹与 IWorkspaceContextService;垫片要接就得实现分层配置合并,即实现被测行为。"
+  },
+  {
+    "file": "browser/services/decorationRenderOptions.test",
+    "reason": "测的是 AbstractCodeEditorService.registerDecorationType / resolveDecorationOptions / DecorationTypeOptionsProvider:把 IDecorationRenderOptions(light/dark 两套 + before/after 伪元素 + overviewRulerColor + 主题色 id → CSS 变量)编译成注入 <style> 的 CSS 规则文本(断言 .monaco-editor .ced-… 选择器、border/outline 的逐边展开、rem 字号、themeColor 解析),并通过 IThemeService 的 getColorTheme().getColor(id) 取色。lite-monaco 的装饰公开 API 是 deltaDecorations 的 className/inlineClassName/beforeContentClassName/…ClassName(宿主自己提供 CSS),没有 registerDecorationType / createDecorationType 与「render options → 生成 CSS 规则」这层,也没有 IThemeService 的 theme color id 注册表;垫片要接就得实现整个 CSS 生成器,即实现被测行为。"
+  }
+]

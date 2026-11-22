@@ -1,0 +1,71 @@
+// 已知差异的分类。{scenario?: 场景名正则, path: 路径正则, class, note}。先匹配先赢。
+// 分类:bug(lite 的问题,没修) / 有意不同(结构不同,不会改) / monaco怪(真 Monaco 在 headless 下的行为)
+export const known = [
+    // 无障碍(95-a11y):已对齐的属性/role/name/播报容器不在这里;下面只剩逐条讲得出理由的差异,没有泛化规则。
+    { scenario: '^95', path: 'a11y\\.active\\.cls$', class: '有意不同', note: '焦点元素的 class:Monaco 是 native-edit-context(EditContext),lite 是 cm-content。只是类名,AX 树里都是同样的 textbox' },
+    { scenario: '^95', path: 'attrs\\.contenteditable$', class: '有意不同', note: 'lite 的编辑框本身是 contenteditable(没有隐藏 textarea / EditContext),AX 树里都是 editable=richtext 的 textbox。结构性差异' },
+    { scenario: '^95', path: 'roles\\.(presentation|none|list)$', class: '有意不同', note: 'Monaco 给装饰层(行号边栏、标尺、滚动条、overlay)补 role=presentation,吸顶滚动区带 role=none/list;lite 的装饰层本来就 aria-hidden,AX 树里这些节点都被忽略,读屏看不到差别' },
+    { scenario: '^95-a11y/(default|accessibilitySupport|ariaLabel|ariaRequired|readOnly|screenReader)', path: 'lives\\.\\d+\\.text$', class: '有意不同', note: '播报行为差异:lite 光标停 400ms 后会在 polite 区播「Line N, column M」,Monaco 普通模式不播(只在读屏优化模式靠 selectionchange)。去掉会让依赖这条播报的用户少听到东西,所以保留;要关用 a11ySession({announceSelection:false})' },
+    { scenario: '^95-a11y/(contextmenu|find-replace)', path: 'lives\\.\\d+\\.text$', class: 'monaco怪', note: 'Monaco 的 aria 容器是全页单例,上一个场景(查找)的播报文字会留在里面;harness 每个场景重建编辑器但不清它' },
+    { scenario: '^95-a11y/find-replace', path: 'roles\\.checkbox$', class: '有意不同', note: 'DOM 里 role=checkbox 的个数:Monaco 把替换行的「保留大小写」等也画成 checkbox 节点并藏起来;AX 树(见 ax 摘要,0 差异)里读屏看到的 checkbox 两边一致' },
+    { scenario: '^95-a11y/palette', path: 'ax\\.ax\\.widgets', class: '有意不同', note: '命令面板:Monaco 是虚拟列表(只渲染可见 7 行,输入框是 textbox + aria-haspopup=menu),lite 渲染全部命令,输入框是 ARIA 标准的 combobox(aria-controls 指向 listbox)。读屏到的是同样的「输入框 + 名叫 Type to narrow down results. 的列表 + 带快捷键读法的选项」,条数和 role 名不同;不改成 textbox,combobox 对读屏更准' },
+    { scenario: '^95-a11y/contextmenu', path: 'ax\\.ax\\.widgets|attrs\\.role$|roles\\.(menu|menuitem|separator)$', class: '有意不同', note: '右键菜单:Monaco 的分隔线在 AX 树里是个 role=checkbox(disabled),焦点在 shadow-root 宿主;lite 分隔线是 role=separator,焦点在 role=menu 本身。菜单项的名字(含快捷键)和顺序一致。lite 这边更符合 ARIA' },
+    { scenario: '^97-engines/tab-focus-order', path: '^tab\\.eval$', class: '有意不同', note: '焦点元素:Chromium 里 Monaco 用 EditContext(DIV);Firefox/WebKit 没有 EditContext,Monaco 退回隐藏 textarea,lite 始终是 contenteditable(DIV)。结构性差异,Tab 键行为(进入编辑器、再 Tab 离开)一致' },
+    { scenario: '^97-engines/suggest-open-filter-accept', path: '^(down\\.eval\\.selected|end\\.value)$', class: 'monaco怪', note: '只在整套(…96-diff 之后第一个场景)里出现:Monaco 的 ArrowDown 没有移动补全选中项(lite 移到 foo)。单独跑(node run.mjs 97-engines)Chromium/Firefox/WebKit 全部一致,加长等待无效,说明是前面 diff 场景留在 Monaco 页里的状态,原因没有拆到底' },
+    { scenario: '^10-wrap/(cjk-emoji-url|wordBreak-keepAll)', path: '^a\\.scroll\\.width$', class: '有意不同', note: 'Firefox/WebKit:折行宽度随断点走(见 domBreaks),CJK/emoji/URL 的断点由引擎的断行规则决定,与 Chromium 各差 2px。同 content.width 的分类' },
+    { scenario: '^50-keys/type-over-selection-multi', path: '^end\\.', class: 'monaco怪', note: 'Firefox/WebKit(Playwright):3 个反向选区(⌘⌥↓ 加光标、End、Shift+←)后键入 Z,Monaco 一个字也没插(value 仍是 a1/a2/a3,选区还在),lite 三处都替换成 aZ。Monaco 的 textarea 路径在 Firefox 下吞了这次输入,Chromium 两边一致;没有拆到 Monaco 内部原因' },
+    { scenario: '^85-rtl/dom-mixed-lines', path: '^a\\.glyphs\\.6\\.', class: 'bug', note: 'Firefox/WebKit:混排行第 6 行里相邻两个字形的 x 互换(169/186),Chromium 一致。中性字符在 isolate 内的视觉顺序,没有拆到底也没修' },
+    { scenario: '^86-grapheme/shift-devanagari', path: 'selRects\\.0\\.2$', class: 'bug', note: 'Firefox/WebKit:天城文 Shift+→ 选一个字素簇,选区框宽 82 对 Monaco 68(Chromium 一致)。簇内字形宽度的量法(Range rect 对组合字符的切分)在 Firefox 下与 Monaco 不同,没有拆到底也没修' },
+    { scenario: '^30-whitespace/letterSpacing-2', path: '^a\\.pos\\.', class: '有意不同', note: 'WebKit:原生 \\t 的宽度不含 letter-spacing(Chromium/Firefox 含)。Monaco 把 tab 展开成 nbsp 所以每个 tab 多 2px 逐列累加;lite 用原生 tab + tab-size。只在 letterSpacing≠0 且行内有 tab 时出现;要对齐得在 WebKit 下把 tab-size 改成按字宽+间距算的长度,没做' },
+    { scenario: '^85-rtl/offset-api-rtl', path: '^o\\.eval\\.23\\.', class: 'monaco怪', note: 'WebKit:行尾(末列)位置 Monaco 的 getOffsetForColumn 返 -1(量不到:行尾 collapsed range 在 WebKit 没有 rect,同 lite 修过的 caretCoords 问题),lite 给真实坐标' },
+    { path: 'cursorRect', class: 'monaco怪', note: 'wheel 后 Monaco 光标在视口外时 rect 是 0,lite 仍给真实位置' },
+    { scenario: '61-selection/big-select', path: 'selRects\\.(2\\d|[3-9]\\d)$', class: '有意不同', note: 'lite 视口比可见区多渲染几行(overscan),选区框也多画这几行;可见的前 20 行逐行一致' },
+    { scenario: '84-sel-perf', path: 'perf', class: '有意不同', note: '耗时测量,不是行为比对:数字每次都不同,只看量级(见 PROGRESS.md)' },
+    // 折行
+    { path: 'domBreaks', class: '有意不同', note: '折行 DOM 断点:CJK/emoji/URL 的可断点由 Chrome 的断行规则决定(lite 让浏览器按像素折),Monaco 按列数自己断;emoji 实际字宽也不是 2 列' },
+    // 宽度
+    // 不折行时的 scroll.width / content.width。机制(见 PROGRESS.md 第四轮·块A 的实测):Monaco 的 maxLineWidth 只来自「渲染过的行」,
+    // 高水位、滚到才涨(滚动条会跳);lite 对没渲染的等宽 ASCII 行额外给「字数 × 字宽」的下界,所以横向滚动条不随竖向滚动漂。
+    // 91-width 场景证明:每行都渲染过之后(walked)两边逐项一致,所以差异只在「还没滚到的行」这一件事上。
+    { scenario: '^91-width', path: '^start\\.(scroll|content)\\.width', class: '有意不同', note: '还没滚过:Monaco 只计渲染过的行,lite 对等宽 ASCII 行按字数 × 字宽给全文下界(横向滚动条不随竖向滚动漂;滚过全文后两边相等,见 walked)' },
+    { scenario: '^(?!10-wrap|91-width)', path: '\\.(scroll|content)\\.width', class: '有意不同', note: '同 91-width/start:未滚到的行 Monaco 不计、lite 按字数 × 字宽估(等宽 ASCII)。已逐个场景拆开:minimap / lineNumbers / glyphMargin / folding / fontSize / lineDecorationsWidth 等 90-layout 场景的 scroll.width 差 = content.width 差 + 布局差(0),91-width 的 walked 证明数值本身一致' },
+    { path: 'font\\.|layout\\.', scenario: 'fontFamily-serif', class: 'monaco怪', note: '比例字体下 Monaco 的 spaceWidth/数字宽取自 canvas measureText,lite 取 DOM 实测' },
+    { scenario: 'cjk-emoji-url|keepAll', path: 'content\\.width', class: '有意不同', note: '折行宽度随断点走:URL/emoji/keep-all 的断点由 Chrome 决定,见 domBreaks' },
+    { scenario: '20-long/line-10k-wrap', path: 'pos\\.', class: 'monaco怪', note: 'Monaco 对视口外(没渲染)的折行行给 left=行首,lite 给真实位置' },
+    { scenario: '20-long/line-10k-chars', path: 'pos\\.', class: 'monaco怪', note: '已实测(改 stopRenderingLineAfter 不影响,不是截断):Monaco 的 FastRenderedViewLine 对等宽 ASCII 行用 charWidth×列 算光标位置,charWidth 是 offsetWidth 取整后的 8.4296875(Chrome 真实字宽 8.4287);lite 读真 DOM Range。每字 0.001px,1 万字到 2px;Monaco 自己的 DOM Range 与它的 API 值也差这么多。lite 的值更贴实际字形,不跟' },
+    { scenario: 'fontFamily-serif', path: 'pos\\.', class: 'monaco怪', note: '比例字体:gutter 宽差 12px(见 layout.*)平移了全部 left,其余是字宽度量方式不同' },
+    { scenario: '80-decorations/before-after', path: 'pos\\.', class: '有意不同', note: '光标在 ::before 伪元素内容的前(lite)还是后(Monaco):同一个文本边界两种画法' },
+    { scenario: '80-decorations/whole-line', path: 'rects\\.\\d+\\.2', class: '有意不同', note: '整行装饰框宽。已实测根因(第四轮·块A):Monaco 的 .cdr 是铺满 lines-content(宽 = scrollWidth,含竖条 14px)的绝对定位 div,竖条是盖在上面的浮层,所以整行底色画到编辑器右缘;lite 的竖条是 .cm-scroller 旁边的一列(flex 兄弟,scroller 718、竖条 786–800),整行类挂在 .cm-line 上,画到 scroller 右缘为止,右边留 14px 没有底色(截图可见)。要对齐得把竖条改成浮层并把 scrollDOM.clientWidth 的 15 处用法(折行宽、横向滚动、滚轮、鼠标拖选、reveal)全改成扣竖条,或者把整行装饰改成独立的全宽层(会丢掉 .cm-line 上的类);影响面大于 14px 的观感,没做' },
+    { path: 'pos\\.', scenario: 'fontFamily|before-after', class: 'bug', note: 'fontFamily/before-after 的光标 left 不同(注入文本已对齐并有场景断言):Monaco 按字符宽度表,lite 按 DOM 实测' },
+    { path: 'count\\.guides', class: '有意不同', note: '缩进参考线:选择器不同(Monaco .cigr,lite 另一套),数量口径不同' },
+    { path: 'ime|mid\\.', scenario: '^50-keys/ime', class: '有意不同', note: '组字期间 value:Monaco(EditContext)每次组字更新都把组字文本写进 model(value 随组字变、每次 onDidChangeModelContent),lite 的 contenteditable 把组字文本留在 DOM、model 到提交才一次性改。第四轮·块B 在 87-ime 里实测确认(旧说法「Monaco 不改 model」是错的)' },
+    { path: 'end\\.value', scenario: 'type-brackets-quotes', class: 'bug', note: 'plaintext 下 lite 补了引号(已修:plaintext 只补三种括号)' },
+    { path: 'layout\\.', scenario: 'glyphMargin|minimap|lineNumbers|folding|lineDecorations|showFolding|overview|useShadows|sticky|fixedOverflow|rounded|fontSize|lineHeight|automatic', class: 'bug', note: '布局宽度项,见 scroll.width / content.width' },
+    { path: 'viewzone|rects', scenario: 'viewzone|overlay|content-widget', class: '有意不同', note: '已实测成因(之前写的「含滚动条」不对):Monaco 的 content widget 不继承编辑器字体(取页面的 16px 系统字体、line-height:normal → 框 15.17×18),lite 的挂在编辑器 dom 里继承 Menlo 14px/20px(8.44×20)。宿主挂件想要编辑器字体的在 Monaco 里本来就得自己设,所以没改:改了会动 lite 自己的补全/hover 挂件的继承字体。右角 overlay widget 的右偏移已对齐(2×竖条+minimap,有单测)' },
+    // 第四轮·块B:输入法(87-ime,CDP 模拟,不是真输入法)。提交后的 value / sel / 光标框两边一致,差的只是组字「过程」
+    { scenario: '^87-ime', path: '_(imeSet|keys|blur|eval|click|type)\\.(value|sel\\.\\d+\\.\\d+|cursorRect\\..*|eval\\.act|eval\\.rtl)$', class: '有意不同', note: '组字中途:Monaco 的 model 已含组字文本(value、sel 随之动,焦点元素 EditContext 没有文本),lite 的 model 不含、文本在 contenteditable 的 DOM 里。结构差异:真浏览器里在组字中重画 DOM 会让 IME 放弃组字,所以 lite 不能照 Monaco 每次更新写 model' },
+    { scenario: '^87-ime', path: 'eval\\.ev\\.\\d+$', class: '有意不同', note: '事件序列:Monaco 每次组字更新一条 onDidChangeModelContent(replace 上一次组字文本),lite 提交时一条;start / end 都有,且提交时内容变更都在 end 之前' },
+    { scenario: '^87-ime/click-during', path: 'click\\.(sel|cursorRect)', class: 'monaco怪', note: '组字中点别处:CDP 模拟下没有真输入法去提交组字,两边选区落点不同(Monaco 点的是含组字文本的行布局)。真输入法点击会先提交组字,未验证' },
+    { scenario: '^87-ime/external-(setvalue|setselection)', path: '', class: '有意不同', note: '组字中 setValue / 改光标:Monaco 把提交文本插到旧组字范围(setValue 后得到 "rep你ced" 这种乱串),lite 重画后提交文本替换了整行(setValue 后只剩「你」)。两边都不是好结果;真浏览器里 Chrome 在组字节点被换掉时会放弃组字,CDP 模拟不到,未验证' },
+    { scenario: '^87-ime', path: '', class: '有意不同', note: '其余 87-ime 项都是上面几类的连带(组字中途 value / 事件序列)' },
+    // 第四轮·块B:RTL / 字素
+    { scenario: '^85-rtl/deco-inline-rtl', path: '', class: '有意不同', note: 'Monaco 的 token 在装饰边界处被劈开,每一块各自判 RTL,所以带装饰的混排行 abc 那段会变成 LTR 单独一块;lite 把装饰劈开的连续 RTL 子节点并回一个 isolate(rtl-isolate.test.ts 钉住),开关查找高亮 / 括号匹配时整行显示顺序不会变。Monaco 的做法会让行随装饰开关重排' },
+    { scenario: '^85-rtl/(dom-ts-tokens|dom-json-hebrew-keys|dom-mixed-lines)', path: 'pos\\.|dom\\.', class: 'monaco怪', note: '分词不同:Shiki 与 Monarch 在字符串 / 注释边界处切的 token 不一样,token 边界处的光标列左右各一个位置,字形位置(glyphs 快照)一致;混排行里数字 / 空格:Monaco 把空格写成 NBSP(双向类 CS),使 RTL token 里 "1 2" 显示成 LTR,lite 的普通空格按 UBA 走' },
+    { scenario: '^85-rtl/(tab-and-rtl|keys-niqqud|keys-rtl-marks|wrap-rtl|selection-box-ranges|keys-mixed-shift)', path: '', class: 'bug', note: '第四轮·块B 没拆完:tab 在 RTL 段里(Monaco 写成 NBSP 展开)、尼库德符号簇内的光标框、折行 RTL 选区第三行、选区框右缘(Home / Shift+左 到 RTL 段)差几 px 到几十 px;根因未查清' },
+    { scenario: '^86-grapheme/(shift-devanagari|drag-over-flag)', path: 'cursorRect', class: 'bug', note: '天城文连字簇 Shift+→ 后光标框 / 拖选落在国旗簇中间的光标框:选区列一致、只有光标框的 left 差(Monaco 68 / 75,lite 81 / 93),根因未查清' },
+    // 第四轮·块C:diff 编辑器(96-diff,headless Chromium,Monaco 0.55.1)。几何(scroll.h / layout / tops / sel / getLineChanges)已对齐的项不在这里
+    { scenario: '^96-diff/', path: 'diff\\.count\\.(lineDel|lineIns|charIns|charDel|gDel|gIns|hidden)$', class: '有意不同', note: '装饰 DOM 的节点个数,不是可见差异:Monaco 每个 range 一个 .line-insert/.char-insert/.gutter-delete 等 div(折行的行、跨多行的字符差会各出一个,.diff-hidden-lines 里还嵌套同类),lite 每个可见行一个、字符差按行合并,gutter 的删除/插入标记画在行装饰里而不是另起 div。要看真实位置用 rects / tops(已对齐)' },
+    { scenario: '^96-diff/hide-unchanged', path: 'diff\\.text\\.hid\\.\\d+$', class: '有意不同', note: '.diff-hidden-lines 在 Monaco 是 8 个嵌套节点、lite 是 4 个,同下标取到的不是同一个条,文字(5 / 14 hidden lines)是错位对比;条的个数一致(side-by-side 下 scroll.h 逐项相等)' },
+    { scenario: '^96-diff/lineNumbers-off', path: 'diff\\.count\\.gIns$', class: '有意不同', note: 'lineNumbers:off 时 Monaco 仍画 gutter 的 +/- 标记 div,lite 把它画在行号列里,行号关了就不单独出节点;标记本身在行装饰上还在(indicators 场景 0 差异)' },
+    { scenario: '^96-diff/moved-code', path: 'diff\\.count\\.(lineIns|charIns|gIns)$|scroll\\.\\d\\.(h|ch)$', class: '有意不同', note: '移动检测(experimental.showMoves)关着:Monaco 的 lineIns 为 0 因为它把移动块当成「移动」装饰另画,lite 把同样的行当插入/删除行装饰画;高度差 4px(1016 / 1020)来自一条占位区的取整,未单独拆' },
+    { scenario: '^96-diff/(wordwrap|wordwrap-inline)$', path: 'diff\\.count\\.(lineIns|lineDel|gIns|gDel)$', class: '有意不同', note: '折行的行 Monaco 每个视觉行各一个装饰 div(9),lite 一个逻辑行一个(1),同上条。高度 / 占位已对齐(side-by-side 的 scroll.h 相等)' },
+    { scenario: '^96-diff/wordwrap-inline$', path: 'diff\\.scroll\\.\\d\\.(h|ch)$', class: 'bug', note: '行内模式下已删除行不折行:Monaco 的删除行区块(inline-deleted-lines)按修改侧宽度折行,总高 620;lite 的 DeletedLinesWidget 高度固定 lines.length*lineHeight,总高 540。要修得让该 widget 用实测折行高度并随宽度重排,没做' },
+    { scenario: '^96-diff/hide-unchanged-inline$', path: 'diff\\.scroll\\.\\d\\.(h|ch)$', class: 'bug', note: '同上(已删除行不折行)叠加折叠条:行内 + 折叠未改区时总高 1156 对 1100,差 56px,没单独拆开' },
+    { scenario: '^96-diff/hide-unchanged', path: 'diff\\.(rects|tops)', class: 'bug', note: '折叠条的位置:Monaco 的 hidden-lines 条从窗格左缘(含 gutter)起、展开图标在 gutter 列;lite 的条是内容区里的替换装饰,left=72 且左边仍显示行号。要对齐得负 margin 盖住 gutter 并把图标迁到 gutter 列,没做' },
+    { scenario: '^96-diff/resize$', path: 'diff\\.(layout|scroll)\\.\\d\\.(h|ch)$', class: 'monaco怪', note: 'automaticLayout:false 时调用无参 diff.layout():Monaco 沿用旧高度 400,lite 会重测容器(300)。lite 的行为是调用方预期的(容器变小就变小),Monaco 的是「不重量」的副作用' },
+    { scenario: '^96-diff/sash-drag$', path: 'sash\\.eval', class: 'bug', note: '拖动后分隔条位置 483 对 448(差 35px)。怀疑是对照脚本拖的 sash 节点/坐标换算在两边不同(未验证:没有对着 DOM 查 lite 的 sash 命中区),也可能是 lite 的 sash 拖动有最小宽度夹取;未拆' },
+    { scenario: '^96-diff/(revealFirstDiff|scroll-sync|scroll-sync-inline|edit-modified|edit-original|empty-vs-text|text-vs-empty|char-diff-words|ts-lang|auto-inline-narrow|breakpoint-1200|toggle-sbs|inline)$', path: 'diff\\.count\\.', class: '有意不同', note: '同上「装饰 DOM 节点个数」(这些场景的 scroll / tops / sel / getLineChanges 已逐项一致)' },
+    // 第四轮·块C:命令面板(F1)
+    { scenario: '^95-a11y/pageSize-', path: 'sr\\.eval\\.(follows|lines)$', class: '有意不同', note: 'accessibilityPageSize:Monaco(EditContext + accessibilitySupport:on)把光标周围 pageSize 行写进读屏内容元素(默认约 58 行,pageSize 10 时 11 行,随光标走);lite 的读屏内容就是真 DOM(contenteditable,渲染出来的行),没有一块独立的「读屏文本窗口」,所以选项可设但没有分页,也不随未渲染的光标位置移动。键盘移动光标时光标会被滚进视口,读屏读到的就是它所在的行;只有 API 直接 setPosition 且不 reveal 时才和 Monaco 不同' },
+    { scenario: '^95-a11y/tabFocusMode-alert', path: 'a11y\\.a11y\\.', class: '有意不同', note: 'AX 摘要(ax)两边 0 差异,播报文字一致;剩下是和别的 a11y 场景一样的结构差异(EditContext 元素 vs contenteditable、role 计数),不是 tabFocusMode 的问题' },
+]

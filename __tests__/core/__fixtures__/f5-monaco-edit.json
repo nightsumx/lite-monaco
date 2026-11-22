@@ -1,0 +1,4884 @@
+[
+{
+"file": "t1-enter-pairs",
+"name": "enter between braces indented",
+"doc": "    if (x) {‸}\n",
+"keys": [
+"Enter"
+],
+"monaco": "    if (x) {\n        ‸\n    }\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after { at EOL",
+"doc": "function f() {‸\n}\n",
+"keys": [
+"Enter"
+],
+"monaco": "function f() {\n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter between parens",
+"doc": "foo(‸)\n",
+"keys": [
+"Enter"
+],
+"monaco": "foo(\n    ‸\n)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter between brackets",
+"doc": "const a = [‸]\n",
+"keys": [
+"Enter"
+],
+"monaco": "const a = [\n    ‸\n]\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter mid line",
+"doc": "    const a = 1‸ + 2\n",
+"keys": [
+"Enter"
+],
+"monaco": "    const a = 1\n    ‸ + 2\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter mid line before space",
+"doc": "    foo(a,‸ b)\n",
+"keys": [
+"Enter"
+],
+"monaco": "    foo(a,\n    ‸ b)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in leading whitespace",
+"doc": "        ‸foo()\n",
+"keys": [
+"Enter"
+],
+"monaco": "        \n        ‸foo()\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in middle of leading ws",
+"doc": "    ‸    foo()\n",
+"keys": [
+"Enter"
+],
+"monaco": "    \n    ‸    foo()\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter at col 0 of indented line",
+"doc": "‸    foo()\n",
+"keys": [
+"Enter"
+],
+"monaco": "\n‸    foo()\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter end of line comment",
+"doc": "    // hello‸\n",
+"keys": [
+"Enter"
+],
+"monaco": "    // hello\n    ‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter mid line comment",
+"doc": "    // hel‸lo\n",
+"keys": [
+"Enter"
+],
+"monaco": "    // hel\n    ‸lo\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in jsdoc",
+"doc": "/**\n * foo‸\n */\n",
+"keys": [
+"Enter"
+],
+"monaco": "/**\n * foo\n * ‸\n */\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after /**",
+"doc": "/**‸\n",
+"keys": [
+"Enter"
+],
+"monaco": "/**\n * ‸\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after /** with close",
+"doc": "/**‸ */\n",
+"keys": [
+"Enter"
+],
+"monaco": "/**\n * ‸\n */\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in block comment",
+"doc": "/* foo‸ */\n",
+"keys": [
+"Enter"
+],
+"monaco": "/* foo\n‸ */\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in string",
+"doc": "const s = \"ab‸cd\"\n",
+"keys": [
+"Enter"
+],
+"monaco": "const s = \"ab\n‸cd\"\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in template",
+"doc": "const s = `ab‸cd`\n",
+"keys": [
+"Enter"
+],
+"monaco": "const s = `ab\n‸cd`\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after colon-less line keeps indent",
+"doc": "        return 1‸\n",
+"keys": [
+"Enter"
+],
+"monaco": "        return 1\n        ‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after return; in block",
+"doc": "function f() {\n    return 1;‸\n}\n",
+"keys": [
+"Enter"
+],
+"monaco": "function f() {\n    return 1;\n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter on whitespace-only line",
+"doc": "if (a) {\n    ‸\n}\n",
+"keys": [
+"Enter"
+],
+"monaco": "if (a) {\n    \n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter twice in braces",
+"doc": "if (a) {‸}\n",
+"keys": [
+"Enter",
+"Enter"
+],
+"monaco": "if (a) {\n\n    ‸\n}\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter with trailing spaces",
+"doc": "    foo()‸   \n",
+"keys": [
+"Enter"
+],
+"monaco": "    foo()\n    ‸   \n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after arrow =>",
+"doc": "const f = () =>‸\n",
+"keys": [
+"Enter"
+],
+"monaco": "const f = () =>\n‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after if without brace",
+"doc": "if (a)‸\n",
+"keys": [
+"Enter"
+],
+"monaco": "if (a)\n‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter with selection",
+"doc": "    foo(⟨abc⟩)\n",
+"keys": [
+"Enter"
+],
+"monaco": "    foo(\n        ‸\n    )\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter at doc end",
+"doc": "    foo()‸",
+"keys": [
+"Enter"
+],
+"monaco": "    foo()\n    ‸",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter after { then type }",
+"doc": "if (a) {‸\n",
+"keys": [
+"Enter",
+{
+"type": "}"
+}
+],
+"monaco": "if (a) {\n}‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type } on ws line dedent",
+"doc": "if (a) {\n    foo()\n    ‸\n",
+"keys": [
+{
+"type": "}"
+}
+],
+"monaco": "if (a) {\n    foo()\n}‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ) dedent",
+"doc": "foo(\n    a,\n    ‸\n",
+"keys": [
+{
+"type": ")"
+}
+],
+"monaco": "foo(\n    a,\n)‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "shift+enter",
+"doc": "    foo(‸)\n",
+"keys": [
+"Shift+Enter"
+],
+"monaco": "    foo(\n        ‸\n    )\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "enter in tab-indented",
+"doc": "\tif (a) {‸}\n",
+"keys": [
+"Enter"
+],
+"insertSpaces": false,
+"monaco": "\tif (a) {\n\t\t‸\n\t}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( at eol",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "foo(‸)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before word",
+"doc": "‸foo\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "(‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before )",
+"doc": "a(‸)\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a((‸))\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before space",
+"doc": "a‸ b\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a(‸) b\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before ;",
+"doc": "a‸;\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a(‸);\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before .",
+"doc": "a‸.b\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a(‸).b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "type [ { ",
+"doc": "‸\n",
+"keys": [
+{
+"type": "[{"
+}
+],
+"monaco": "[{‸}]\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type \" at eol",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a = \"‸\"\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ' after word",
+"doc": "don‸\n",
+"keys": [
+{
+"type": "'"
+}
+],
+"monaco": "don'‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ' before word",
+"doc": "‸foo\n",
+"keys": [
+{
+"type": "'"
+}
+],
+"monaco": "'‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type \" inside string",
+"doc": "a = \"ab‸\"\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a = \"ab\"‸\"\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ` ",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "`"
+}
+],
+"monaco": "a = `‸`\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type < no autoclose",
+"doc": "a ‸\n",
+"keys": [
+{
+"type": "<"
+}
+],
+"monaco": "a <‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( in string",
+"doc": "a = \"‸\"\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a = \"(‸)\"\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( in comment",
+"doc": "// ‸\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "// (‸)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type \" in comment",
+"doc": "// ‸\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "// \"‸\"\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type-over ) after autoclose",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "()"
+}
+],
+"monaco": "foo()‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type-over ) not autoinserted",
+"doc": "foo(‸)\n",
+"keys": [
+{
+"type": ")"
+}
+],
+"monaco": "foo()‸)\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "type-over \" after autoclose",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "\"\""
+}
+],
+"monaco": "a = \"\"‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type-over after typing inside",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "(ab)"
+}
+],
+"monaco": "foo(ab)‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type-over after moving away and back",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+},
+"ArrowLeft",
+"ArrowRight",
+{
+"type": ")"
+}
+],
+"monaco": "foo()‸)\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "nested autoclose",
+"doc": "‸\n",
+"keys": [
+{
+"type": "(("
+},
+{
+"type": "))"
+}
+],
+"monaco": "(())‸\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection (",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a (⟨foo⟩) b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection \"",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a \"⟨foo⟩\" b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection [",
+"doc": "a ⟩foo⟨ b\n",
+"keys": [
+{
+"type": "["
+}
+],
+"monaco": "a [⟨foo⟩] b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection {",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "{"
+}
+],
+"monaco": "a {⟨foo⟩} b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection `",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "`"
+}
+],
+"monaco": "a `⟨foo⟩` b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection '",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "'"
+}
+],
+"monaco": "a '⟨foo⟩' b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap selection <",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "<"
+}
+],
+"monaco": "a <‸ b\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap multiline selection",
+"doc": "⟨a\nb⟩\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "(⟨a\nb⟩)\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "wrap twice",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+{
+"type": "(("
+}
+],
+"monaco": "a ((⟨foo⟩)) b\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair ()",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+},
+"Backspace"
+],
+"monaco": "foo‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair existing ()",
+"doc": "foo(‸)\n",
+"keys": [
+"Backspace"
+],
+"monaco": "foo‸)\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair \"\"",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "\""
+},
+"Backspace"
+],
+"monaco": "a = ‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair existing \"\"",
+"doc": "a = \"‸\"\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a = ‸\"\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair {} existing",
+"doc": "a {‸}\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a ‸}\n",
+"wasDiff": true
+},
+{
+"file": "t1-enter-pairs",
+"name": "backspace pair with space",
+"doc": "a ( ‸ )\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a (‸ )\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "delete in pair",
+"doc": "foo(‸)\n",
+"keys": [
+"Delete"
+],
+"monaco": "foo(‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( then enter",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+},
+"Enter"
+],
+"monaco": "foo(\n    ‸\n)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type { then enter",
+"doc": "if (a) ‸\n",
+"keys": [
+{
+"type": "{"
+},
+"Enter"
+],
+"monaco": "if (a) {\n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type { then space",
+"doc": "const a = ‸\n",
+"keys": [
+{
+"type": "{ "
+}
+],
+"monaco": "const a = { ‸}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type quote after =",
+"doc": "a=‸\n",
+"keys": [
+{
+"type": "'"
+}
+],
+"monaco": "a='‸'\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ) alone",
+"doc": "a‸\n",
+"keys": [
+{
+"type": ")"
+}
+],
+"monaco": "a)‸\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type \" before word char",
+"doc": "a = ‸b\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a = \"‸b\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before }",
+"doc": "{‸}\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "{(‸)}\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type \" before ]",
+"doc": "[‸]\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "[\"‸\"]\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ( before (",
+"doc": "‸(\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "(‸(\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type ; inside parens",
+"doc": "for (‸)\n",
+"keys": [
+{
+"type": "a;"
+}
+],
+"monaco": "for (a;‸)\n",
+"wasDiff": false
+},
+{
+"file": "t1-enter-pairs",
+"name": "type } typeover after enter",
+"doc": "if (a) ‸\n",
+"keys": [
+{
+"type": "{"
+},
+"Enter",
+{
+"type": "x"
+},
+"ArrowDown",
+"End"
+],
+"monaco": "if (a) {\n    x\n}‸\n",
+"wasDiff": false
+},
+{
+"file": "t2-overtype",
+"name": "overtype then type x",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "()"
+},
+{
+"type": "x"
+}
+],
+"monaco": "foo()x‸\n",
+"wasDiff": true
+},
+{
+"file": "t2-overtype",
+"name": "overtype then type ;",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+},
+{
+"wait": 100
+},
+{
+"type": ")"
+},
+{
+"wait": 100
+},
+{
+"type": ";"
+}
+],
+"monaco": "foo();‸\n",
+"wasDiff": true
+},
+{
+"file": "t2-overtype",
+"name": "overtype quote then type",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "\"ab\""
+},
+{
+"type": " + 1"
+}
+],
+"monaco": "a = \"ab\" + 1‸\n",
+"wasDiff": true
+},
+{
+"file": "t2-overtype",
+"name": "overtype ] then Backspace",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "[1]"
+},
+"Backspace"
+],
+"monaco": "a[1‸\n",
+"wasDiff": false
+},
+{
+"file": "t2-overtype",
+"name": "overtype on line 2 then Enter",
+"doc": "x\nfoo‸\nbar\n",
+"keys": [
+{
+"type": "()"
+},
+"Enter",
+{
+"type": "y"
+}
+],
+"monaco": "x\nfoo()\ny‸\nbar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs in indent (8 spaces)",
+"doc": "        ‸foo\n",
+"keys": [
+"Backspace"
+],
+"monaco": "    ‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs in indent (6 spaces)",
+"doc": "      ‸foo\n",
+"keys": [
+"Backspace"
+],
+"monaco": "    ‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs in indent mid ws",
+"doc": "    ‸    foo\n",
+"keys": [
+"Backspace"
+],
+"monaco": "‸    foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs in ws-only line",
+"doc": "a\n        ‸\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a\n    ‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs spaces after text",
+"doc": "foo    ‸bar\n",
+"keys": [
+"Backspace"
+],
+"monaco": "foo   ‸bar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs at line start joins",
+"doc": "foo\n‸bar\n",
+"keys": [
+"Backspace"
+],
+"monaco": "foo‸bar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs at doc start",
+"doc": "‸foo\n",
+"keys": [
+"Backspace"
+],
+"monaco": "‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs selection",
+"doc": "f⟨oo\nba⟩r\n",
+"keys": [
+"Backspace"
+],
+"monaco": "f‸r\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs emoji",
+"doc": "a😀‸b\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a‸b\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "bs emoji zwj",
+"doc": "a👨‍👩‍👧‸b\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a👨‍👩‸b\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "bs combining",
+"doc": "aé‸b\n",
+"keys": [
+"Backspace"
+],
+"monaco": "ae‸b\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "delete emoji",
+"doc": "a‸😀b\n",
+"keys": [
+"Delete"
+],
+"monaco": "a‸b\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "delete at eol joins",
+"doc": "foo‸\n    bar\n",
+"keys": [
+"Delete"
+],
+"monaco": "foo‸    bar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "delete in indent",
+"doc": "‸        foo\n",
+"keys": [
+"Delete"
+],
+"monaco": "‸       foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "delete at doc end",
+"doc": "foo‸",
+"keys": [
+"Delete"
+],
+"monaco": "foo‸",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs word",
+"doc": "foo bar‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo ‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs camel",
+"doc": "fooBarBaz‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs after punct",
+"doc": "foo.bar()‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo.bar‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs after spaces",
+"doc": "foo bar   ‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo bar‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs at line start",
+"doc": "foo\n‸bar\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo‸bar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs in indent",
+"doc": "x\n        ‸foo\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "x\n‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs mixed punct",
+"doc": "a = b + c;‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "a = b + c‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs snake",
+"doc": "foo_bar_baz‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs twice",
+"doc": "const fooBar = 1;‸\n",
+"keys": [
+"Alt+Backspace",
+"Alt+Backspace",
+"Alt+Backspace"
+],
+"monaco": "const fooBar ‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+del word",
+"doc": "‸foo bar\n",
+"keys": [
+"Alt+Delete"
+],
+"monaco": "‸ bar\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+del spaces then word",
+"doc": "foo‸   bar baz\n",
+"keys": [
+"Alt+Delete"
+],
+"monaco": "foo‸bar baz\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+del punct",
+"doc": "‸().foo\n",
+"keys": [
+"Alt+Delete"
+],
+"monaco": "‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+del at eol",
+"doc": "foo‸\n  bar\n",
+"keys": [
+"Alt+Delete"
+],
+"monaco": "foo‸bar\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+bs to line start",
+"doc": "    foo bar‸ baz\n",
+"keys": [
+"Meta+Backspace"
+],
+"monaco": "‸ baz\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+bs at indent",
+"doc": "    ‸foo\n",
+"keys": [
+"Meta+Backspace"
+],
+"monaco": "‸foo\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+bs at line start",
+"doc": "a\n‸foo\n",
+"keys": [
+"Meta+Backspace"
+],
+"monaco": "a‸foo\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+bs twice",
+"doc": "a\n    foo‸\n",
+"keys": [
+"Meta+Backspace",
+"Meta+Backspace"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+delete",
+"doc": "foo ‸bar\nnext\n",
+"keys": [
+"Meta+Delete"
+],
+"monaco": "foo ‸\nnext\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+bs with selection",
+"doc": "foo ⟨bar⟩ baz\n",
+"keys": [
+"Meta+Backspace"
+],
+"monaco": "‸ baz\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "alt+bs with selection",
+"doc": "foo ⟨bar⟩ baz\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo ‸ baz\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "tab empty line",
+"doc": "‸\n",
+"keys": [
+"Tab"
+],
+"monaco": "    ‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "tab mid line",
+"doc": "ab‸c\n",
+"keys": [
+"Tab"
+],
+"monaco": "ab  ‸c\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab col 1",
+"doc": "a‸bc\n",
+"keys": [
+"Tab"
+],
+"monaco": "a   ‸bc\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab in indent",
+"doc": "  ‸foo\n",
+"keys": [
+"Tab"
+],
+"monaco": "    ‸foo\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab single-line selection",
+"doc": "a⟨bc⟩d\n",
+"keys": [
+"Tab"
+],
+"monaco": "a   ‸d\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab full-line selection",
+"doc": "⟨abcd⟩\n",
+"keys": [
+"Tab"
+],
+"monaco": "⟨    abcd⟩\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab multi-line selection",
+"doc": "⟨foo\nbar⟩\nbaz\n",
+"keys": [
+"Tab"
+],
+"monaco": "⟨    foo\n    bar⟩\nbaz\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab multi-line sel ending col0",
+"doc": "⟨foo\nbar\n⟩baz\n",
+"keys": [
+"Tab"
+],
+"monaco": "⟨    foo\n    bar\n⟩baz\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab multi-line with empty line",
+"doc": "⟨foo\n\nbar⟩\n",
+"keys": [
+"Tab"
+],
+"monaco": "⟨    foo\n\n    bar⟩\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab cursor",
+"doc": "        foo‸\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "    foo‸\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab 2 spaces",
+"doc": "  fo‸o\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "fo‸o\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab 6 spaces",
+"doc": "      fo‸o\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "    fo‸o\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab no indent",
+"doc": "fo‸o\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "fo‸o\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab multi",
+"doc": "⟨    foo\n  bar\nbaz⟩\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "⟨foo\nbar\nbaz⟩\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab cursor in indent",
+"doc": "    ‸    foo\n",
+"keys": [
+"Shift+Tab"
+],
+"monaco": "    ‸foo\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "tab multi then shift tab",
+"doc": "⟨foo\nbar⟩\n",
+"keys": [
+"Tab",
+"Shift+Tab"
+],
+"monaco": "⟨foo\nbar⟩\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "tab with tabs insertSpaces false",
+"doc": "a‸b\n",
+"keys": [
+"Tab"
+],
+"insertSpaces": false,
+"monaco": "a\t‸b\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "tab multi insertSpaces false",
+"doc": "⟨a\nb⟩\n",
+"keys": [
+"Tab"
+],
+"insertSpaces": false,
+"monaco": "⟨\ta\n\tb⟩\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "shift+tab tab-indented",
+"doc": "\t\tfo‸o\n",
+"keys": [
+"Shift+Tab"
+],
+"insertSpaces": false,
+"monaco": "\tfo‸o\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "tab tabsize 2",
+"doc": "a‸b\n",
+"keys": [
+"Tab"
+],
+"tabSize": 2,
+"monaco": "a ‸b\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "bs indent tabsize 2",
+"doc": "      ‸b\n",
+"keys": [
+"Backspace"
+],
+"tabSize": 2,
+"monaco": "    ‸b\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+] cursor",
+"doc": "fo‸o\n",
+"keys": [
+"Meta+]"
+],
+"monaco": "    fo‸o\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+[ cursor",
+"doc": "      fo‸o\n",
+"keys": [
+"Meta+["
+],
+"monaco": "    fo‸o\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+] multi",
+"doc": "⟨a\n\nb⟩\n",
+"keys": [
+"Meta+]"
+],
+"monaco": "⟨    a\n\n    b⟩\n",
+"wasDiff": true
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+] selection keeps",
+"doc": "f⟨o⟩o\n",
+"keys": [
+"Meta+]"
+],
+"monaco": "    f⟨o⟩o\n",
+"wasDiff": false
+},
+{
+"file": "t3-delete-tab",
+"name": "cmd+[ empty-line-ish",
+"doc": "  ‸\n",
+"keys": [
+"Meta+["
+],
+"monaco": "‸\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "enter in tab-indented (tabs)",
+"doc": "\tif (a) {‸}\n",
+"keys": [
+"Enter"
+],
+"insertSpaces": false,
+"monaco": "\tif (a) {\n\t\t‸\n\t}\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "one\nthree\ntw‸o\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+up",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Alt+ArrowUp"
+],
+"monaco": "tw‸o\none\nthree\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+up first line",
+"doc": "o‸ne\ntwo\n",
+"keys": [
+"Alt+ArrowUp"
+],
+"monaco": "o‸ne\ntwo\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "alt+down last line no newline",
+"doc": "one\ntw‸o",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "one\ntw‸o",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "alt+down to last line no newline",
+"doc": "on‸e\ntwo",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "two\non‸e",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down selection 2 lines",
+"doc": "o⟨ne\ntw⟩o\nthree\n",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "three\no⟨ne\ntw⟩o\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down sel ending col0",
+"doc": "⟨one\n⟩two\nthree\n",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "two\n⟨one\n⟩three\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down multi cursor",
+"doc": "a‸1\nb\nc‸1\nd\n",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "b\na‸1\nd\nc‸1\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down into block reindent",
+"doc": "fo‸o()\nif (a) {\n    bar()\n}\n",
+"keys": [
+"Alt+ArrowDown"
+],
+"monaco": "if (a) {\nfo‸o()\n    bar()\n}\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "alt+down x2",
+"doc": "a‸\nb\nc\nd\n",
+"keys": [
+"Alt+ArrowDown",
+"Alt+ArrowDown"
+],
+"monaco": "b\nc\na‸\nd\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+down",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Shift+Alt+ArrowDown"
+],
+"monaco": "one\ntwo\ntw‸o\nthree\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+up",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Shift+Alt+ArrowUp"
+],
+"monaco": "one\ntw‸o\ntwo\nthree\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+down selection",
+"doc": "o⟨ne\ntw⟩o\nthree\n",
+"keys": [
+"Shift+Alt+ArrowDown"
+],
+"monaco": "one\ntwo\no⟨ne\ntw⟩o\nthree\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+down last line",
+"doc": "one\ntw‸o",
+"keys": [
+"Shift+Alt+ArrowDown"
+],
+"monaco": "one\ntwo\ntw‸o",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+k",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Meta+Shift+k"
+],
+"monaco": "one\nth‸ree\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+k last line",
+"doc": "one\ntw‸o",
+"keys": [
+"Meta+Shift+k"
+],
+"monaco": "on‸e",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+k col keeps",
+"doc": "one\nt‸wo\nthreeeee\n",
+"keys": [
+"Meta+Shift+k"
+],
+"monaco": "one\nt‸hreeeee\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+k selection",
+"doc": "o⟨ne\ntw⟩o\nthree\n",
+"keys": [
+"Meta+Shift+k"
+],
+"monaco": "th‸ree\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+k multi",
+"doc": "a‸\nb\nc‸\nd\n",
+"keys": [
+"Meta+Shift+k"
+],
+"monaco": "b‸\nd‸\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+enter",
+"doc": "    fo‸o\nbar\n",
+"keys": [
+"Meta+Enter"
+],
+"monaco": "    foo\n    ‸\nbar\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+enter after {",
+"doc": "if (a) {‸\n}\n",
+"keys": [
+"Meta+Enter"
+],
+"monaco": "if (a) {\n    ‸\n}\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+enter mid {",
+"doc": "if (a) ‸{\n}\n",
+"keys": [
+"Meta+Enter"
+],
+"monaco": "if (a) {\n    ‸\n}\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+enter",
+"doc": "x\n    fo‸o\n",
+"keys": [
+"Meta+Shift+Enter"
+],
+"monaco": "x\n‸\n    foo\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+shift+enter first line",
+"doc": "    fo‸o\n",
+"keys": [
+"Meta+Shift+Enter"
+],
+"monaco": "‸\n    foo\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+l",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Meta+l"
+],
+"monaco": "one\n⟨two\n⟩three\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+l x2",
+"doc": "one\ntw‸o\nthree\nfour\n",
+"keys": [
+"Meta+l",
+"Meta+l"
+],
+"monaco": "one\n⟨two\nthree\n⟩four\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+l last line",
+"doc": "one\ntw‸o",
+"keys": [
+"Meta+l"
+],
+"monaco": "one\n⟨two⟩",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+l with selection",
+"doc": "o⟨ne\ntw⟩o\nthree\n",
+"keys": [
+"Meta+l"
+],
+"monaco": "⟨one\ntwo\n⟩three\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+l then type",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Meta+l",
+{
+"type": "x"
+}
+],
+"monaco": "one\nx‸three\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ single",
+"doc": "    fo‸o()\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "    // fo‸o()\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ uncomment",
+"doc": "    // fo‸o()\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "    fo‸o()\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ uncomment no space",
+"doc": "    //fo‸o()\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "    fo‸o()\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi",
+"doc": "⟨if (a) {\n    b()\n}⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ⟨if (a) {\n//     b()\n// }⟩\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi mixed indent",
+"doc": "⟨    a()\n  b()\n        c()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ⟨    a()\n//   b()\n//         c()⟩\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi with empty line",
+"doc": "⟨a()\n\nb()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ⟨a()\n\n// b()⟩\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi partially commented",
+"doc": "⟨// a()\nb()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ⟨// a()\n// b()⟩\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi all commented",
+"doc": "⟨// a()\n    // b()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "⟨a()\n    b()⟩\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ empty line",
+"doc": "a\n‸\nb\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "a\n// ‸\nb\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ ws line",
+"doc": "a\n    ‸\nb\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "a\n    // ‸\nb\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ sel ending col0",
+"doc": "⟨a\nb\n⟩c\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ⟨a\n// b\n⟩c\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ twice",
+"doc": "    fo‸o()\n",
+"keys": [
+"Meta+/",
+"Meta+/"
+],
+"monaco": "    fo‸o()\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ cursor at start",
+"doc": "‸foo\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// ‸foo\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "cmd+/ multi cursor",
+"doc": "a‸\nb\nc‸\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// a‸\nb\n// c‸\n",
+"wasDiff": false
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a cursor",
+"doc": "fo‸o\n",
+"keys": [
+"Shift+Alt+a"
+],
+"monaco": "fo/* ‸ */o\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a selection",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+"Shift+Alt+a"
+],
+"monaco": "a /* ⟨foo⟩ */ b\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a toggle off",
+"doc": "a ⟨/* foo */⟩ b\n",
+"keys": [
+"Shift+Alt+a"
+],
+"monaco": "a ⟨foo⟩ b\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a toggle off inner sel",
+"doc": "a /* ⟨foo⟩ */ b\n",
+"keys": [
+"Shift+Alt+a"
+],
+"monaco": "a ⟨foo⟩ b\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a multiline",
+"doc": "⟨a\nb⟩\n",
+"keys": [
+"Shift+Alt+a"
+],
+"monaco": "/* ⟨a\nb⟩ */\n",
+"wasDiff": true
+},
+{
+"file": "t4-lineops",
+"name": "shift+alt+a twice",
+"doc": "a ⟨foo⟩ b\n",
+"keys": [
+"Shift+Alt+a",
+"Shift+Alt+a"
+],
+"monaco": "a ⟨foo⟩ b\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home smart",
+"doc": "    foo‸bar\n",
+"keys": [
+"Home"
+],
+"monaco": "    ‸foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home twice",
+"doc": "    foo‸bar\n",
+"keys": [
+"Home",
+"Home"
+],
+"monaco": "‸    foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home thrice",
+"doc": "    foo‸bar\n",
+"keys": [
+"Home",
+"Home",
+"Home"
+],
+"monaco": "    ‸foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home from col0",
+"doc": "‸    foobar\n",
+"keys": [
+"Home"
+],
+"monaco": "    ‸foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home in indent",
+"doc": "  ‸  foobar\n",
+"keys": [
+"Home"
+],
+"monaco": "    ‸foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "end",
+"doc": "    fo‸obar  \n",
+"keys": [
+"End"
+],
+"monaco": "    foobar  ‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "end twice",
+"doc": "    fo‸obar  \n",
+"keys": [
+"End",
+"End"
+],
+"monaco": "    foobar  ‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "cmd+left",
+"doc": "    foo‸bar\n",
+"keys": [
+"Meta+ArrowLeft"
+],
+"monaco": "    ‸foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "cmd+left twice",
+"doc": "    foo‸bar\n",
+"keys": [
+"Meta+ArrowLeft",
+"Meta+ArrowLeft"
+],
+"monaco": "‸    foobar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "cmd+right",
+"doc": "    fo‸obar\nx\n",
+"keys": [
+"Meta+ArrowRight"
+],
+"monaco": "    foobar‸\nx\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+home",
+"doc": "    foo‸bar\n",
+"keys": [
+"Shift+Home"
+],
+"monaco": "    ⟩foo⟨bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+home twice",
+"doc": "    foo‸bar\n",
+"keys": [
+"Shift+Home",
+"Shift+Home"
+],
+"monaco": "⟩    foo⟨bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+cmd+left",
+"doc": "    foo‸bar\n",
+"keys": [
+"Shift+Meta+ArrowLeft"
+],
+"monaco": "    ⟩foo⟨bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+end",
+"doc": "    fo‸obar\n",
+"keys": [
+"Shift+End"
+],
+"monaco": "    fo⟨obar⟩\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+cmd+right",
+"doc": "    fo‸obar\n",
+"keys": [
+"Shift+Meta+ArrowRight"
+],
+"monaco": "    fo⟨obar⟩\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right word",
+"doc": "‸foo bar\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "foo‸ bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right x3",
+"doc": "‸foo bar baz\n",
+"keys": [
+"Alt+ArrowRight",
+"Alt+ArrowRight",
+"Alt+ArrowRight"
+],
+"monaco": "foo bar baz‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right camel",
+"doc": "‸fooBarBaz qux\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "fooBarBaz‸ qux\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right punct",
+"doc": "‸foo.bar(baz)\n",
+"keys": [
+"Alt+ArrowRight",
+"Alt+ArrowRight",
+"Alt+ArrowRight",
+"Alt+ArrowRight"
+],
+"monaco": "foo.bar(baz)‸\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "alt+right multi punct",
+"doc": "‸a  === b\n",
+"keys": [
+"Alt+ArrowRight",
+"Alt+ArrowRight",
+"Alt+ArrowRight"
+],
+"monaco": "a  === b‸\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "alt+right at eol",
+"doc": "foo‸\n    bar\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "foo\n    bar‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right before spaces eol",
+"doc": "foo‸   \nbar\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "foo   ‸\nbar\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "alt+left word",
+"doc": "foo bar‸\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "foo ‸bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left x3",
+"doc": "foo.bar(baz)‸\n",
+"keys": [
+"Alt+ArrowLeft",
+"Alt+ArrowLeft",
+"Alt+ArrowLeft"
+],
+"monaco": "‸foo.bar(baz)\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left at line start",
+"doc": "foo  \n‸bar\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "‸foo  \nbar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left in indent",
+"doc": "foo\n    ‸bar\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "foo\n‸    bar\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "alt+left after spaces",
+"doc": "foo   ‸bar\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "‸foo   bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left snake",
+"doc": "foo_bar‸\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "‸foo_bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left digits",
+"doc": "x = 123.45‸\n",
+"keys": [
+"Alt+ArrowLeft",
+"Alt+ArrowLeft"
+],
+"monaco": "x = ‸123.45\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+right CJK",
+"doc": "‸中文 abc\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "中文‸ abc\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "alt+left $",
+"doc": "const $foo‸\n",
+"keys": [
+"Alt+ArrowLeft"
+],
+"monaco": "const $‸foo\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+alt+right",
+"doc": "‸foo bar\n",
+"keys": [
+"Shift+Alt+ArrowRight",
+"Shift+Alt+ArrowRight"
+],
+"monaco": "⟨foo bar⟩\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "shift+alt+left",
+"doc": "foo bar‸\n",
+"keys": [
+"Shift+Alt+ArrowLeft"
+],
+"monaco": "foo ⟩bar⟨\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "ctrl+right subword",
+"doc": "‸fooBarBaz\n",
+"keys": [
+"Control+ArrowRight",
+"Control+ArrowRight"
+],
+"monaco": "fooBarBaz‸\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "ctrl+left subword",
+"doc": "fooBarBaz‸\n",
+"keys": [
+"Control+ArrowLeft"
+],
+"monaco": "‸fooBarBaz\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "ctrl+right subword snake",
+"doc": "‸foo_bar\n",
+"keys": [
+"Control+ArrowRight"
+],
+"monaco": "foo_bar‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "ctrl+right UPPER",
+"doc": "‸HTMLElement\n",
+"keys": [
+"Control+ArrowRight"
+],
+"monaco": "HTMLElement‸\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down goal col through short",
+"doc": "abcdef‸gh\nab\nabcdefghij\n",
+"keys": [
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abcdefgh\nab\nabcdef‸ghij\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "up goal col through short",
+"doc": "abcdefghij\nab\nabcdef‸gh\n",
+"keys": [
+"ArrowUp",
+"ArrowUp"
+],
+"monaco": "abcdef‸ghij\nab\nabcdefgh\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down through empty",
+"doc": "abc‸def\n\nabcdef\n",
+"keys": [
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abcdef\n\nabc‸def\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down tab line",
+"doc": "abcdefgh‸ij\n\tx\nabcdefghij\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abcdefghij\n\tx‸\nabcdefghij\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down tab line then down",
+"doc": "abcdefgh‸ij\n\tx\nabcdefghij\n",
+"keys": [
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abcdefghij\n\tx\nabcdefgh‸ij\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down from tab line",
+"doc": "\t\tx‸\nabcdefghijklmn\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "\t\tx\nabcdefghi‸jklmn\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "down CJK",
+"doc": "abcd‸ef\n中文中文\nabcdef\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abcdef\n中文‸中文\nabcdef\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "down CJK then down",
+"doc": "abcd‸ef\n中文中文\nabcdef\n",
+"keys": [
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abcdef\n中文中文\nabcd‸ef\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down from CJK",
+"doc": "中文‸中文\nabcdefgh\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "中文中文\nabcd‸efgh\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "down emoji",
+"doc": "abcd‸ef\n😀😀😀\nabcdef\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abcdef\n😀😀‸😀\nabcdef\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down emoji then down",
+"doc": "abcd‸ef\n😀😀😀\nabcdef\n",
+"keys": [
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abcdef\n😀😀😀\nabcd‸ef\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "up from first line",
+"doc": "abc‸def\nx\n",
+"keys": [
+"ArrowUp"
+],
+"monaco": "‸abcdef\nx\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down from last line",
+"doc": "x\nabc‸def",
+"keys": [
+"ArrowDown"
+],
+"monaco": "x\nabcdef‸",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "up from first then down",
+"doc": "abc‸def\nabcdefgh\n",
+"keys": [
+"ArrowUp",
+"ArrowDown"
+],
+"monaco": "abcdef\nabc‸defgh\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "down from last then up",
+"doc": "abcdefgh\nabc‸def",
+"keys": [
+"ArrowDown",
+"ArrowUp"
+],
+"monaco": "abc‸defgh\nabcdef",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "goal col reset by left",
+"doc": "abcdef‸gh\nab\nabcdefghij\n",
+"keys": [
+"ArrowDown",
+"ArrowLeft",
+"ArrowDown"
+],
+"monaco": "abcdefgh\nab\na‸bcdefghij\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "goal col after typing",
+"doc": "abcdef‸gh\nab\nabcdefghij\n",
+"keys": [
+"ArrowDown",
+{
+"type": "x"
+},
+"ArrowDown"
+],
+"monaco": "abcdefgh\nabx\nabc‸defghij\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "goal after end",
+"doc": "abc‸\nabcdefgh\nab\nabcdefghijkl\n",
+"keys": [
+"End",
+"ArrowDown",
+"ArrowDown",
+"ArrowDown"
+],
+"monaco": "abc\nabcdefgh\nab\nabc‸defghijkl\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "left with selection collapses",
+"doc": "a⟨bcd⟩e\n",
+"keys": [
+"ArrowLeft"
+],
+"monaco": "a‸bcde\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "right with selection collapses",
+"doc": "a⟨bcd⟩e\n",
+"keys": [
+"ArrowRight"
+],
+"monaco": "abcd‸e\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "right with reversed selection",
+"doc": "a⟩bcd⟨e\n",
+"keys": [
+"ArrowRight"
+],
+"monaco": "abcd‸e\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "down with selection",
+"doc": "a⟨bc⟩d\nefgh\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abcd\nefg‸h\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "up with selection",
+"doc": "abcd\na⟨bc⟩d\n",
+"keys": [
+"ArrowUp"
+],
+"monaco": "a‸bcd\nabcd\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "left emoji",
+"doc": "a😀‸b\n",
+"keys": [
+"ArrowLeft"
+],
+"monaco": "a‸😀b\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "right emoji",
+"doc": "a‸😀b\n",
+"keys": [
+"ArrowRight"
+],
+"monaco": "a😀‸b\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "right zwj",
+"doc": "a‸👨‍👩‍👧b\n",
+"keys": [
+"ArrowRight"
+],
+"monaco": "a👨‍👩‍👧‸b\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "right combining",
+"doc": "a‸éb\n",
+"keys": [
+"ArrowRight"
+],
+"monaco": "aé‸b\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "left at line start",
+"doc": "ab\n‸cd\n",
+"keys": [
+"ArrowLeft"
+],
+"monaco": "ab‸\ncd\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+down",
+"doc": "ab‸cd\nefgh\nij\n",
+"keys": [
+"Shift+ArrowDown",
+"Shift+ArrowDown"
+],
+"monaco": "ab⟨cd\nefgh\nij⟩\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+down last line",
+"doc": "ab\nc‸d",
+"keys": [
+"Shift+ArrowDown"
+],
+"monaco": "ab\nc⟨d⟩",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+up first line",
+"doc": "ab‸cd\nef\n",
+"keys": [
+"Shift+ArrowUp"
+],
+"monaco": "⟩ab⟨cd\nef\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+right then left",
+"doc": "ab‸cd\n",
+"keys": [
+"Shift+ArrowRight",
+"Shift+ArrowRight",
+"Shift+ArrowLeft"
+],
+"monaco": "ab⟨c⟩d\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+left across line",
+"doc": "ab\n‸cd\n",
+"keys": [
+"Shift+ArrowLeft"
+],
+"monaco": "ab⟩\n⟨cd\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "cmd+up",
+"doc": "a\nb‸c\nd\n",
+"keys": [
+"Meta+ArrowUp"
+],
+"monaco": "‸a\nbc\nd\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "cmd+down",
+"doc": "a\nb‸c\nd",
+"keys": [
+"Meta+ArrowDown"
+],
+"monaco": "a\nbc\nd‸",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+cmd+up",
+"doc": "a\nb‸c\nd\n",
+"keys": [
+"Shift+Meta+ArrowUp"
+],
+"monaco": "⟩a\nb⟨c\nd\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+cmd+down",
+"doc": "a\nb‸c\nd",
+"keys": [
+"Shift+Meta+ArrowDown"
+],
+"monaco": "a\nb⟨c\nd⟩",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "shift+alt+down?",
+"doc": "a\nb‸c\nd\n",
+"keys": [
+"Shift+ArrowRight",
+"Shift+End"
+],
+"monaco": "a\nb⟨c⟩\nd\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "shift+home in indent",
+"doc": "    foo\n  ‸  bar\n",
+"keys": [
+"Shift+Home"
+],
+"monaco": "    foo\n  ⟨  ⟩bar\n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home on ws-only line",
+"doc": "x\n      ‸\n",
+"keys": [
+"Home"
+],
+"monaco": "x\n‸      \n",
+"wasDiff": false
+},
+{
+"file": "t5-move",
+"name": "home ws-only at col0",
+"doc": "x\n‸      \n",
+"keys": [
+"Home"
+],
+"monaco": "x\n‸      \n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "cmd+shift+\\ bracket",
+"doc": "foo(a, ‸b)\n",
+"keys": [
+"Meta+Shift+\\"
+],
+"monaco": "foo(a, b‸)\n",
+"wasDiff": true
+},
+{
+"file": "t5-move",
+"name": "cmd+shift+\\ on bracket",
+"doc": "foo‸(a, b)\n",
+"keys": [
+"Meta+Shift+\\"
+],
+"monaco": "foo(a, b‸)\n",
+"wasDiff": true
+},
+{
+"file": "t7-noop",
+"name": "shift+end at eol then type",
+"doc": "a\nbc‸\nd\ne\n",
+"keys": [
+"Shift+End",
+{
+"wait": 50
+},
+{
+"type": "x"
+}
+],
+"monaco": "a\nbcx‸\nd\ne\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+end at eol then bs",
+"doc": "a\nbc‸\nd\ne\n",
+"keys": [
+"Shift+End",
+{
+"wait": 50
+},
+"Backspace"
+],
+"monaco": "a\nb‸\nd\ne\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+home at col0 then type",
+"doc": "a\nb\n‸cd\ne\n",
+"keys": [
+"Shift+Home",
+{
+"wait": 50
+},
+{
+"type": "x"
+}
+],
+"monaco": "a\nb\nx‸cd\ne\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+down last line",
+"doc": "a\nb\ncd‸",
+"keys": [
+"Shift+ArrowDown",
+{
+"wait": 50
+},
+"Shift+ArrowDown",
+{
+"wait": 50
+}
+],
+"monaco": "a\nb\ncd‸",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "alt+up first line then type",
+"doc": "ab‸c\nd\n",
+"keys": [
+"Alt+ArrowUp",
+{
+"wait": 50
+},
+{
+"type": "x"
+}
+],
+"monaco": "abx‸c\nd\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "alt+down last line",
+"doc": "a\nb‸c",
+"keys": [
+"Alt+ArrowDown",
+{
+"wait": 50
+},
+{
+"type": "x"
+}
+],
+"monaco": "a\nbx‸c",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+alt+up?",
+"doc": "a\nb‸c\n",
+"keys": [
+"Shift+Alt+ArrowUp"
+],
+"monaco": "a\nb‸c\nbc\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "right at doc end then shift+right",
+"doc": "ab‸",
+"keys": [
+"ArrowRight",
+"Shift+ArrowRight",
+{
+"wait": 50
+}
+],
+"monaco": "ab‸",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "PageDown at end",
+"doc": "a\nb‸",
+"keys": [
+"PageDown",
+{
+"wait": 50
+},
+"Shift+PageDown",
+{
+"wait": 50
+}
+],
+"monaco": "a\nb‸",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "Shift+PageUp at top",
+"doc": "a‸b\nc\n",
+"keys": [
+"Shift+PageUp",
+{
+"wait": 50
+}
+],
+"monaco": "⟩a⟨b\nc\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+cmd+up at top",
+"doc": "‸ab\nc\n",
+"keys": [
+"Shift+Meta+ArrowUp",
+{
+"wait": 50
+},
+{
+"type": "x"
+}
+],
+"monaco": "x‸ab\nc\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "home at col0 ws-only",
+"doc": "x\n‸      \ny\n",
+"keys": [
+"Home",
+{
+"wait": 50
+}
+],
+"monaco": "x\n‸      \ny\n",
+"wasDiff": false
+},
+{
+"file": "t7-noop",
+"name": "shift+home ws-only",
+"doc": "x\n      ‸\ny\n",
+"keys": [
+"Shift+Home",
+{
+"wait": 50
+},
+"Shift+Home",
+{
+"wait": 50
+}
+],
+"monaco": "x\n⟩      ⟨\ny\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "pagedown",
+"doc": "lin‸e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"PageDown"
+],
+"monaco": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nlin‸e 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "pagedown x2",
+"doc": "lin‸e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"PageDown",
+"PageDown"
+],
+"monaco": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nlin‸e 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "pageup after pagedown x2",
+"doc": "lin‸e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"PageDown",
+"PageDown",
+"PageUp"
+],
+"monaco": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nlin‸e 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "shift+pagedown",
+"doc": "lin‸e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"Shift+PageDown"
+],
+"monaco": "lin⟨e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nlin⟩e 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "pagedown col keep",
+"doc": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xx‸xxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"PageDown"
+],
+"monaco": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 x‸xxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "cmd+down big",
+"doc": "lin‸e 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n",
+"keys": [
+"Meta+ArrowDown"
+],
+"monaco": "line 0 \nline 1 x\nline 2 xx\nline 3 xxx\nline 4 xxxx\nline 5 xxxxx\nline 6 xxxxxx\nline 7 xxxxxxx\nline 8 xxxxxxxx\nline 9 xxxxxxxxx\nline 10 xxxxxxxxxx\nline 11 xxxxxxxxxxx\nline 12 xxxxxxxxxxxx\nline 13 xxxxxxxxxxxxx\nline 14 xxxxxxxxxxxxxx\nline 15 xxxxxxxxxxxxxxx\nline 16 xxxxxxxxxxxxxxxx\nline 17 \nline 18 x\nline 19 xx\nline 20 xxx\nline 21 xxxx\nline 22 xxxxx\nline 23 xxxxxx\nline 24 xxxxxxx\nline 25 xxxxxxxx\nline 26 xxxxxxxxx\nline 27 xxxxxxxxxx\nline 28 xxxxxxxxxxx\nline 29 xxxxxxxxxxxx\nline 30 xxxxxxxxxxxxx\nline 31 xxxxxxxxxxxxxx\nline 32 xxxxxxxxxxxxxxx\nline 33 xxxxxxxxxxxxxxxx\nline 34 \nline 35 x\nline 36 xx\nline 37 xxx\nline 38 xxxx\nline 39 xxxxx\nline 40 xxxxxx\nline 41 xxxxxxx\nline 42 xxxxxxxx\nline 43 xxxxxxxxx\nline 44 xxxxxxxxxx\nline 45 xxxxxxxxxxx\nline 46 xxxxxxxxxxxx\nline 47 xxxxxxxxxxxxx\nline 48 xxxxxxxxxxxxxx\nline 49 xxxxxxxxxxxxxxx\nline 50 xxxxxxxxxxxxxxxx\nline 51 \nline 52 x\nline 53 xx\nline 54 xxx\nline 55 xxxx\nline 56 xxxxx\nline 57 xxxxxx\nline 58 xxxxxxx\nline 59 xxxxxxxx\nline 60 xxxxxxxxx\nline 61 xxxxxxxxxx\nline 62 xxxxxxxxxxx\nline 63 xxxxxxxxxxxx\nline 64 xxxxxxxxxxxxx\nline 65 xxxxxxxxxxxxxx\nline 66 xxxxxxxxxxxxxxx\nline 67 xxxxxxxxxxxxxxxx\nline 68 \nline 69 x\nline 70 xx\nline 71 xxx\nline 72 xxxx\nline 73 xxxxx\nline 74 xxxxxx\nline 75 xxxxxxx\nline 76 xxxxxxxx\nline 77 xxxxxxxxx\nline 78 xxxxxxxxxx\nline 79 xxxxxxxxxxx\nline 80 xxxxxxxxxxxx\nline 81 xxxxxxxxxxxxx\nline 82 xxxxxxxxxxxxxx\nline 83 xxxxxxxxxxxxxxx\nline 84 xxxxxxxxxxxxxxxx\nline 85 \nline 86 x\nline 87 xx\nline 88 xxx\nline 89 xxxx\nline 90 xxxxx\nline 91 xxxxxx\nline 92 xxxxxxx\nline 93 xxxxxxxx\nline 94 xxxxxxxxx\nline 95 xxxxxxxxxx\nline 96 xxxxxxxxxxx\nline 97 xxxxxxxxxxxx\nline 98 xxxxxxxxxxxxx\nline 99 xxxxxxxxxxxxxx\nline 100 xxxxxxxxxxxxxxx\nline 101 xxxxxxxxxxxxxxxx\nline 102 \nline 103 x\nline 104 xx\nline 105 xxx\nline 106 xxxx\nline 107 xxxxx\nline 108 xxxxxx\nline 109 xxxxxxx\nline 110 xxxxxxxx\nline 111 xxxxxxxxx\nline 112 xxxxxxxxxx\nline 113 xxxxxxxxxxx\nline 114 xxxxxxxxxxxx\nline 115 xxxxxxxxxxxxx\nline 116 xxxxxxxxxxxxxx\nline 117 xxxxxxxxxxxxxxx\nline 118 xxxxxxxxxxxxxxxx\nline 119 \nline 120 x\nline 121 xx\nline 122 xxx\nline 123 xxxx\nline 124 xxxxx\nline 125 xxxxxx\nline 126 xxxxxxx\nline 127 xxxxxxxx\nline 128 xxxxxxxxx\nline 129 xxxxxxxxxx\nline 130 xxxxxxxxxxx\nline 131 xxxxxxxxxxxx\nline 132 xxxxxxxxxxxxx\nline 133 xxxxxxxxxxxxxx\nline 134 xxxxxxxxxxxxxxx\nline 135 xxxxxxxxxxxxxxxx\nline 136 \nline 137 x\nline 138 xx\nline 139 xxx\nline 140 xxxx\nline 141 xxxxx\nline 142 xxxxxx\nline 143 xxxxxxx\nline 144 xxxxxxxx\nline 145 xxxxxxxxx\nline 146 xxxxxxxxxx\nline 147 xxxxxxxxxxx\nline 148 xxxxxxxxxxxx\nline 149 xxxxxxxxxxxxx\nline 150 xxxxxxxxxxxxxx\nline 151 xxxxxxxxxxxxxxx\nline 152 xxxxxxxxxxxxxxxx\nline 153 \nline 154 x\nline 155 xx\nline 156 xxx\nline 157 xxxx\nline 158 xxxxx\nline 159 xxxxxx\nline 160 xxxxxxx\nline 161 xxxxxxxx\nline 162 xxxxxxxxx\nline 163 xxxxxxxxxx\nline 164 xxxxxxxxxxx\nline 165 xxxxxxxxxxxx\nline 166 xxxxxxxxxxxxx\nline 167 xxxxxxxxxxxxxx\nline 168 xxxxxxxxxxxxxxx\nline 169 xxxxxxxxxxxxxxxx\nline 170 \nline 171 x\nline 172 xx\nline 173 xxx\nline 174 xxxx\nline 175 xxxxx\nline 176 xxxxxx\nline 177 xxxxxxx\nline 178 xxxxxxxx\nline 179 xxxxxxxxx\nline 180 xxxxxxxxxx\nline 181 xxxxxxxxxxx\nline 182 xxxxxxxxxxxx\nline 183 xxxxxxxxxxxxx\nline 184 xxxxxxxxxxxxxx\nline 185 xxxxxxxxxxxxxxx\nline 186 xxxxxxxxxxxxxxxx\nline 187 \nline 188 x\nline 189 xx\nline 190 xxx\nline 191 xxxx\nline 192 xxxxx\nline 193 xxxxxx\nline 194 xxxxxxx\nline 195 xxxxxxxx\nline 196 xxxxxxxxx\nline 197 xxxxxxxxxx\nline 198 xxxxxxxxxxx\nline 199 xxxxxxxxxxxx\n‸",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+a",
+"doc": "ab‸c\nd\n",
+"keys": [
+"Meta+a"
+],
+"monaco": "⟨abc\nd\n⟩",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+a type",
+"doc": "ab‸c\nd\n",
+"keys": [
+"Meta+a",
+{
+"type": "x"
+}
+],
+"monaco": "x‸",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+a bs",
+"doc": "ab‸c\nd\n",
+"keys": [
+"Meta+a",
+"Backspace"
+],
+"monaco": "‸",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "type over selection",
+"doc": "a⟨bc⟩d\n",
+"keys": [
+{
+"type": "xy"
+}
+],
+"monaco": "axy‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "type over multiline selection",
+"doc": "a⟨bc\nde⟩f\n",
+"keys": [
+{
+"type": "x"
+}
+],
+"monaco": "ax‸f\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "type over reversed selection",
+"doc": "a⟩bc⟨d\n",
+"keys": [
+{
+"type": "x"
+}
+],
+"monaco": "ax‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d word",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+d"
+],
+"monaco": "foo bar ⟨foo⟩ foo\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d x2",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d"
+],
+"monaco": "foo bar ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d x3 wraps",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ bar ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d x4",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ bar ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d whole word only from cursor",
+"doc": "fo‸o foobar foo\n",
+"keys": [
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ foobar ⟨foo⟩\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "cmd+d case sensitive from cursor",
+"doc": "fo‸o Foo foo\n",
+"keys": [
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ Foo ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d from selection substring",
+"doc": "⟨fo⟩o foobar fo\n",
+"keys": [
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨fo⟩o ⟨fo⟩obar ⟨fo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d from selection case",
+"doc": "⟨foo⟩ Foo foo\n",
+"keys": [
+"Meta+d"
+],
+"monaco": "⟨foo⟩ ⟨Foo⟩ foo\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "cmd+d then type",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+{
+"type": "X"
+}
+],
+"monaco": "foo bar X‸ X‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d on space",
+"doc": "a ‸ b\n",
+"keys": [
+"Meta+d"
+],
+"monaco": "a ‸ b\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+d at word end",
+"doc": "foo‸ bar foo\n",
+"keys": [
+"Meta+d",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ bar ⟨foo⟩\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "cmd+shift+l",
+"doc": "foo bar fo‸o foo\n",
+"keys": [
+"Meta+Shift+l"
+],
+"monaco": "⟨foo⟩ bar ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+shift+l selection",
+"doc": "⟨fo⟩o foobar fo\n",
+"keys": [
+"Meta+Shift+l"
+],
+"monaco": "⟨fo⟩o ⟨fo⟩obar ⟨fo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+shift+l then type",
+"doc": "x foo y fo‸o\n",
+"keys": [
+"Meta+Shift+l",
+{
+"type": "Z"
+}
+],
+"monaco": "x Z‸ y Z‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+alt+down",
+"doc": "abc‸def\nabcdef\nab\nabcdef\n",
+"keys": [
+"Meta+Alt+ArrowDown",
+"Meta+Alt+ArrowDown",
+"Meta+Alt+ArrowDown"
+],
+"monaco": "abc‸def\nabc‸def\nab‸\nabc‸def\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+alt+up",
+"doc": "abcdef\nab\nabc‸def\n",
+"keys": [
+"Meta+Alt+ArrowUp",
+"Meta+Alt+ArrowUp"
+],
+"monaco": "abc‸def\nab‸\nabc‸def\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+alt+down then type",
+"doc": "ab‸c\nabc\n",
+"keys": [
+"Meta+Alt+ArrowDown",
+{
+"type": "X"
+}
+],
+"monaco": "abX‸c\nabX‸c\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "cmd+alt+down then up removes?",
+"doc": "ab‸c\nabc\nabc\n",
+"keys": [
+"Meta+Alt+ArrowDown",
+"Meta+Alt+ArrowUp"
+],
+"monaco": "ab‸c\nab‸c\nabc\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi type",
+"doc": "a‸\nb‸\nc‸\n",
+"keys": [
+{
+"type": "xy"
+}
+],
+"monaco": "axy‸\nbxy‸\ncxy‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi bs",
+"doc": "ab‸\ncd‸\nef‸\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a‸\nc‸\ne‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi bs at line start",
+"doc": "ab\n‸cd\n‸ef\n",
+"keys": [
+"Backspace"
+],
+"monaco": "ab‸cd‸ef\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi bs indent",
+"doc": "        ‸a\n        ‸b\n",
+"keys": [
+"Backspace"
+],
+"monaco": "    ‸a\n    ‸b\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi delete",
+"doc": "‸ab\n‸cd\n",
+"keys": [
+"Delete"
+],
+"monaco": "‸b\n‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi enter",
+"doc": "a‸b\nc‸d\n",
+"keys": [
+"Enter"
+],
+"monaco": "a\n‸b\nc\n‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi enter in braces",
+"doc": "f(){‸}\ng(){‸}\n",
+"keys": [
+"Enter"
+],
+"monaco": "f(){\n    ‸\n}\ng(){\n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi autoclose (",
+"doc": "a‸\nb‸\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a(‸)\nb(‸)\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "multi autoclose \"",
+"doc": "a = ‸\nb = ‸\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a = \"‸\"\nb = \"‸\"\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "multi autoclose then overtype",
+"doc": "a‸\nb‸\n",
+"keys": [
+{
+"type": "()"
+}
+],
+"monaco": "a()‸\nb()‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi bs pair",
+"doc": "a(‸)\nb(‸)\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a‸)\nb‸)\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi wrap selection",
+"doc": "⟨a⟩\n⟨b⟩\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "(⟨a⟩)\n(⟨b⟩)\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "multi tab",
+"doc": "a‸\nb‸\n",
+"keys": [
+"Tab"
+],
+"monaco": "a   ‸\nb   ‸\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "multi alt+bs",
+"doc": "foo bar‸\nbaz qux‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo ‸\nbaz ‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi cmd+bs",
+"doc": "foo bar‸ x\nbaz qux‸ y\n",
+"keys": [
+"Meta+Backspace"
+],
+"monaco": "‸ x\n‸ y\n",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "multi home",
+"doc": "  a‸b\n    c‸d\n",
+"keys": [
+"Home"
+],
+"monaco": "  ‸ab\n    ‸cd\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi end",
+"doc": "a‸b\nc‸ddd\n",
+"keys": [
+"End"
+],
+"monaco": "ab‸\ncddd‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi alt+right",
+"doc": "‸foo bar\n‸baz qux\n",
+"keys": [
+"Alt+ArrowRight"
+],
+"monaco": "foo‸ bar\nbaz‸ qux\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi shift+right",
+"doc": "‸foo\n‸bar\n",
+"keys": [
+"Shift+ArrowRight",
+"Shift+ArrowRight"
+],
+"monaco": "⟨fo⟩o\n⟨ba⟩r\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi merge on left",
+"doc": "a‸b‸c\n",
+"keys": [
+"ArrowLeft",
+"ArrowLeft"
+],
+"monaco": "‸abc\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi merge on bs",
+"doc": "ab‸c‸d\n",
+"keys": [
+"Backspace",
+"Backspace"
+],
+"monaco": "‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi down",
+"doc": "a‸bc\nd‸ef\nghi\n",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abc\nd‸ef\ng‸hi\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi down merge at last line",
+"doc": "a‸bc\nd‸ef",
+"keys": [
+"ArrowDown"
+],
+"monaco": "abc\nd‸ef‸",
+"wasDiff": true
+},
+{
+"file": "t9-multi",
+"name": "escape multi",
+"doc": "a‸\nb‸\nc‸\n",
+"keys": [
+"Escape"
+],
+"monaco": "a‸\nb\nc\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "escape selection",
+"doc": "a⟨bc⟩d\n",
+"keys": [
+"Escape"
+],
+"monaco": "abc‸d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "escape after cmd+d",
+"doc": "foo fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+"Escape"
+],
+"monaco": "foo ⟨foo⟩ foo\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "shift+alt+i",
+"doc": "⟨ab\ncd\nef⟩\n",
+"keys": [
+"Shift+Alt+i"
+],
+"monaco": "ab‸\ncd‸\nef‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi cmd+l",
+"doc": "a‸\nb\nc‸\nd\n",
+"keys": [
+"Meta+l"
+],
+"monaco": "⟨a\n⟩b\n⟨c\n⟩d\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi cmd+/",
+"doc": "a‸\nb\nc‸\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// a‸\nb\n// c‸\n",
+"wasDiff": false
+},
+{
+"file": "t9-multi",
+"name": "multi same line type",
+"doc": "a‸ b‸ c‸\n",
+"keys": [
+{
+"type": "x"
+},
+"Backspace",
+"Backspace"
+],
+"monaco": "‸ ‸ ‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing word",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "hello"
+},
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing two words",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "hello world"
+},
+"Meta+z"
+],
+"monaco": "ahello‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo two words x2",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "hello world"
+},
+"Meta+z",
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing w/ pause",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+{
+"wait": 1200
+},
+{
+"type": "def"
+},
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo after cursor move",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"ArrowLeft",
+{
+"type": "X"
+},
+"Meta+z"
+],
+"monaco": "aab‸c\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo after cursor move x2",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"ArrowLeft",
+{
+"type": "X"
+},
+"Meta+z",
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo enter",
+"doc": "if (a) {‸}\n",
+"keys": [
+"Enter",
+"Meta+z"
+],
+"monaco": "if (a) {‸}\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing after enter",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "foo"
+},
+"Enter",
+{
+"type": "bar"
+},
+"Meta+z"
+],
+"monaco": "afoo‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo typing after enter x2",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "foo"
+},
+"Enter",
+{
+"type": "bar"
+},
+"Meta+z",
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo backspaces",
+"doc": "hello world‸\n",
+"keys": [
+"Backspace",
+"Backspace",
+"Backspace",
+"Meta+z"
+],
+"monaco": "hello world‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo type then bs",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Backspace",
+"Meta+z"
+],
+"monaco": "aabc‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo type then bs x2",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Backspace",
+"Meta+z",
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo delete forward",
+"doc": "‸hello\n",
+"keys": [
+"Delete",
+"Delete",
+"Meta+z"
+],
+"monaco": "‸hello\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo autoclose",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "("
+},
+"Meta+z"
+],
+"monaco": "foo‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo autoclose + inside",
+"doc": "foo‸\n",
+"keys": [
+{
+"type": "(ab"
+},
+"Meta+z"
+],
+"monaco": "foo‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo selection restore",
+"doc": "a⟨bcd⟩e\n",
+"keys": [
+{
+"type": "X"
+},
+"Meta+z"
+],
+"monaco": "a⟨bcd⟩e\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo reversed selection restore",
+"doc": "a⟩bcd⟨e\n",
+"keys": [
+"Backspace",
+"Meta+z"
+],
+"monaco": "a⟩bcd⟨e\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo paste-like replace multi",
+"doc": "a‸\nb‸\n",
+"keys": [
+{
+"type": "xy"
+},
+"Meta+z"
+],
+"monaco": "a‸\nb‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo multi then redo",
+"doc": "a‸\nb‸\n",
+"keys": [
+{
+"type": "xy"
+},
+"Meta+z",
+"Meta+Shift+z"
+],
+"monaco": "axy‸\nbxy‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "redo",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Meta+z",
+"Meta+Shift+z"
+],
+"monaco": "aabc‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "redo cmd+y",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Meta+z",
+"Meta+y"
+],
+"monaco": "a‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "redo after new edit",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Meta+z",
+{
+"type": "d"
+},
+"Meta+Shift+z"
+],
+"monaco": "ad‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo line move",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Alt+ArrowDown",
+"Alt+ArrowDown",
+"Meta+z"
+],
+"monaco": "one\nthree\ntw‸o\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo copy line",
+"doc": "one\ntw‸o\n",
+"keys": [
+"Shift+Alt+ArrowDown",
+"Meta+z"
+],
+"monaco": "one\ntw‸o\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo delete line",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Meta+Shift+k",
+"Meta+z"
+],
+"monaco": "one\ntw‸o\nthree\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo comment",
+"doc": "    fo‸o\n",
+"keys": [
+"Meta+/",
+"Meta+z"
+],
+"monaco": "    fo‸o\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo tab",
+"doc": "a‸b\n",
+"keys": [
+"Tab",
+{
+"type": "x"
+},
+"Meta+z"
+],
+"monaco": "a   ‸b\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo indent block",
+"doc": "⟨a\nb⟩\n",
+"keys": [
+"Tab",
+"Meta+z"
+],
+"monaco": "⟨a\nb⟩\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo alt+bs",
+"doc": "foo bar baz‸\n",
+"keys": [
+"Alt+Backspace",
+"Alt+Backspace",
+"Meta+z"
+],
+"monaco": "foo bar ‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo cmd+d typing",
+"doc": "foo fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+{
+"type": "X"
+},
+"Meta+z"
+],
+"monaco": "foo ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo cmd+d typing x2",
+"doc": "foo fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+{
+"type": "X"
+},
+"Meta+z",
+"Meta+z"
+],
+"monaco": "foo ⟨foo⟩ ⟨foo⟩\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo nothing",
+"doc": "ab‸c\n",
+"keys": [
+"Meta+z"
+],
+"monaco": "ab‸c\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo then type",
+"doc": "a‸\n",
+"keys": [
+{
+"type": "abc"
+},
+"Meta+z",
+{
+"type": "X"
+},
+"Meta+z"
+],
+"monaco": "a‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing after selection move",
+"doc": "ab‸c\n",
+"keys": [
+{
+"type": "X"
+},
+"Shift+ArrowRight",
+{
+"type": "Y"
+},
+"Meta+z"
+],
+"monaco": "abX⟨c⟩\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo typing with spaces",
+"doc": "‸\n",
+"keys": [
+{
+"type": "const a = 1"
+},
+"Meta+z"
+],
+"monaco": "const a =‸\n",
+"wasDiff": true
+},
+{
+"file": "t13-undo",
+"name": "undo typing punct",
+"doc": "‸\n",
+"keys": [
+{
+"type": "a.b.c"
+},
+"Meta+z"
+],
+"monaco": "‸\n",
+"wasDiff": false
+},
+{
+"file": "t13-undo",
+"name": "undo selection after redo",
+"doc": "a⟨bc⟩d\n",
+"keys": [
+{
+"type": "X"
+},
+"Meta+z",
+"Meta+Shift+z"
+],
+"monaco": "aX‸d\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "format-on-type ;",
+"doc": "const a=1‸\n",
+"keys": [
+{
+"type": ";"
+},
+{
+"wait": 2500
+}
+],
+"monaco": "const a=1;‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "format-on-type }",
+"doc": "if(a){\n    foo( 1 )\n‸\n",
+"keys": [
+{
+"type": "}"
+},
+{
+"wait": 2500
+}
+],
+"monaco": "if(a){\n    foo( 1 )\n}‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "format-on-type enter",
+"doc": "const a=1;‸\n",
+"keys": [
+"Enter",
+{
+"wait": 2500
+}
+],
+"monaco": "const a=1;\n‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "cmd+/ mixed indent sel inside text",
+"doc": "    ⟨a()\n  b()\n        c()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "//     ⟨a()\n//   b()\n//         c()⟩\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "cmd+/ blank line inside block",
+"doc": "    ⟨a()\n\n    b()⟩\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "    // ⟨a()\n\n    // b()⟩\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "cmd+/ sel keeps",
+"doc": "a⟨bc⟩d\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "// a⟨bc⟩d\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "cmd+/ uncomment keeps cursor",
+"doc": "// ab‸c\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "ab‸c\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "cmd+/ uncomment cursor in token",
+"doc": "/‸/ abc\n",
+"keys": [
+"Meta+/"
+],
+"monaco": "‸abc\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter between { and text",
+"doc": "if (a) {‸foo }\n",
+"keys": [
+"Enter"
+],
+"monaco": "if (a) {\n    ‸foo }\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter after { with trailing text",
+"doc": "if (a) {‸ // c\n",
+"keys": [
+"Enter"
+],
+"monaco": "if (a) {\n    ‸ // c\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter between ( and )",
+"doc": "foo(a, ‸)\n",
+"keys": [
+"Enter"
+],
+"monaco": "foo(a, \n‸)\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter in nested",
+"doc": "a({‸})\n",
+"keys": [
+"Enter"
+],
+"monaco": "a({\n    ‸\n})\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter after case:",
+"doc": "switch (a) {\n    case 1:‸\n}\n",
+"keys": [
+"Enter"
+],
+"monaco": "switch (a) {\n    case 1:\n    ‸\n}\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "enter after line comment cont?",
+"doc": "// a‸\nfoo\n",
+"keys": [
+"Enter",
+{
+"type": "x"
+}
+],
+"monaco": "// a\nx‸\nfoo\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "type } after enter-in-braces",
+"doc": "if (a) {‸\n",
+"keys": [
+"Enter",
+{
+"type": "x"
+},
+"Enter",
+{
+"type": "}"
+}
+],
+"monaco": "if (a) {\n    x\n}‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "type ] dedent",
+"doc": "const a = [\n    1,\n    ‸\n",
+"keys": [
+{
+"type": "]"
+}
+],
+"monaco": "const a = [\n    1,\n]‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "type } not at line start",
+"doc": "if (a) {\n    foo ‸\n",
+"keys": [
+{
+"type": "}"
+}
+],
+"monaco": "if (a) {\n    foo }‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "type } in ws line deep",
+"doc": "if (a) {\n    if (b) {\n        x\n        ‸\n",
+"keys": [
+{
+"type": "}"
+}
+],
+"monaco": "if (a) {\n    if (b) {\n        x\n    }‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "type space in empty pair",
+"doc": "a {‸}\n",
+"keys": [
+{
+"type": " "
+}
+],
+"monaco": "a { ‸}\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "bs after space in pair",
+"doc": "a { ‸ }\n",
+"keys": [
+"Backspace"
+],
+"monaco": "a {‸ }\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "type x after autoclose quote then overtype",
+"doc": "a = ‸\n",
+"keys": [
+{
+"type": "'x'"
+}
+],
+"monaco": "a = 'x'‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "quote in word middle",
+"doc": "ab‸cd\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "ab\"‸cd\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "quote after space before word",
+"doc": "a ‸b\n",
+"keys": [
+{
+"type": "\""
+}
+],
+"monaco": "a \"‸b\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "paren before word",
+"doc": "a ‸b\n",
+"keys": [
+{
+"type": "("
+}
+],
+"monaco": "a (‸b\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "bracket after word",
+"doc": "arr‸\n",
+"keys": [
+{
+"type": "["
+}
+],
+"monaco": "arr[‸]\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "brace before closing paren",
+"doc": "f(‸)\n",
+"keys": [
+{
+"type": "{"
+}
+],
+"monaco": "f({‸})\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "quote before closing paren",
+"doc": "f(‸)\n",
+"keys": [
+{
+"type": "'"
+}
+],
+"monaco": "f('‸')\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "backtick in template",
+"doc": "a = `x‸`\n",
+"keys": [
+{
+"type": "`"
+}
+],
+"monaco": "a = `x`‸`\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "delete word in middle",
+"doc": "foo‸Bar baz\n",
+"keys": [
+"Alt+Delete"
+],
+"monaco": "foo‸ baz\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "delete word from middle",
+"doc": "fo‸oBar baz\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "‸oBar baz\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "alt+bs at line start with indent prev",
+"doc": "foo   \n‸bar\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo   ‸bar\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "alt+bs after (",
+"doc": "foo(‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "foo‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "alt+bs after ws and punct",
+"doc": "a = ( ‸\n",
+"keys": [
+"Alt+Backspace"
+],
+"monaco": "a = ‸\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "alt+del before punct",
+"doc": "a‸ = (b)\n",
+"keys": [
+"Alt+Delete",
+"Alt+Delete"
+],
+"monaco": "a‸b)\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "shift+delete no sel (cut line?)",
+"doc": "one\ntw‸o\nthree\n",
+"keys": [
+"Shift+Delete"
+],
+"monaco": "one\ntw‸o\nthree\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+k kill line (mac emacs)",
+"doc": "one t‸wo\nthree\n",
+"keys": [
+"Control+k"
+],
+"monaco": "one t‸\nthree\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+a/e (mac emacs)",
+"doc": "    one t‸wo\n",
+"keys": [
+"Control+a"
+],
+"monaco": "‸    one two\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+e",
+"doc": "    one t‸wo\n",
+"keys": [
+"Control+e"
+],
+"monaco": "    one two‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+h",
+"doc": "ab‸c\n",
+"keys": [
+"Control+h"
+],
+"monaco": "a‸c\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+d",
+"doc": "ab‸c\n",
+"keys": [
+"Control+d"
+],
+"monaco": "ab‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+t transpose",
+"doc": "ab‸c\n",
+"keys": [
+"Control+t"
+],
+"monaco": "acb‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+p/n",
+"doc": "abc\nab‸c\nabc\n",
+"keys": [
+"Control+p"
+],
+"monaco": "ab‸c\nabc\nabc\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+f/b",
+"doc": "ab‸c\n",
+"keys": [
+"Control+f",
+"Control+b",
+"Control+b"
+],
+"monaco": "a‸bc\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+o",
+"doc": "ab‸c\n",
+"keys": [
+"Control+o"
+],
+"monaco": "ab‸\nc\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "cmd+u cursor undo",
+"doc": "abc\nab‸c\nabc\n",
+"keys": [
+"Meta+d",
+"Meta+u"
+],
+"monaco": "abc\nab‸c\nabc\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "cmd+k cmd+d skip",
+"doc": "foo fo‸o foo\n",
+"keys": [
+"Meta+d",
+"Meta+d",
+"Meta+k",
+"Meta+d"
+],
+"monaco": "⟨foo⟩ ⟨foo⟩ foo\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "shift+alt+down multi-cursor? (mac copy line)",
+"doc": "a‸\nb‸\n",
+"keys": [
+"Shift+Alt+ArrowDown"
+],
+"monaco": "a\na‸\nb\nb‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "cmd+shift+backspace? ",
+"doc": "foo bar‸ baz\n",
+"keys": [
+"Meta+Shift+Backspace"
+],
+"monaco": "‸ baz\n",
+"wasDiff": false
+},
+{
+"file": "t15-misc",
+"name": "ctrl+backspace (mac)",
+"doc": "fooBar‸\n",
+"keys": [
+"Control+Backspace"
+],
+"monaco": "fooBa‸\n",
+"wasDiff": true
+},
+{
+"file": "t15-misc",
+"name": "ctrl+alt+backspace subword (mac)",
+"doc": "fooBar‸\n",
+"keys": [
+"Control+Alt+Backspace"
+],
+"monaco": "foo‸\n",
+"wasDiff": true
+}
+]

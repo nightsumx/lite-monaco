@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>CM7 core — 自研内核真机验证</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; padding: 16px 24px; height: 100vh; display: flex; flex-direction: column; }
+        h1 { font-size: 18px; margin-bottom: 4px; }
+        .tag { color: #7d8590; font-size: 13px; margin-bottom: 12px; }
+        .bar { display: flex; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; align-items: center; }
+        button { background: #21262d; color: #e6edf3; border: 1px solid #30363d; border-radius: 6px; padding: 6px 10px; font-size: 13px; cursor: pointer; }
+        button:hover { background: #30363d; }
+        button:disabled { opacity: 0.5; cursor: default; }
+        button.active { border-color: #58a6ff; color: #58a6ff; }
+        .hint { color: #7d8590; font-size: 12px; margin-bottom: 8px; }
+        #status { color: #d29922; font-size: 12px; min-height: 1.2em; margin-bottom: 6px; }
+        #host { flex: 1; min-height: 0; border: 1px solid #30363d; border-radius: 10px; overflow: hidden; }
+        #host .cm-editor { height: 100%; max-height: none; border: none; border-radius: 0; }
+        .stats { margin-top: 10px; font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: #7d8590; white-space: pre-wrap; background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 10px 12px; max-height: 140px; overflow: auto; flex-shrink: 0; }
+    </style>
+</head>
+<body>
+    <h1>CM7 core — 自研内核真机验证</h1>
+    <div class="tag">视口虚拟化 + 真 shiki 高亮。点下方载入几万行，自己滚/打字/折叠试手感。</div>
+    <div class="bar">
+        <button type="button" id="doc-sample" class="active">样本 ~460 行</button>
+        <button type="button" id="doc-10k">~1.1 万行 (dist/index)</button>
+        <button type="button" id="doc-30k">~3 万行 (合成)</button>
+        <button type="button" id="doc-50k">~5 万行 (合成)</button>
+        <span style="width:1px;height:20px;background:#30363d;margin:0 4px"></span>
+        <button type="button" id="insert">中间插字</button>
+        <button type="button" id="newline">插换行</button>
+        <button type="button" id="undo">undo</button>
+    </div>
+    <div class="hint">合成文档 = 重复 sample 拼到目标行数；1.1 万行是真实 dist JS。大文档首次高亮会卡一下，属预期。</div>
+    <div id="status"></div>
+    <div id="host"></div>
+    <pre class="stats" id="stats"></pre>
+    <script type="module" src="./cm7.ts"></script>
+</body>
+</html>

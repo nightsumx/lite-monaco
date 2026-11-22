@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>lite-monaco perf — dist fixtures</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; padding: 16px; }
+    h1 { font-size: 16px; margin-bottom: 8px; }
+    .tag { color: #7d8590; font-size: 12px; margin-bottom: 12px; }
+    #host { height: 360px; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+    #host .cm-editor { height: 100%; }
+    pre#report {
+      font: 12px/1.45 ui-monospace, Menlo, monospace;
+      background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+      padding: 12px; white-space: pre-wrap; color: #c9d1d9;
+    }
+    .bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    button {
+      background: #21262d; color: #e6edf3; border: 1px solid #30363d;
+      border-radius: 6px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    button:hover { background: #30363d; }
+    button:disabled { opacity: 0.5; cursor: default; }
+  </style>
+</head>
+<body>
+  <h1>lite-monaco 性能 — dist 真文件压测</h1>
+  <div class="tag">fixture = dist 拷到 /fixtures/*.txt（静态原样，非合成文本）。自动跑 index；可选手动跑 typescript chunk (~209k 行 / 9MB)</div>
+  <div class="bar">
+    <button id="run-index" type="button">跑 dist/index.js (~11k 行 / 0.5MB)</button>
+    <button id="run-ts" type="button">跑 dist/typescript-*.js (~209k 行 / 9MB)</button>
+  </div>
+  <div id="host"></div>
+  <pre id="report">idle</pre>
+  <script type="module" src="./perf-dist.ts"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+[
+    {
+        "file": "test/common/viewLayout/lineHeights.test.ts",
+        "test": "handles deleting lines overlapping with custom line heights",
+        "reason": "测的是 LineHeightsManager 按 decorationId 合并/截断连续行的内部规则。Monaco 里一条行高装饰只作用在起点所在的模型行(viewModelImpl._getCustomLineHeights 取的是 startLineNumber 那一行),管理器的 [start,end] 只是这一行折行后的视图行区间;lite-monaco 没有视图行空间(折行交给浏览器),装饰同样只作用起点行,没有「一个 id 占多行」的状态。垫片把区间拆成逐模型行的点装饰是翻译上的不得已,要让它过就得在垫片里重写管理器的 id 合并规则(虚绿)。该文件其余 15 条照常算分;装饰随删行/插行的真实行为已在真编辑器上核对:前删上移、后删不动、整段包含时塌到起点。"
+    },
+    {
+        "file": "test/common/viewLayout/lineHeights.test.ts",
+        "test": "handles inserting lines inside custom line heights range",
+        "reason": "同上:依赖管理器对同一 decorationId 的多行「补洞」(onLinesInserted 的 decorationsWithGaps)。lite-monaco 里一条行高装饰只占起点一行,在它中间插行没有「范围」可言。"
+    },
+    {
+        "file": "test/common/viewLayout/lineHeights.test.ts",
+        "test": "partial deletion with multiple lines for the same decoration ID",
+        "reason": "同上:依赖管理器的「同 id 前面已有幸存行,则被删区间塌缩出的行丢弃」规则(onLinesDeleted 的 decorationIdsSeen)。lite-monaco 没有同一 id 占多行的状态。"
+    }
+]

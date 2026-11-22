@@ -1,0 +1,89 @@
+{
+  "裸 view": {
+    "打字": {
+      "sliced": 2239,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 52,
+      "mutations": 6
+    },
+    "Enter": {
+      "sliced": 2245,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 3532,
+      "mutations": 7
+    },
+    "Backspace": {
+      "sliced": 2235,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 52,
+      "mutations": 6
+    },
+    "粘贴三行": {
+      "sliced": 2255,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 3552,
+      "mutations": 8
+    }
+  },
+  "全功能": {
+    "打字": {
+      "sliced": 59874,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 4024,
+      "mutations": 14,
+      "tokenize": 1
+    },
+    "Enter": {
+      "sliced": 59929,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 8732,
+      "mutations": 12,
+      "tokenize": 2
+    },
+    "Backspace": {
+      "sliced": 59848,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 4024,
+      "mutations": 14,
+      "tokenize": 1
+    },
+    "粘贴三行": {
+      "sliced": 60020,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 8823,
+      "mutations": 14,
+      "tokenize": 3
+    }
+  },
+  "超长行": {
+    "打字": {
+      "sliced": 83146,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 91,
+      "mutations": 11
+    },
+    "Backspace": {
+      "sliced": 83144,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 91,
+      "mutations": 10
+    },
+    "全选": {
+      "sliced": 8220,
+      "toString": 0,
+      "toJSON": 0,
+      "lineInner": 33,
+      "mutations": 2
+    }
+  }
+}

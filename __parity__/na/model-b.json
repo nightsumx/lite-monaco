@@ -1,0 +1,6 @@
+[
+  {
+    "file": "bracketPairColorizer/brackets.test",
+    "reason": "唯一的用例直接 new Monaco 内部类 LanguageAgnosticBracketTokens + SmallImmutableSet/DenseKeyProvider,断言的是 getToken(text) 返回的内部 Token(length / bracketId / bracketIds 集合)。这些类型不在任何公开 API 上(ITextModel.bracketPairs 只暴露 BracketPairInfo / BracketInfo),lite-monaco 没有这层 token 分类表,垫片只能原样 re-export Monaco 真代码,等于测 Monaco 自己。公开面上的同类行为(括号配对/嵌套层级/多余闭括号)由 getBracketPairsInRange.test 覆盖(7/7 通过)。注:用例里的多字符括号(begin/end、\\left( \\right))括号树(src/api/bracketpairs.ts)和实时路径(core/edit/brackets 的 BracketTable:匹配高亮 / 彩虹括号 / 跳转,同一份词法规则 core/edit/bracketrule.ts)都支持,自有测试 __tests__/core/brackets-multichar.test.ts。"
+  }
+]

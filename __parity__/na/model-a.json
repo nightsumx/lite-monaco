@@ -1,0 +1,6 @@
+[
+  {
+    "file": "model/editStack.test",
+    "reason": "唯一用例 new Monaco 内部类 SingleModelEditStackData(beforeVersionId / afterVersionId / 前后 EOL / 前后选区 / TextChange[])并断言它的 serialize()/deserialize() 二进制往返相等。SingleModelEditStackData 是 Monaco undoRedo 服务的撤销栈元素序列化格式(editStack.ts,用于跨窗口 / 热退出持久化撤销栈),不在 ITextModel 或任何公开 API 上;lite-monaco 的撤销在 core/edit/history(CM6 式 changeset 反转,存 ChangeSet 而非 TextChange 序列),没有对应对象也没有这个序列化协议。垫片只能原样 re-export Monaco 真代码,等于测 Monaco 自己。TextChange 本身的 serialize/deserialize 由 textChange.test(10/10 通过)覆盖。"
+  }
+]

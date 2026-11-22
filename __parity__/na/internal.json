@@ -1,0 +1,58 @@
+[
+  {
+    "file": "/gpu/",
+    "reason": "WebGPU 渲染器内部(纹理图集及其分配器、缓冲脏区追踪、装饰 CSS 提取、对象集合缓冲)。lite-monaco 渲染走 DOM(core/view buildtile→materialize 增量 patch),没有 GPU 路径,也没有这些数据结构;垫片要造就是实现被测行为。"
+  },
+  {
+    "file": "pieceTreeTextBuffer/",
+    "reason": "测的是 PieceTree 文本缓冲实现本身:直接 new PieceTreeTextBuffer/builder,断言 piece 链表、红黑树节点、chunk 拆分与 CRLF 跨块处理。lite-monaco 的文档是 core/model/rope(按行的 B 树),没有 piece/chunk 概念。缓冲的外部行为(插入删除、EOL 归一、行内容、偏移↔位置)由公开 ITextModel API 的 model/textModel/editableTextModel 测试覆盖。"
+  },
+  {
+    "file": "linesTextBuffer/",
+    "reason": "测的是 Monaco 旧的 LinesTextBuffer 行数组缓冲实现及其 builder(chunk 拼接、BOM/EOL 探测的内部形态)。lite-monaco 没有这个缓冲类;外部行为同样由公开 model 测试覆盖。"
+  },
+  {
+    "file": "model/intervalTree.test",
+    "reason": "测的是装饰区间红黑树内部结构(IntervalTree/IntervalNode 的 insert/delete/acceptReplace、stickiness 的节点标志位、delta 懒传播)。lite-monaco 的装饰容器是 core/model/decoration 的 RangeSet(不可变、按位置有序、随 ChangeSet 映射),没有这棵树;装饰随编辑的行为(stickiness 等)由公开 API 的 modelDecorations 测试覆盖。"
+  },
+  {
+    "file": "textModelTokens.test",
+    "reason": "测的是 TokenizationStateStore 的区间状态失效与回填(Monaco 的增量 tokenizer 状态机)。lite-monaco 的高亮由 shiki 逐行 grammar state 驱动,没有 TokenizationStateStore。"
+  },
+  {
+    "file": "bracketPairColorizer/beforeEditPositionMapper",
+    "reason": "测的是括号 AST 内部的 BeforeEditPositionMapper(编辑前→编辑后的 Length 偏移映射)。lite-monaco 的括号匹配不是增量 2-3 树,没有 Length/TextEditInfo 这套类型。"
+  },
+  {
+    "file": "bracketPairColorizer/combineTextEditInfos",
+    "reason": "测的是括号 AST 内部的 combineTextEditInfos(两批 TextEditInfo 合并的 Length 运算,50 例含随机)。lite-monaco 没有 TextEditInfo/Length 类型;编辑复合由 core/model/change 的 ChangeSet.compose 承担,已被 edit.test 的 StringEdit 垫片(1000 例 compose)覆盖。"
+  },
+  {
+    "file": "bracketPairColorizer/concat23Trees",
+    "reason": "测的是括号 AST 的 2-3 树拼接(concat23Trees/ListAstNode 的平衡)。lite-monaco 没有括号 AST。"
+  },
+  {
+    "file": "bracketPairColorizer/smallImmutableSet",
+    "reason": "测的是括号 AST 内部的 SmallImmutableSet(括号 id 的位集)。lite-monaco 没有此结构。"
+  },
+  {
+    "file": "bracketPairColorizer/length.test",
+    "reason": "测的是括号 AST 内部的 Length(lineCount+columnCount 编码)运算。lite-monaco 没有此类型。"
+  },
+  {
+    "file": "bracketPairColorizer/tokenizer.test",
+    "reason": "测的是括号 AST 内部的 Tokenizer(把文本切成 Bracket/Text/Length 的 AST token 流)。lite-monaco 的括号扫描不经过这个 token 流。"
+  },
+  {
+    "file": "viewModel/modelLineProjection.test",
+    "reason": "已由 __tests__/core/parity-viewmodel.test.ts 逐条翻译覆盖(SplitLine / Invalid line numbers / #3662 / getViewLinesData ×3,经 SoftWrapModel + 公共 API;token 色号与视图行切分的 InlineDecoration 坐标是 Monaco 内部结构,不翻)(原因存档:测的是 Monaco ViewModel 层的 ModelLineProjection(模型行→若干视图行,含注入文本与折行)。lite-monaco 没有 ViewModel 层:视图直接由 EditorView 从 doc 投影,折行交给浏览器排版。)"
+  },
+  {
+    "file": "viewModel/viewModelImpl.test",
+    "reason": "已由 __tests__/core/parity-viewmodel.test.ts 逐条翻译覆盖(#21073 / #44805 ×3 / getPlainTextToCopy ×11 / #22688 / #40926 / normalizePosition / #193262)(原因存档:测的是 Monaco ViewModelImpl(视图行号↔模型行号的映射、折叠隐藏区在视图坐标里的结果)。lite-monaco 没有 ViewModel 类与视图行号空间;折叠隐藏区的行为由 foldingmodel/HiddenRangeModel 移植(已全绿)覆盖。)"
+  },
+  {
+    "file": "viewModel/viewModelDecorations.test",
+    "reason": "已由 __tests__/core/parity-viewmodel.test.ts 逐条翻译覆盖(getDecorationsViewportData / #17208 / #37401,断言落在整行 DOM 上装饰的位置,不是 Monaco 按视图行切段的 InlineDecoration)(原因存档:测的是 ViewModelDecorations(模型装饰投影到视图行区间并算内联装饰类名)。lite-monaco 没有 ViewModel 层,装饰直接是 mark/widget 进 buildtile。)"
+  }
+]

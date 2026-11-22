@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8">
+<style>html,body{margin:0;padding:0;background:#fff}</style>
+<script>
+  // 同一份 html 给两个页面:按文件名取样式和脚本。样式表加载完再放脚本,保证首次布局就带样式
+  const n = location.pathname.split('/').pop().replace('.html', '')
+  const go = () => { const s = document.createElement('script'); s.src = n + '.js'; document.head.appendChild(s) }
+  if (n === 'monaco') { const l = document.createElement('link'); l.rel = 'stylesheet'; l.href = 'monaco.css'; l.onload = l.onerror = go; document.head.appendChild(l) }
+  else go()
+</script>
+</head>
+<body>
+<div id="editor-container" style="position:absolute;left:0;top:0;width:800px;height:400px"></div>
+</body>
+</html>

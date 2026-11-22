@@ -1,0 +1,1 @@
+{"type":"doc","children":[{"type":"line","attrs":{"class":"cm-line"},"children":[{"type":"mark","tag":"span","attrs":{"class":"kw"},"children":[{"type":"text","text":"hello"}]},{"type":"text","text":" "},{"type":"mark","tag":"span","attrs":{"class":"str"},"children":[{"type":"text","text":"world"}]}]}]}

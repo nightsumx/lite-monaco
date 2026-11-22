@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>lite-monaco — Monaco 的手感，不到一半的体积</title>
+<meta name="description" content="lite-monaco 是 monaco-editor 的平替：同名同形的 API，拿 Monaco 自己的 3279 条单元测试当验收，核心 gzip 523 KB。页面上每一个编辑器都在你的浏览器里实时运行。">
+<meta property="og:title" content="lite-monaco — Monaco 的手感，不到一半的体积">
+<meta property="og:description" content="一行 import 换掉 monaco-editor。3279/3279 条 Monaco 单测通过，核心 gzip 523 KB。页面上的编辑器都是真的。">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0a0a'/%3E%3Crect x='14' y='6' width='4' height='20' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/geist-mono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="mark" href="#top" aria-label="lite-monaco 首页"><span class="mark-caret" aria-hidden="true"></span>lite-monaco</a>
+  <nav aria-label="页面导航">
+    <a href="#live"><i>01</i>现场</a>
+    <a href="#size"><i>02</i>体积</a>
+    <a href="#proof"><i>03</i>验证</a>
+    <a href="#migrate"><i>04</i>迁移</a>
+    <a href="#known"><i>05</i>坦白</a>
+    <a class="ext" href="https://github.com/nightsumx/lite-monaco">GitHub ↗</a>
+    <a class="ext" href="https://www.npmjs.com/package/lite-monaco">npm ↗</a>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ───────── HERO ───────── -->
+<section class="hero" id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <p class="meta rise" style="--d:0">
+    <span class="live-dot" aria-hidden="true"></span>本页的每一个编辑器都在你的浏览器里实时运行
+  </p>
+
+  <figure class="hero-code rise" style="--d:1">
+    <div class="frame">
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div id="hero-ed" class="hero-ed" aria-label="可编辑的代码：迁移只改这一行"></div>
+      <noscript><pre class="hero-fallback">import * as monaco from 'lite-monaco'</pre></noscript>
+    </div>
+    <figcaption>
+      <span>FIG.00</span>
+      <span>上面这两行是 lite-monaco 编辑器本身，不是图片。点进去改。</span>
+    </figcaption>
+  </figure>
+
+  <div class="hero-body">
+    <h1 class="rise" style="--d:2">Monaco 的手感，<br><em>不到一半</em>的体积。</h1>
+    <div class="hero-side rise" style="--d:3">
+      <p class="lede">同名同形的 <code>monaco.editor</code> API。拿 Monaco 自己的 <b>3279</b> 条单元测试当验收，再在 Chromium、Firefox、WebKit 里和真 Monaco 逐场景比对。</p>
+      <div class="actions">
+        <div class="install">
+          <code><span class="prompt">$</span> npm i lite-monaco shiki</code>
+          <button type="button" id="copy" aria-label="复制安装命令">复制</button>
+        </div>
+        <a class="cta" href="#live">看它跑 <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+  </div>
+
+  <dl class="hud hud-hero rise" style="--d:4" aria-label="上面那个编辑器的实时读数">
+    <div><dt>按键 → model</dt><dd><b id="h-sync">—</b><small>ms</small></dd></div>
+    <div><dt>→ 下一帧上屏</dt><dd><b id="h-frame">—</b><small>ms</small></dd></div>
+    <div><dt>光标</dt><dd><b id="h-pos">1:1</b></dd></div>
+    <div><dt>字号</dt><dd><b id="h-font">—</b><small>px</small></dd></div>
+  </dl>
+</section>
+
+<!-- ───────── 01 现场 ───────── -->
+<section class="sec live" id="live">
+  <div class="sec-rule reveal"><span>01</span><span>现场</span><span class="sec-rule-r">LIVE · 由脚本驱动，点一下就交给你</span></div>
+  <header class="sec-head reveal">
+    <h2>不是录屏。<em>是它在自己跑。</em></h2>
+    <p>左边的编辑器正被一段脚本驱动：多光标、同时输入、移动行、折叠、查找、撤销。右边的数字是从这个编辑器上实时读出来的。点一下编辑器，脚本就停，换你来。</p>
+  </header>
+
+  <div class="tabs reveal" role="tablist" aria-label="示例">
+    <button role="tab" aria-selected="true"  data-tab="demo" type="button">自动演示</button>
+    <button role="tab" aria-selected="false" data-tab="json" type="button">JSON <i>schema 校验</i></button>
+    <button role="tab" aria-selected="false" data-tab="css"  type="button">CSS <i>补全</i></button>
+    <button role="tab" aria-selected="false" data-tab="big"  type="button">100 万行</button>
+  </div>
+
+  <div class="bench reveal">
+    <div class="bench-ed frame">
+      <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+      <div id="play-ed" class="ed"></div>
+      <div class="caption" id="caption" aria-live="polite"><span class="keys" id="cap-keys"></span><span id="cap-text">正在加载编辑器…</span></div>
+    </div>
+    <dl class="hud hud-bench" aria-label="编辑器实时读数">
+      <div><dt>光标</dt><dd><b id="m-cursors">1</b></dd></div>
+      <div><dt>本次编辑</dt><dd><b id="m-sync">—</b><small>ms</small></dd><p>model 与视图同步更新</p></div>
+      <div><dt>到下一帧</dt><dd><b id="m-frame">—</b><small>ms</small></dd><p>改动画到屏幕上</p></div>
+      <div><dt>文档行数</dt><dd><b id="m-lines">—</b></dd><p>其中渲染 <span id="m-vis">—</span> 行</p></div>
+      <div><dt>DOM 节点</dt><dd><b id="m-dom">—</b></dd><p>只渲染视口，不随文档变大</p></div>
+      <div><dt>model 版本</dt><dd><b id="m-ver">—</b></dd></div>
+    </dl>
+  </div>
+
+  <div class="bench-foot reveal">
+    <p id="tab-note"></p>
+    <span class="big-actions" id="big-actions" hidden>
+      <button type="button" id="go-end">跳到最后一行</button>
+      <button type="button" id="go-mid">回到第 500,000 行</button>
+      <output id="big-out"></output>
+    </span>
+  </div>
+</section>
+
+<!-- ───────── 02 体积 ───────── -->
+<section class="sec size" id="size">
+  <div class="sec-rule reveal"><span>02</span><span>体积</span><span class="sec-rule-r">esbuild 压缩 · gzip -9 · 2026-11-23 实测</span></div>
+  <div class="size-top">
+    <div class="giant reveal" aria-label="523 KB">
+      <b data-count="523">523</b><span>KB<small>gzip，核心</small></span>
+    </div>
+    <header class="sec-head reveal">
+      <h2>同一把尺子，<em>同一个打包器。</em></h2>
+      <p>两边都用同一个 esbuild、同样的压缩参数，都不含高亮器和 TypeScript 编译器。monaco-editor 还要配 worker 才能跑，那份也算进去。</p>
+    </header>
+  </div>
+
+  <div class="ruler reveal" id="ruler">
+    <div class="ruler-scale" aria-hidden="true"><span>0</span><span>300</span><span>600</span><span>900</span><span>1200 KB</span></div>
+    <div class="bar-row">
+      <span class="bar-label">lite-monaco</span>
+      <div class="bar-track"><i class="seg seg-lite" style="--w:523"><em>523 KB</em></i></div>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">monaco-editor 0.55.1</span>
+      <div class="bar-track"><i class="seg seg-mon" style="--w:1113"><em>editor.main 1113</em></i><i class="seg seg-mon2" style="--w:88"></i></div>
+      <span class="bar-note">+ editor.worker 88 KB = 1201 KB</span>
+    </div>
+    <p class="ruler-foot">要 TypeScript 补全和诊断时，两边都得带 TypeScript 编译器：monaco-editor 是 ts.worker（gzip 1.54 MB），lite-monaco 是可选依赖 <code>typescript</code>。所以这一份两边都不计。重新量：<code>node site/measure.mjs</code>。</p>
+  </div>
+
+  <div class="spec reveal" role="table" aria-label="规格对照">
+    <div class="spec-row spec-head" role="row"><span role="columnheader"></span><span role="columnheader">lite-monaco</span><span role="columnheader">monaco-editor 0.55.1</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">接入</span><span role="cell"><code>import * as monaco from 'lite-monaco'</code></span><span role="cell">配 <code>MonacoEnvironment.getWorker</code> 和打包器的 worker loader</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">worker</span><span role="cell">不需要。TS 服务跑主线程，或放进你自己的 worker</span><span role="cell">editor.worker，每种语言服务各一个</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">语法高亮</span><span role="cell">Shiki（TextMate 语法）按需懒加载；81 种 Monarch 可选</span><span role="cell">Monarch</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">CSS / HTML / JSON</span><span role="cell">vscode-*-languageservice，主线程懒加载</span><span role="cell">同一套服务，各跑在 worker 里</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">Diff 编辑器</span><span role="cell">并排、行内、折叠未改区、移动块</span><span role="cell">同</span></div>
+    <div class="spec-row" role="row"><span role="rowheader">输入层</span><span role="cell">contenteditable</span><span role="cell">隐藏 textarea / EditContext</span></div>
+  </div>
+</section>
+
+<!-- ───────── 03 验证 ───────── -->
+<section class="sec proof" id="proof">
+  <div class="sec-rule reveal"><span>03</span><span>验证</span><span class="sec-rule-r">数据来自 PARITY.md，构建时读取并核对总数</span></div>
+  <header class="sec-head wide reveal">
+    <h2>每个点，是 Monaco 的<em>一条单元测试。</em></h2>
+    <p>VS Code 仓库 <code>src/vs/editor</code> 下 157 个测试文件、3863 条用例，原样接到 lite-monaco 上跑。实心的通过，空心的是“不适用”：测的是 VS Code 的服务层或渲染器内部，每一条都写了理由。鼠标放上去，看它是哪个文件。</p>
+  </header>
+
+  <div class="matrix-wrap reveal">
+    <div class="matrix-score">
+      <b><span data-count="3279" data-plain>3279</span><small>/ 3279 范围内</small></b>
+      <span>全部通过，0 条失败</span>
+    </div>
+    <div class="matrix" id="matrix">
+      <canvas id="matrix-cv" aria-label="3863 条 Monaco 单元测试的点阵：3279 条通过，584 条不适用" role="img"></canvas>
+      <div class="tip" id="matrix-tip" hidden></div>
+    </div>
+    <ul class="legend" id="legend"></ul>
+  </div>
+
+  <div class="proof-grid">
+    <div class="langs reveal">
+      <h3><b data-count="81">81</b> 种 Monarch 语言</h3>
+      <p>语言定义连同 monaco-editor 自己的分词测试一起搬过来：0.58.0 版 <b>88/88</b>，0.55.1 版 <b>86/86</b>。不想要 Shiki，也可以只用它们。</p>
+      <p class="lang-wall" id="lang-wall">abap apex azcli bat bicep cameligo clojure coffee cpp csharp csp css cypher dart dockerfile ecl elixir flow9 freemarker2 fsharp go graphql handlebars hcl html ini java javascript julia kotlin less lexon liquid lua m3 markdown mdx mips msdax mysql objective-c pascal pascaligo perl pgsql php pla postiats powerquery powershell protobuf pug python qsharp r razor redis redshift restructuredtext ruby rust sb scala scheme scss shell solidity sophia sparql sql st swift systemverilog tcl twig typescript typespec vb wgsl xml yaml</p>
+    </div>
+    <div class="engines reveal">
+      <h3>真浏览器里，和真 Monaco <em>并排量</em></h3>
+      <p>同一个场景脚本（打字、选区、折行、折叠、补全、diff、RTL、输入法模拟、剪贴板、触摸……）分别在 Monaco 0.55.1 和 lite-monaco 上跑，比 DOM 几何、光标位置、无障碍树。</p>
+      <div class="eng" style="--a:201;--t:353"><span class="eng-name">Chromium</span><div class="eng-bar"><i></i></div><span class="eng-num"><b>201</b>/353 完全一致</span></div>
+      <div class="eng" style="--a:232;--t:338"><span class="eng-name">Firefox 151</span><div class="eng-bar"><i></i></div><span class="eng-num"><b>232</b>/338 完全一致</span></div>
+      <div class="eng" style="--a:227;--t:338"><span class="eng-name">WebKit 26.5</span><div class="eng-bar"><i></i></div><span class="eng-num"><b>227</b>/338 完全一致</span></div>
+      <p class="fine">不一致的不等于错：Firefox、WebKit 的每一处差异都已归类（有意不同，或者是 Monaco 自己的怪癖）；Chromium 上 diff 和输入法两块还有没归类完的。DPR 2 和 1.5 下没有新增行为差异。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 04 迁移 ───────── -->
+<section class="sec migrate" id="migrate">
+  <div class="sec-rule reveal"><span>04</span><span>迁移</span><span class="sec-rule-r">下面是一个真的 DiffEditor</span></div>
+  <header class="sec-head reveal">
+    <h2>删掉的，<em>比加上的多。</em></h2>
+    <p>不用配 worker，不用配高亮器。装了 <code>shiki</code> 就按语言和主题懒加载上色。<code>monaco.editor</code>、<code>monaco.languages</code> 下的代码不用动。</p>
+  </header>
+  <div class="frame diff-frame reveal">
+    <span class="tick tl"></span><span class="tick tr"></span><span class="tick bl"></span><span class="tick br"></span>
+    <div class="diff-heads"><span>原来 · monaco-editor + Vite</span><span>现在 · lite-monaco</span></div>
+    <div id="mig-diff" class="ed"></div>
+  </div>
+  <ol class="steps reveal">
+    <li><i>1</i><b>装包</b><code>npm i lite-monaco shiki</code></li>
+    <li><i>2</i><b>换 import</b><span>删掉 worker 配置，其余不动</span></li>
+    <li><i>3</i><b>要 TS 智能</b><code>npm i typescript</code></li>
+  </ol>
+  <p class="fine reveal">逐项差异见 <a href="https://github.com/nightsumx/lite-monaco/blob/main/MIGRATION.md">MIGRATION.md</a>。用 <code>@monaco-editor/react</code> 的，加一行 <code>loader.config({ monaco })</code>，组件不用改（<a href="https://github.com/nightsumx/lite-monaco#react">写法</a>）。</p>
+</section>
+
+<!-- ───────── 05 坦白 ───────── -->
+<section class="sec known" id="known">
+  <div class="sec-rule reveal"><span>05</span><span>坦白</span><span class="sec-rule-r">平替最怕“看起来一样”</span></div>
+  <header class="sec-head reveal">
+    <h2>已知的不一样，<em>写在明处。</em></h2>
+  </header>
+  <ul class="issues">
+    <li class="reveal"><code>KNOWN-01</code><b>输入层不同</b><p>Monaco 用隐藏的 textarea / EditContext，lite-monaco 用 contenteditable。读屏的 role 和 aria 属性对齐了，无障碍树的结构没法一样。<em>VoiceOver、NVDA、JAWS 都没测过。</em></p></li>
+    <li class="reveal"><code>KNOWN-02</code><b>输入法组字过程不同</b><p>Monaco 每次组字更新都改一次 model，lite-monaco 到提交才改。提交后的结果一致。用 CDP 模拟过，<em>没在真机输入法上验证。</em></p></li>
+    <li class="reveal"><code>KNOWN-03</code><b>不是 VS Code 平台</b><p>没有 <code>editor.createWebWorker</code>、<code>languages.*.getWorker</code>，没有多文件 diff 编辑器，<code>accessibilityPageSize</code> 分页也不做。</p></li>
+    <li class="reveal"><code>KNOWN-04</code><b>浏览器覆盖</b><p>Chromium、Firefox、WebKit 的 Playwright 构建都跑了。<em>真 Safari、真触摸屏的选区手柄和软键盘没有验证。</em></p></li>
+    <li class="reveal"><code>KNOWN-05</code><b>TypeScript 智能要另装</b><p>补全、hover、诊断、跳转靠可选依赖 <code>typescript</code>。这个页面没带它，所以页面上的 TS 只有高亮和编辑。</p></li>
+  </ul>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="foot-mark"><span class="mark-caret" aria-hidden="true"></span>lite-monaco</div>
+  <p>MIT。独立项目，与微软、Monaco Editor、VS Code 无关；这两个名字是微软的产品名，这里只用来说明手感对标谁。内核移植自 CodeMirror 6，来源见 <a href="https://github.com/nightsumx/lite-monaco/blob/main/THIRD-PARTY-NOTICES.md">THIRD-PARTY-NOTICES.md</a>。字体：Geist、Instrument Serif（SIL OFL）。</p>
+  <span class="foot-links"><a href="https://github.com/nightsumx/lite-monaco">GitHub ↗</a><a href="https://www.npmjs.com/package/lite-monaco">npm ↗</a></span>
+</footer>
+
+<script type="module" src="dist/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+import { WorkerManager } from '../mainthread';
+import { create as createWorker } from './htmlWorker';
+import type { HTMLWorker } from './htmlWorker';
+import { LanguageServiceDefaults } from './register';
+import * as languageFeatures from '../lspLanguageFeatures';
+import { Uri, IDisposable, languages } from '../_monaco';
+
+class HTMLCompletionAdapter extends languageFeatures.CompletionAdapter<HTMLWorker> {
+	constructor(worker: languageFeatures.WorkerAccessor<HTMLWorker>) {
+		super(worker, ['.', ':', '<', '"', '=', '/']);
+	}
+}
+
+export function setupMode1(defaults: LanguageServiceDefaults): void {
+	const client = new WorkerManager(defaults, createWorker, () => ({ languageSettings: defaults.options, languageId: defaults.languageId }));
+
+	const worker: languageFeatures.WorkerAccessor<HTMLWorker> = (
+		...uris: Uri[]
+	): Promise<HTMLWorker> => {
+		return client.getLanguageServiceWorker(...uris);
+	};
+
+	let languageId = defaults.languageId;
+
+	// all modes
+	languages.registerCompletionItemProvider(languageId, new HTMLCompletionAdapter(worker));
+	languages.registerHoverProvider(languageId, new languageFeatures.HoverAdapter(worker));
+
+	languages.registerDocumentHighlightProvider(
+		languageId,
+		new languageFeatures.DocumentHighlightAdapter(worker)
+	);
+	languages.registerLinkProvider(languageId, new languageFeatures.DocumentLinkAdapter(worker));
+	languages.registerFoldingRangeProvider(
+		languageId,
+		new languageFeatures.FoldingRangeAdapter(worker)
+	);
+	languages.registerDocumentSymbolProvider(
+		languageId,
+		new languageFeatures.DocumentSymbolAdapter(worker)
+	);
+	languages.registerSelectionRangeProvider(
+		languageId,
+		new languageFeatures.SelectionRangeAdapter(worker)
+	);
+	languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker));
+
+	// only html
+	if (languageId === 'html') {
+		languages.registerDocumentFormattingEditProvider(
+			languageId,
+			new languageFeatures.DocumentFormattingEditProvider(worker)
+		);
+		languages.registerDocumentRangeFormattingEditProvider(
+			languageId,
+			new languageFeatures.DocumentRangeFormattingEditProvider(worker)
+		);
+	}
+}
+
+export function setupMode(defaults: LanguageServiceDefaults): IDisposable {
+	const disposables: IDisposable[] = [];
+	const providers: IDisposable[] = [];
+
+	const client = new WorkerManager(defaults, createWorker, () => ({ languageSettings: defaults.options, languageId: defaults.languageId }));
+	disposables.push(client);
+
+	const worker: languageFeatures.WorkerAccessor<HTMLWorker> = (
+		...uris: Uri[]
+	): Promise<HTMLWorker> => {
+		return client.getLanguageServiceWorker(...uris);
+	};
+
+	function registerProviders(): void {
+		const { languageId, modeConfiguration } = defaults;
+
+		disposeAll(providers);
+
+		if (modeConfiguration.completionItems) {
+			providers.push(
+				languages.registerCompletionItemProvider(languageId, new HTMLCompletionAdapter(worker))
+			);
+		}
+		if (modeConfiguration.hovers) {
+			providers.push(
+				languages.registerHoverProvider(languageId, new languageFeatures.HoverAdapter(worker))
+			);
+		}
+		if (modeConfiguration.documentHighlights) {
+			providers.push(
+				languages.registerDocumentHighlightProvider(
+					languageId,
+					new languageFeatures.DocumentHighlightAdapter(worker)
+				)
+			);
+		}
+		if (modeConfiguration.links) {
+			providers.push(
+				languages.registerLinkProvider(languageId, new languageFeatures.DocumentLinkAdapter(worker))
+			);
+		}
+		if (modeConfiguration.documentSymbols) {
+			providers.push(
+				languages.registerDocumentSymbolProvider(
+					languageId,
+					new languageFeatures.DocumentSymbolAdapter(worker)
+				)
+			);
+		}
+		if (modeConfiguration.rename) {
+			providers.push(
+				languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker))
+			);
+		}
+		if (modeConfiguration.foldingRanges) {
+			providers.push(
+				languages.registerFoldingRangeProvider(
+					languageId,
+					new languageFeatures.FoldingRangeAdapter(worker)
+				)
+			);
+		}
+		if (modeConfiguration.selectionRanges) {
+			providers.push(
+				languages.registerSelectionRangeProvider(
+					languageId,
+					new languageFeatures.SelectionRangeAdapter(worker)
+				)
+			);
+		}
+		if (modeConfiguration.documentFormattingEdits) {
+			providers.push(
+				languages.registerDocumentFormattingEditProvider(
+					languageId,
+					new languageFeatures.DocumentFormattingEditProvider(worker)
+				)
+			);
+		}
+		if (modeConfiguration.documentRangeFormattingEdits) {
+			providers.push(
+				languages.registerDocumentRangeFormattingEditProvider(
+					languageId,
+					new languageFeatures.DocumentRangeFormattingEditProvider(worker)
+				)
+			);
+		}
+	}
+
+	registerProviders();
+
+	// 与 JSON 模式一致:modeConfiguration 变了就重注册(monaco-editor 的 css / html 模式没做,setModeConfiguration 对已打开的语言不生效;这里按 API 文档的意思让开关即时生效)
+	let modeConfiguration = defaults.modeConfiguration;
+	disposables.push(
+		defaults.onDidChange((newDefaults) => {
+			if (newDefaults.modeConfiguration !== modeConfiguration) {
+				modeConfiguration = newDefaults.modeConfiguration;
+				registerProviders();
+			}
+		})
+	);
+
+	disposables.push(asDisposable(providers));
+
+	return asDisposable(disposables);
+}
+
+function asDisposable(disposables: IDisposable[]): IDisposable {
+	return { dispose: () => disposeAll(disposables) };
+}
+
+function disposeAll(disposables: IDisposable[]) {
+	while (disposables.length) {
+		disposables.pop()!.dispose();
+	}
+}
+
+export { WorkerManager } from '../mainthread';
+export * from '../lspLanguageFeatures';

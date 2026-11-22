@@ -1,0 +1,18 @@
+[
+  {
+    "file": "browser/view/viewLayer.test.ts",
+    "reason": "测的是 Monaco 内部类 RenderedLinesCollection<ILine>(把当前已渲染的一段连续行号 [start, start+n) 存成 ILine[],并断言 onLinesDeleted/onLinesInserted/onLinesChanged/onTokensChanged 之后的行号平移、被删行返回值、getLine 越界抛错)。lite-monaco 的视图层是 CM7 式 docView:行 DOM 由 docview/materialize 按 doc 位置增量 patch(patchDOM 以稳定尾部锚定),没有「按行号索引的已渲染行集合」这个对象,也没有 ILine/ILineFactory 协议;垫片要造这个集合就是在垫片里实现被测行为(README 第 3 条违规)。行 DOM≡doc 的双射与增量更新由 __tests__/core 的 patchDOM / DOM≡doc 自有测试覆盖。"
+  },
+  {
+    "file": "common/core/lineTokens.test.ts",
+    "reason": "测的是 Monaco 内部类 LineTokens(Uint32Array 二进制 token:偶数位 endOffset、奇数位 metadata 打包 foreground/fontStyle/tokenType/languageId)的 withInserted(把 decoration 注入文本拆成多段 token)、findTokenIndexAtOffset、inflate/sliceAndInflate、getMetadata。lite-monaco 的 token 是 shiki 产出的 ScopedToken[](相对偏移 + scope 数组,view/tokens.ts),只有 StandardTokenType 的 lineTokenTypes 一个出口,不存在 metadata 位域、languageId 编码,也没有「把注入文本并入 token 流」的操作(内联 decoration 在 lite-monaco 是 CM 式 mark/widget,不改 token 数组)。要接就得在垫片里写一整套二进制 token 容器,即实现被测行为。"
+  },
+  {
+    "file": "common/modes/textToHtmlTokenizer.test.ts",
+    "reason": "测的是 Monaco 内部函数 _tokenizeToString / tokenizeLineToHTML(TokenizationRegistry 里的 ITokenizationSupport.tokenizeEncoded → 按 metadata 的 colorId 渲染成 <span class=\"mtkN\"> + monaco-tokenized-source 的 HTML 串,含 tab/空格 &nbsp; 展开规则)。lite-monaco 没有 TokenizationRegistry、没有 colorId/mtk 类名体系(颜色来自 shiki 主题 token 的内联样式,渲染走 DOM 增量 patch),也没有 editor.colorize / colorizeElement / tokenize 这套公开 API(grep src/api 无),因此这个函数在 lite-monaco 里没有对应物可翻译。"
+  },
+  {
+    "file": "supports/richEditBrackets.test.ts",
+    "reason": "测的是 Monaco 内部 BracketsUtils(在 token 文本里按反向正则找括号的纯函数)。lite-monaco 的括号匹配走配对表 + 语法树/词法扫描(core/edit/brackets),没有这组「给定正则 + 一段 token 文本 → 找前/后括号范围」的函数,也不对外暴露"
+  }
+]

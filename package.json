@@ -1,0 +1,127 @@
+{
+  "name": "lite-monaco",
+  "version": "0.4.0",
+  "description": "Drop-in replacement for monaco-editor: the same monaco.editor / monaco.languages API, checked against Monaco's own unit tests, under half the size, no workers to configure.",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./ts-worker": {
+      "types": "./dist/tsworker.d.ts",
+      "import": "./dist/tsworker.js",
+      "require": "./dist/tsworker.cjs"
+    },
+    "./basic-languages": {
+      "types": "./dist/basic-languages.d.ts",
+      "import": "./dist/basic-languages.js",
+      "require": "./dist/basic-languages.cjs"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "THIRD-PARTY-NOTICES.md",
+    "CHANGELOG.md",
+    "MIGRATION.md"
+  ],
+  "scripts": {
+    "dev": "vite --config demo/vite.config.ts",
+    "demo": "npm run dev",
+    "build": "tsc --noEmit && tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "shiki": ">=2",
+    "typescript": ">=5",
+    "vscode-css-languageservice": ">=6",
+    "vscode-html-languageservice": ">=5",
+    "vscode-json-languageservice": ">=5",
+    "vscode-languageserver-textdocument": ">=1",
+    "vscode-languageserver-types": ">=3.17",
+    "vscode-uri": ">=3"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    },
+    "vscode-css-languageservice": {
+      "optional": true
+    },
+    "vscode-html-languageservice": {
+      "optional": true
+    },
+    "vscode-json-languageservice": {
+      "optional": true
+    },
+    "vscode-languageserver-textdocument": {
+      "optional": true
+    },
+    "vscode-languageserver-types": {
+      "optional": true
+    },
+    "vscode-uri": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.2",
+    "esbuild": "^0.27.0",
+    "jsdom": "^29.1.1",
+    "monaco-editor": "0.55.1",
+    "shiki": "~4.4.1",
+    "tsup": "^8.4.0",
+    "tsx": "^4.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^8.0.16",
+    "vitest": "^3.1.2",
+    "vscode-css-languageservice": "6.2.14",
+    "vscode-html-languageservice": "5.2.0",
+    "vscode-json-languageservice": "5.3.11",
+    "vscode-languageserver-textdocument": "1.0.12",
+    "vscode-languageserver-types": "3.17.5",
+    "vscode-uri": "3.0.8",
+    "aihand": "0.1.17"
+  },
+  "keywords": [
+    "code-editor",
+    "editor",
+    "monaco",
+    "monaco-editor",
+    "codemirror",
+    "shiki",
+    "syntax-highlighting",
+    "diff-editor",
+    "typescript",
+    "lightweight"
+  ],
+  "license": "MIT",
+  "homepage": "https://lite-monaco-www.lineryforjs.workers.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nightsumx/lite-monaco.git"
+  },
+  "bugs": "https://github.com/nightsumx/lite-monaco/issues",
+  "overrides": {
+    "rollup": "4.62.4"
+  },
+  "dependencies": {
+    "@marijn/find-cluster-break": "^1.0.0"
+  }
+}

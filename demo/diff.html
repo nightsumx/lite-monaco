@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <title>DiffEditor — Monaco vs lite-monaco</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3;
+            height: 100vh; display: flex; flex-direction: column; padding: 12px 16px; gap: 8px;
+        }
+        h1 { font-size: 16px; }
+        .tag { color: #7d8590; font-size: 12px; }
+        .tag a { color: #58a6ff; }
+        .row {
+            flex: 1; min-height: 0; display: grid;
+            grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        .col { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+        .col h2 {
+            font-size: 12px; font-weight: 600; color: #7d8590;
+            margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em;
+        }
+        .host {
+            flex: 1; min-height: 0; border: 1px solid #30363d; border-radius: 6px; overflow: hidden;
+        }
+        .bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+        button {
+            background: #21262d; color: #e6edf3; border: 1px solid #30363d;
+            border-radius: 6px; padding: 5px 10px; font-size: 12px; cursor: pointer;
+        }
+        button:hover { background: #30363d; }
+        #status { color: #7d8590; font-size: 11px; font-family: ui-monospace, Menlo, monospace; }
+    </style>
+</head>
+<body>
+    <h1>DiffEditor 对照 — 左 Monaco · 右 lite-monaco</h1>
+    <div class="tag">
+        同一 original/modified · 观感对齐 Monaco DiffEditorWidget
+        · <a href="/cm7.html">CM7 demo</a>
+    </div>
+    <div class="bar">
+        <button type="button" id="sample">重置 sample</button>
+        <button type="button" id="edit-right">右侧插入一行</button>
+        <span id="status"></span>
+    </div>
+    <div class="row">
+        <div class="col">
+            <h2>Monaco createDiffEditor</h2>
+            <div class="host" id="monaco-host"></div>
+        </div>
+        <div class="col">
+            <h2>lite-monaco DiffEditor</h2>
+            <div class="host" id="lite-monaco-host"></div>
+        </div>
+    </div>
+    <script type="module" src="./diff.ts"></script>
+</body>
+</html>

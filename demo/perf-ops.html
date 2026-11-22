@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>lite-monaco 操作时延表</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #0d1117; color: #e6edf3; padding: 16px; }
+    h1 { font-size: 16px; margin-bottom: 8px; }
+    .tag { color: #7d8590; font-size: 12px; margin-bottom: 12px; }
+    #host { height: 280px; border: 1px solid #30363d; border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+    #host .cm-editor { height: 100%; }
+    pre#report {
+      font: 12px/1.45 ui-monospace, Menlo, monospace;
+      background: #161b22; border: 1px solid #30363d; border-radius: 8px;
+      padding: 12px; white-space: pre-wrap; color: #c9d1d9; max-height: 48vh; overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>lite-monaco 操作时延 — 全表</h1>
+  <div class="tag">fixture = dist/index.js（~1.1 万行）。dispatch 路径，非 IME。数字写进 window.__opsReport。</div>
+  <div id="host"></div>
+  <pre id="report">idle</pre>
+  <script type="module" src="./perf-ops.ts"></script>
+</body>
+</html>

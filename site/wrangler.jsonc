@@ -1,0 +1,8 @@
+// lite-monaco 官网：纯静态资源，没有 Worker 代码。  sh site/deploy.sh
+{
+    "name": "lite-monaco-www",
+    "account_id": "90a866fd8bf964c3ae839061a40e3e7e",
+    "compatibility_date": "2026-10-01",
+    "assets": { "directory": "./_deploy", "not_found_handling": "404-page" },
+    "workers_dev": true
+}

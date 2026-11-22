@@ -1,0 +1,5299 @@
+[
+ {
+  "title": "macOS - Chrome - Korean using 2-Set Korean (1)",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aa아가aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "ㅇ",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅇ",
+    "code": "KeyD",
+    "kc": 68
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅏ",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅏ",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "keydown",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㄱ",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악"
+   },
+   {
+    "t": "input",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㄱ",
+    "code": "KeyR",
+    "kc": 82
+   },
+   {
+    "t": "keydown",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅏ",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가"
+   },
+   {
+    "t": "input",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "ㅏ",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가"
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - Korean using 2-Set Korean (2)",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aa병aa",
+   "selectionStart": 3,
+   "selectionEnd": 3,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "ㅂ",
+    "code": "KeyQ",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅂ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅂ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅂaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅂ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅂaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅂ",
+    "code": "KeyQ",
+    "kc": 81
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅂaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅕ",
+    "code": "KeyU",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅂaa",
+    "s": 2,
+    "e": 3,
+    "data": "벼",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅂaa",
+    "s": 2,
+    "e": 3,
+    "data": "벼"
+   },
+   {
+    "t": "input",
+    "v": "aa벼aa",
+    "s": 3,
+    "e": 3,
+    "data": "벼",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa벼aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅕ",
+    "code": "KeyU",
+    "kc": 85
+   },
+   {
+    "t": "keydown",
+    "v": "aa벼aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅇ",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa벼aa",
+    "s": 2,
+    "e": 3,
+    "data": "병",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa벼aa",
+    "s": 2,
+    "e": 3,
+    "data": "병"
+   },
+   {
+    "t": "input",
+    "v": "aa병aa",
+    "s": 3,
+    "e": 3,
+    "data": "병",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa병aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "ㅇ",
+    "code": "KeyD",
+    "kc": 68
+   },
+   {
+    "t": "compositionend",
+    "v": "aa병aa",
+    "s": 3,
+    "e": 3,
+    "data": "병"
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - Japanese using Hiragana (Google)",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aaせんせいaa",
+   "selectionStart": 6,
+   "selectionEnd": 6,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ"
+   },
+   {
+    "t": "input",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ"
+   },
+   {
+    "t": "input",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん"
+   },
+   {
+    "t": "input",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 73
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - Chinese using Pinyin - Traditional",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aa需aa",
+   "selectionStart": 3,
+   "selectionEnd": 3,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "x",
+    "code": "KeyX",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "x",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "x"
+   },
+   {
+    "t": "input",
+    "v": "aaxaa",
+    "s": 3,
+    "e": 3,
+    "data": "x",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaxaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "x",
+    "code": "KeyX",
+    "kc": 88
+   },
+   {
+    "t": "keydown",
+    "v": "aaxaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "u",
+    "code": "KeyU",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaxaa",
+    "s": 2,
+    "e": 3,
+    "data": "xu",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaxaa",
+    "s": 2,
+    "e": 3,
+    "data": "xu"
+   },
+   {
+    "t": "input",
+    "v": "aaxuaa",
+    "s": 4,
+    "e": 4,
+    "data": "xu",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaxuaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "u",
+    "code": "KeyU",
+    "kc": 85
+   },
+   {
+    "t": "keydown",
+    "v": "aaxuaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "1",
+    "code": "Digit1",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaxuaa",
+    "s": 2,
+    "e": 4,
+    "data": "需",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaxuaa",
+    "s": 2,
+    "e": 4,
+    "data": "需"
+   },
+   {
+    "t": "input",
+    "v": "aa需aa",
+    "s": 3,
+    "e": 3,
+    "data": "需",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa需aa",
+    "s": 3,
+    "e": 3,
+    "data": "需"
+   },
+   {
+    "t": "keyup",
+    "v": "aa需aa",
+    "s": 3,
+    "e": 3,
+    "key": "1",
+    "code": "Digit1",
+    "kc": 49
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - long press with arrow keys",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aaöaa",
+   "selectionStart": 3,
+   "selectionEnd": 3,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79
+   },
+   {
+    "t": "keypress",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 111,
+    "cc": 111
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "o",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "data": "o",
+    "it": "insertText"
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79,
+    "rep": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79
+   },
+   {
+    "t": "keydown",
+    "v": "aaoaa",
+    "s": 3,
+    "e": 3,
+    "key": "ArrowRight",
+    "code": "ArrowRight",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaoaa",
+    "s": 2,
+    "e": 3,
+    "data": "o"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaoaa",
+    "s": 2,
+    "e": 3,
+    "data": "ô",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaoaa",
+    "s": 2,
+    "e": 3,
+    "data": "ô"
+   },
+   {
+    "t": "input",
+    "v": "aaôaa",
+    "s": 2,
+    "e": 3,
+    "data": "ô",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaôaa",
+    "s": 2,
+    "e": 3,
+    "comp": true,
+    "key": "ArrowRight",
+    "code": "ArrowRight",
+    "kc": 39
+   },
+   {
+    "t": "keydown",
+    "v": "aaôaa",
+    "s": 2,
+    "e": 3,
+    "comp": true,
+    "key": "ArrowRight",
+    "code": "ArrowRight",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaôaa",
+    "s": 2,
+    "e": 3,
+    "data": "ö",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaôaa",
+    "s": 2,
+    "e": 3,
+    "data": "ö"
+   },
+   {
+    "t": "input",
+    "v": "aaöaa",
+    "s": 2,
+    "e": 3,
+    "data": "ö",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaöaa",
+    "s": 2,
+    "e": 3,
+    "comp": true,
+    "key": "ArrowRight",
+    "code": "ArrowRight",
+    "kc": 39
+   },
+   {
+    "t": "keydown",
+    "v": "aaöaa",
+    "s": 2,
+    "e": 3,
+    "comp": true,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaöaa",
+    "s": 2,
+    "e": 3,
+    "data": "ö",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaöaa",
+    "s": 2,
+    "e": 3,
+    "data": "ö"
+   },
+   {
+    "t": "input",
+    "v": "aaöaa",
+    "s": 3,
+    "e": 3,
+    "data": "ö",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aaöaa",
+    "s": 3,
+    "e": 3,
+    "data": "ö"
+   },
+   {
+    "t": "keyup",
+    "v": "aaöaa",
+    "s": 3,
+    "e": 3,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - pressing quotes on US Intl",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aa'';aa",
+   "selectionStart": 5,
+   "selectionEnd": 5,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Dead",
+    "code": "Quote",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "'"
+   },
+   {
+    "t": "input",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Dead",
+    "code": "Quote",
+    "kc": 222
+   },
+   {
+    "t": "keydown",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Dead",
+    "code": "Quote",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa'aa",
+    "s": 2,
+    "e": 3,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa'aa",
+    "s": 2,
+    "e": 3,
+    "data": "'"
+   },
+   {
+    "t": "input",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": "'"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa'aa",
+    "s": 3,
+    "e": 3,
+    "data": "'"
+   },
+   {
+    "t": "input",
+    "v": "aa''aa",
+    "s": 4,
+    "e": 4,
+    "data": "'",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa''aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Dead",
+    "code": "Quote",
+    "kc": 222
+   },
+   {
+    "t": "keydown",
+    "v": "aa''aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": ";",
+    "code": "Semicolon",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa''aa",
+    "s": 3,
+    "e": 4,
+    "data": "';",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa''aa",
+    "s": 3,
+    "e": 4,
+    "data": "';"
+   },
+   {
+    "t": "input",
+    "v": "aa'';aa",
+    "s": 5,
+    "e": 5,
+    "data": "';",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa'';aa",
+    "s": 5,
+    "e": 5,
+    "data": "';"
+   },
+   {
+    "t": "keyup",
+    "v": "aa'';aa",
+    "s": 5,
+    "e": 5,
+    "key": ";",
+    "code": "Semicolon",
+    "kc": 186
+   }
+  ]
+ },
+ {
+  "title": "macOS - Chrome - inserting emoji using ctrl+cmd+space",
+  "os": "Macintosh",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aa🥳aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Control",
+    "code": "ControlLeft",
+    "kc": 17
+   },
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Meta",
+    "code": "MetaLeft",
+    "kc": 91
+   },
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   },
+   {
+    "t": "keyup",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Meta",
+    "code": "MetaLeft",
+    "kc": 91
+   },
+   {
+    "t": "keyup",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   },
+   {
+    "t": "keyup",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Control",
+    "code": "ControlLeft",
+    "kc": 17
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "🥳",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aa🥳aa",
+    "s": 4,
+    "e": 4,
+    "data": "🥳",
+    "it": "insertText"
+   }
+  ]
+ },
+ {
+  "title": "macOS - Firefox - long press with mouse",
+  "os": "Macintosh",
+  "browser": [
+   "firefox"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aaèaa",
+   "selectionStart": 3,
+   "selectionEnd": 3,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keypress",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 101,
+    "cc": 101
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "e",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "data": "e",
+    "it": "insertText"
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keydown",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69,
+    "rep": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaeaa",
+    "s": 3,
+    "e": 3,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaeaa",
+    "s": 2,
+    "e": 3,
+    "data": "è",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aaèaa",
+    "s": 3,
+    "e": 3,
+    "data": "è",
+    "it": "insertText"
+   }
+  ]
+ },
+ {
+  "title": "macOS - Firefox - inserting emojis",
+  "os": "Macintosh",
+  "browser": [
+   "firefox"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa😍aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "😍",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aa😍aa",
+    "s": 4,
+    "e": 4,
+    "data": "😍",
+    "it": "insertText"
+   }
+  ]
+ },
+ {
+  "title": "macOS - Safari - Chinese - issue #119469",
+  "os": "Macintosh",
+  "browser": [
+   "safari"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "none"
+  },
+  "final": {
+   "value": "aaf\naa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "none"
+  },
+  "events": [
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "f"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "f",
+    "it": "insertCompositionText"
+   },
+   {
+    "t": "input",
+    "v": "aafaa",
+    "s": 2,
+    "e": 3,
+    "data": "f",
+    "it": "insertCompositionText"
+   },
+   {
+    "t": "keydown",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "f",
+    "code": "KeyF",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "f",
+    "code": "KeyF",
+    "kc": 70
+   },
+   {
+    "t": "beforeinput",
+    "v": "aafaa",
+    "s": 2,
+    "e": 3,
+    "data": null,
+    "it": "deleteCompositionText"
+   },
+   {
+    "t": "input",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": null,
+    "it": "deleteCompositionText"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "f",
+    "it": "insertFromComposition"
+   },
+   {
+    "t": "input",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "data": "f",
+    "it": "insertFromComposition"
+   },
+   {
+    "t": "compositionend",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "data": "f"
+   },
+   {
+    "t": "keydown",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13
+   },
+   {
+    "t": "keydown",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13
+   },
+   {
+    "t": "keypress",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13,
+    "cc": 13
+   },
+   {
+    "t": "beforeinput",
+    "v": "aafaa",
+    "s": 3,
+    "e": 3,
+    "data": null,
+    "it": "insertLineBreak"
+   },
+   {
+    "t": "input",
+    "v": "aaf\naa",
+    "s": 4,
+    "e": 4,
+    "data": null,
+    "it": "insertLineBreak"
+   },
+   {
+    "t": "keyup",
+    "v": "aaf\naa",
+    "s": 4,
+    "e": 4,
+    "key": "Enter",
+    "code": "Enter",
+    "kc": 13
+   }
+  ]
+ },
+ {
+  "title": "Windows - Chrome - Japanese using Hiragana",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aaせんせいaa",
+   "selectionStart": 6,
+   "selectionEnd": 6,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ"
+   },
+   {
+    "t": "input",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ"
+   },
+   {
+    "t": "input",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん"
+   },
+   {
+    "t": "input",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 73
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "Enter",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "key": "Process",
+    "code": "Enter",
+    "kc": 229
+   }
+  ]
+ },
+ {
+  "title": "Windows 11 - Chrome - Japanese using Hiragana",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aaせんせいaa",
+   "selectionStart": 6,
+   "selectionEnd": 6,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "data": "ｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaｓaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaｓaa",
+    "s": 2,
+    "e": 3,
+    "data": "せ"
+   },
+   {
+    "t": "input",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "data": "せ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせaa",
+    "s": 2,
+    "e": 3,
+    "data": "せｎ"
+   },
+   {
+    "t": "input",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "data": "せｎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせｎaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせｎaa",
+    "s": 2,
+    "e": 4,
+    "data": "せん"
+   },
+   {
+    "t": "input",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "data": "せん",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんaa",
+    "s": 2,
+    "e": 4,
+    "data": "せんｓ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんｓ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんｓaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんｓaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせ"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "data": "せんせ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyE",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "e",
+    "code": "KeyE",
+    "kc": 69
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせaa",
+    "s": 2,
+    "e": 5,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 73
+   },
+   {
+    "t": "keydown",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "Enter",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaせんせいaa",
+    "s": 2,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "input",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "data": "せんせい"
+   },
+   {
+    "t": "keyup",
+    "v": "aaせんせいaa",
+    "s": 6,
+    "e": 6,
+    "key": "Process",
+    "code": "Enter",
+    "kc": 229
+   }
+  ]
+ },
+ {
+  "title": "Windows - Chrome - Korean (1)",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa아가aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악"
+   },
+   {
+    "t": "input",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가"
+   },
+   {
+    "t": "input",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가"
+   }
+  ]
+ },
+ {
+  "title": "Windows 11 - Chrome - Korean (1)",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa아가aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅇ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅇ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyD",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "d",
+    "code": "KeyD",
+    "kc": 68
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅇaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅇaa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "k",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "keydown",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 2,
+    "e": 3,
+    "data": "악"
+   },
+   {
+    "t": "input",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "data": "악",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "r",
+    "code": "KeyR",
+    "kc": 82
+   },
+   {
+    "t": "keydown",
+    "v": "aa악aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa악aa",
+    "s": 2,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "아"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가"
+   },
+   {
+    "t": "input",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "k",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "compositionend",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아가aa",
+    "s": 3,
+    "e": 4,
+    "data": null,
+    "it": "deleteContentBackward"
+   },
+   {
+    "t": "input",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": null,
+    "it": "deleteContentBackward"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa아aa",
+    "s": 3,
+    "e": 3,
+    "data": "가",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aa아가aa",
+    "s": 4,
+    "e": 4,
+    "data": "가",
+    "it": "insertText"
+   }
+  ]
+ },
+ {
+  "title": "Windows - Chrome - Korean (2)",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa한글 aa",
+   "selectionStart": 5,
+   "selectionEnd": 5,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyG",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅎ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyG",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅎaa",
+    "s": 2,
+    "e": 3,
+    "data": "하",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅎaa",
+    "s": 2,
+    "e": 3,
+    "data": "하"
+   },
+   {
+    "t": "input",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "data": "하",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa하aa",
+    "s": 2,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa하aa",
+    "s": 2,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "input",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한aa",
+    "s": 2,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한aa",
+    "s": 2,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "input",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "ㄱ"
+   },
+   {
+    "t": "input",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyM",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한ㄱaa",
+    "s": 3,
+    "e": 4,
+    "data": "그",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한ㄱaa",
+    "s": 3,
+    "e": 4,
+    "data": "그"
+   },
+   {
+    "t": "input",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "data": "그",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyM",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyF",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한그aa",
+    "s": 3,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한그aa",
+    "s": 3,
+    "e": 4,
+    "data": "글"
+   },
+   {
+    "t": "input",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyF",
+    "kc": 229
+   },
+   {
+    "t": "keydown",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한글aa",
+    "s": 3,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한글aa",
+    "s": 3,
+    "e": 4,
+    "data": "글"
+   },
+   {
+    "t": "input",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글"
+   },
+   {
+    "t": "keydown",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   },
+   {
+    "t": "keypress",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "key": " ",
+    "code": "Space",
+    "kc": 32,
+    "cc": 32
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": " ",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aa한글 aa",
+    "s": 5,
+    "e": 5,
+    "data": " ",
+    "it": "insertText"
+   },
+   {
+    "t": "keyup",
+    "v": "aa한글 aa",
+    "s": 5,
+    "e": 5,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa한글 aa",
+    "s": 5,
+    "e": 5,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   }
+  ]
+ },
+ {
+  "title": "Windows 11 - Chrome - Korean (2)",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa한글aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keyup",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Control",
+    "code": "ControlLeft",
+    "kc": 17
+   },
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyG",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㅎ"
+   },
+   {
+    "t": "input",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㅎ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyG",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "g",
+    "code": "KeyG",
+    "kc": 71
+   },
+   {
+    "t": "keydown",
+    "v": "aaㅎaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㅎaa",
+    "s": 2,
+    "e": 3,
+    "data": "하",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㅎaa",
+    "s": 2,
+    "e": 3,
+    "data": "하"
+   },
+   {
+    "t": "input",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "data": "하",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyK",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "k",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "keydown",
+    "v": "aa하aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa하aa",
+    "s": 2,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa하aa",
+    "s": 2,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "input",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyS",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "s",
+    "code": "KeyS",
+    "kc": 83
+   },
+   {
+    "t": "keydown",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한aa",
+    "s": 2,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한aa",
+    "s": 2,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "input",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "한"
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "ㄱ"
+   },
+   {
+    "t": "input",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyR",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "r",
+    "code": "KeyR",
+    "kc": 82
+   },
+   {
+    "t": "keydown",
+    "v": "aa한ㄱaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyM",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한ㄱaa",
+    "s": 3,
+    "e": 4,
+    "data": "그",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한ㄱaa",
+    "s": 3,
+    "e": 4,
+    "data": "그"
+   },
+   {
+    "t": "input",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "data": "그",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyM",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "m",
+    "code": "KeyM",
+    "kc": 77
+   },
+   {
+    "t": "keydown",
+    "v": "aa한그aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyF",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한그aa",
+    "s": 3,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa한그aa",
+    "s": 3,
+    "e": 4,
+    "data": "글"
+   },
+   {
+    "t": "input",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyF",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "f",
+    "code": "KeyF",
+    "kc": 70
+   },
+   {
+    "t": "compositionend",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한글aa",
+    "s": 3,
+    "e": 4,
+    "data": null,
+    "it": "deleteContentBackward"
+   },
+   {
+    "t": "input",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": null,
+    "it": "deleteContentBackward"
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa한aa",
+    "s": 3,
+    "e": 3,
+    "data": "글",
+    "it": "insertText"
+   },
+   {
+    "t": "input",
+    "v": "aa한글aa",
+    "s": 4,
+    "e": 4,
+    "data": "글",
+    "it": "insertText"
+   }
+  ]
+ },
+ {
+  "title": "Windows - Chrome - Chinese",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa你好aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "n",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "n"
+   },
+   {
+    "t": "input",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "data": "n",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aanaa",
+    "s": 2,
+    "e": 3,
+    "data": "ni",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aanaa",
+    "s": 2,
+    "e": 3,
+    "data": "ni"
+   },
+   {
+    "t": "input",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "data": "ni",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 73
+   },
+   {
+    "t": "keydown",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaniaa",
+    "s": 2,
+    "e": 4,
+    "data": "你",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaniaa",
+    "s": 2,
+    "e": 4,
+    "data": "你"
+   },
+   {
+    "t": "input",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "你",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "你"
+   },
+   {
+    "t": "keyup",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   },
+   {
+    "t": "keydown",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": "Process",
+    "code": "KeyH",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "h",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "h"
+   },
+   {
+    "t": "input",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "data": "h",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyH",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "h",
+    "code": "KeyH",
+    "kc": 72
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyA",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haa",
+    "s": 3,
+    "e": 4,
+    "data": "ha",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haa",
+    "s": 3,
+    "e": 4,
+    "data": "ha"
+   },
+   {
+    "t": "input",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "data": "ha",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyA",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "a",
+    "code": "KeyA",
+    "kc": 65
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyO",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haaa",
+    "s": 3,
+    "e": 5,
+    "data": "hao",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haaa",
+    "s": 3,
+    "e": 5,
+    "data": "hao"
+   },
+   {
+    "t": "input",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "data": "hao",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyO",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haoaa",
+    "s": 3,
+    "e": 6,
+    "data": "好",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haoaa",
+    "s": 3,
+    "e": 6,
+    "data": "好"
+   },
+   {
+    "t": "input",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "data": "好",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "data": "好"
+   },
+   {
+    "t": "keyup",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   }
+  ]
+ },
+ {
+  "title": "Windows 11 - Chrome - Chinese",
+  "os": "Windows",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa你好aa",
+   "selectionStart": 4,
+   "selectionEnd": 4,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "n",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "n"
+   },
+   {
+    "t": "input",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "data": "n",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyN",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "n",
+    "code": "KeyN",
+    "kc": 78
+   },
+   {
+    "t": "keydown",
+    "v": "aanaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aanaa",
+    "s": 2,
+    "e": 3,
+    "data": "ni",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aanaa",
+    "s": 2,
+    "e": 3,
+    "data": "ni"
+   },
+   {
+    "t": "input",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "data": "ni",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyI",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "i",
+    "code": "KeyI",
+    "kc": 73
+   },
+   {
+    "t": "keydown",
+    "v": "aaniaa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaniaa",
+    "s": 2,
+    "e": 4,
+    "data": "你",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaniaa",
+    "s": 2,
+    "e": 4,
+    "data": "你"
+   },
+   {
+    "t": "input",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "你",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "你"
+   },
+   {
+    "t": "keyup",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   },
+   {
+    "t": "keydown",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "key": "Process",
+    "code": "KeyH",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "h",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你aa",
+    "s": 3,
+    "e": 3,
+    "data": "h"
+   },
+   {
+    "t": "input",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "data": "h",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyH",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "h",
+    "code": "KeyH",
+    "kc": 72
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haa",
+    "s": 4,
+    "e": 4,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyA",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haa",
+    "s": 3,
+    "e": 4,
+    "data": "ha",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haa",
+    "s": 3,
+    "e": 4,
+    "data": "ha"
+   },
+   {
+    "t": "input",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "data": "ha",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyA",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "a",
+    "code": "KeyA",
+    "kc": 65
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haaa",
+    "s": 5,
+    "e": 5,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyO",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haaa",
+    "s": 3,
+    "e": 5,
+    "data": "hao",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haaa",
+    "s": 3,
+    "e": 5,
+    "data": "hao"
+   },
+   {
+    "t": "input",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "data": "hao",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "KeyO",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "o",
+    "code": "KeyO",
+    "kc": 79
+   },
+   {
+    "t": "keydown",
+    "v": "aa你haoaa",
+    "s": 6,
+    "e": 6,
+    "comp": true,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa你haoaa",
+    "s": 3,
+    "e": 6,
+    "data": "好",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa你haoaa",
+    "s": 3,
+    "e": 6,
+    "data": "好"
+   },
+   {
+    "t": "input",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "data": "好",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionend",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "data": "好"
+   },
+   {
+    "t": "keyup",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "key": "Process",
+    "code": "Space",
+    "kc": 229
+   },
+   {
+    "t": "keyup",
+    "v": "aa你好aa",
+    "s": 4,
+    "e": 4,
+    "key": " ",
+    "code": "Space",
+    "kc": 32
+   }
+  ]
+ },
+ {
+  "title": "Linux - Chrome - Korean",
+  "os": "Linux",
+  "browser": [
+   "chrome"
+  ],
+  "initial": {
+   "value": "aaaa",
+   "selectionStart": 2,
+   "selectionEnd": 2,
+   "selectionDirection": "forward"
+  },
+  "final": {
+   "value": "aa각aa",
+   "selectionStart": 3,
+   "selectionEnd": 3,
+   "selectionDirection": "forward"
+  },
+  "events": [
+   {
+    "t": "keydown",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "key": "Unidentified",
+    "code": "",
+    "kc": 229
+   },
+   {
+    "t": "compositionstart",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": ""
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaaa",
+    "s": 2,
+    "e": 2,
+    "data": "ㄱ"
+   },
+   {
+    "t": "input",
+    "v": "aaㄱaa",
+    "s": 3,
+    "e": 3,
+    "data": "ㄱ",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aaㄱaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "r",
+    "code": "KeyR",
+    "kc": 82
+   },
+   {
+    "t": "keydown",
+    "v": "aaㄱaa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Unidentified",
+    "code": "",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aaㄱaa",
+    "s": 2,
+    "e": 3,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aaㄱaa",
+    "s": 2,
+    "e": 3,
+    "data": "가"
+   },
+   {
+    "t": "input",
+    "v": "aa가aa",
+    "s": 3,
+    "e": 3,
+    "data": "가",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa가aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "k",
+    "code": "KeyK",
+    "kc": 75
+   },
+   {
+    "t": "keydown",
+    "v": "aa가aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "Unidentified",
+    "code": "",
+    "kc": 229
+   },
+   {
+    "t": "beforeinput",
+    "v": "aa가aa",
+    "s": 2,
+    "e": 3,
+    "data": "각",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "compositionupdate",
+    "v": "aa가aa",
+    "s": 2,
+    "e": 3,
+    "data": "각"
+   },
+   {
+    "t": "input",
+    "v": "aa각aa",
+    "s": 3,
+    "e": 3,
+    "data": "각",
+    "it": "insertCompositionText",
+    "comp": true
+   },
+   {
+    "t": "keyup",
+    "v": "aa각aa",
+    "s": 3,
+    "e": 3,
+    "comp": true,
+    "key": "r",
+    "code": "KeyR",
+    "kc": 82
+   },
+   {
+    "t": "compositionend",
+    "v": "aa각aa",
+    "s": 3,
+    "e": 3,
+    "data": "각"
+   }
+  ]
+ }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "file": "common/viewLayout/viewLineRenderer.test.ts",
+    "reason": "已由 __tests__/core/parity-viewline-colorize.test.ts(21 条:静态着色路径 renderColorizedLine,原测快照 HTML 逐条比对)与 __tests__/core/parity-viewline-editor.test.ts(66 条:编辑器正文 DOM 上的空白记号 / RTL / 行内装饰 / 控制字符 / 字符映射)逐条翻译覆盖,70 个原测标题各有一条;有意不同:正文不截断(stopRenderingLineAfter)(原因存档:测的是 Monaco 的 renderViewLine2:把一行文本 + 行内 token(TestLineTokens 的 metadata 位域)+ LineDecoration + 空白/控制字符渲染选项,拼成 <span class=\"mtkN mtkw …\"> 的 HTML 字符串,并给出 CharacterMapping(part/charIndex ↔ DOM 偏移)。断言全是逐 span 的类名与内容串(mtk1/mtkz/mtkw/mtki、&#160;、→ 的 canUseHalfwidthRightwardsArrow、renderControlCharacters 的 U+2400 区字符、fauxIndent 等)。lite-monaco 没有「行 → HTML 串」这一层:行 DOM 由 core/view/buildtile(Tile 树)→ materialize 增量 patch 生成,颜色来自 shiki 主题 token 的内联样式而不是 mtk 颜色 id 类,空白与特殊字符走 core/feature/whitespace.ts、specialchar.ts 的装饰,没有 CharacterMapping(位置↔DOM 靠 dombridge 的 pos↔DOM 双射)。要过这 70 条就得在垫片里写一个 mtk 类名的 HTML 渲染器,那是在垫片里实现被测行为(README 第 3 条违规)。行 DOM≡doc 与空白/特殊字符渲染由 __tests__/core 的 dombridge / domchange / whitespace / specialchar 自有测试覆盖。)"
+  },
+  {
+    "file": "common/viewLayout/lineDecorations.test.ts",
+    "reason": "测的是 Monaco LineDecorationsNormalizer.normalize:把一行上互相重叠的 LineDecoration(各带 className 与 InlineDecorationType)压平成不重叠的 DecorationSegment 序列,重叠段的类名串联成 'c2 c1'、按 type 决定 Before/After 只占 1 列。lite-monaco 的行内装饰是 CM6 式 mark(core/model/decoration.ts,带 rank)+ buildtile 的 MarkTile 嵌套成 DOM 子树,重叠由嵌套表达,不存在「压平成类名拼接的平铺段」这一步,也没有 LineDecoration/DecorationSegment/InlineDecorationType 数据结构;mark 嵌套顺序(低 rank 内层 CSS 赢)由 __tests__/core 的 decoration / buildtile 自有测试覆盖。垫片要造平铺段算法就是在垫片里实现被测行为。"
+  },
+  {
+    "file": "common/viewLayout/linesLayout.test.ts",
+    "reason": "测的是 Monaco 的 LinesLayout:以「行号」为索引的纵向布局,whitespace(afterLineNumber、height、minWidth、ordinal)插入/改高/删除、getVerticalOffsetForLineNumber / getWhitespaceAtVerticalOffset / getLinesViewportData / getLineNumberAtOrAfterVerticalOffset 等纯数学。lite-monaco 的纵向布局是 core/view/heightmap 的 HeightMap(以文档偏移为键的 sum-tree,行高来自 HeightOracle 估算 + 视口内真实测量,折行靠浏览器排版),view zone 在 editorview 里登记后只作为 spaceAbove 投影进 heightmap 与行 DOM 的 margin-top,没有独立的 whitespace 行号表,也没有 LinesLayout 这个对象及其 API。垫片要把 HeightMap 改装成行号 API 就是在垫片里实现被测行为;heightmap 由 __tests__/core/heightmap.test.ts 覆盖,view zone 由 v-api / final-host 等测试覆盖。"
+  },
+  {
+    "file": "common/view/overviewZoneManager.test.ts",
+    "reason": "测的是 Monaco 的 OverviewZoneManager.resolveColorZones:把 OverviewRulerZone(起止行、颜色 id、z)按 domHeight/outerHeight/lineHeight/pixelRatio 解析成像素 ColorZone(from/to/colorId),带「单行最小像素高、相邻同色合并、最大 6px 帽」等规则,供旧的 DOM 概览尺使用。lite-monaco 的概览尺是 core/chrome/overviewpaint:装饰按颜色分组成 [lane,startLine,endLine] 三元组(groupOverviewDecos),paintOverview 直接在 canvas 上按 ratio 算 y1/y2 并 fillRect(最小 6*dpr 高、同 lane 相邻并段),对应 Monaco 较新的 decorationsOverviewRuler,而不是 OverviewZoneManager;没有 ColorZone / OverviewRulerZone / colorId 池这套中间表示,几何算法也不同(不产出可比较的像素区间数组,直接画)。强行对比要么得在垫片里重写 resolveColorZones,要么改 paintOverview 去产出 ColorZone,都不是对齐行为而是为测试造结构。"
+  },
+  {
+    "file": "common/modes/supports/tokenization.test.ts",
+    "reason": "测的是 Monaco 内部的 TokenTheme / parseTokenTheme / ColorMap / ExternalThemeTrieElement / ThemeTrieElementRule:把 ITokenThemeRule[](token 点分前缀、foreground/background/fontStyle)解析成 trie,match(languageId, token) 返回打包了 fontStyle + foreground colorId + background colorId 的 metadata,并断言 ColorMap 里颜色 id 的分配顺序、规则继承与合并。lite-monaco 的主题是 shiki 主题(api/themes.ts 把 IStandaloneThemeData.rules 翻成 TextMate settings[{scope,settings}],token 选择交给 shiki 的 TextMate 作用域匹配),没有 trie、没有 colorId/ColorMap、没有 metadata 位域,也没有 Monarch token 名到颜色的运行时匹配;对应能力(rules → scope 的翻译与继承)已在 api/themes.ts,由 __tests__/core 的 h3-theme / theme-fix2 / theme-instance 自有测试覆盖。垫片要造 trie + ColorMap 就是实现被测行为。"
+  },
+  {
+    "file": "common/viewModel/prefixSumComputer.test.ts",
+    "reason": "测的是 Monaco 的 PrefixSumComputer(Uint32Array 前缀和,insertValues/removeValues/changeValue/getPrefixSum/getIndexOf,带 PrefixSumIndexOfResult 复用对象):PieceTree 的行长表和 LinesLayout 的行高表底层用它。lite-monaco 里没有这个数据结构的使用点:文档是 core/model/rope(按行串 + 长度的 B 树,lineAt/offset 由树本身给出),行高是 heightmap 的 sum-tree,minimap/gutter 的行→行号映射是各自的二分,没有任何生产代码需要「可变长数组的前缀和」。写一个没有调用方的 PrefixSumComputer 只会多出一份死代码,而垫片自己实现又是违规,所以 N/A。"
+  },
+  {
+    "file": "common/core/textEdit.test.ts",
+    "reason": "测的是 Monaco 的 TextEdit / TextReplacement / StringText:以 (line,column) Range 寻址的不可变编辑,inverse(source) 后 applyToString 还原(Random.nextTextEdit 直接 new 原版 TextEdit)。lite-monaco 的编辑原语是以偏移寻址的 ChangeSet(core/model/change.ts,compose/invert/map),Range ↔ 偏移只在 api 边缘(model.applyEdits / getOffsetAt)转换,没有 TextEdit/StringText 这组类;inverse 往返的实质(ChangeSet.invert)已经通过 edit.test.ts 的 StringEdit 垫片(1000 例 inverse + 1000 例 compose)跑在 lite 的真实代码上。这里再造 Range 版 TextEdit 只是又包一层。"
+  },
+  {
+    "file": "common/core/stringBuilder.test.ts",
+    "reason": "测的是 Monaco 的 StringBuilder / decodeUTF16LE:往 Uint16Array 缓冲里按 UTF-16LE 逐码元写字符再一次性 decode 成字符串,是原版在渲染大量行 HTML 串时的性能工具(viewLineRenderer 里拼 <span>)。lite-monaco 的渲染走 DOM(preact / buildtile / materialize),全仓库没有任何「大量拼接 HTML 字符串」的路径,也就没有这个工具的调用点;为一个无调用方的类造出来是死代码。"
+  },
+  {
+    "file": "common/model/textChange.test",
+    "reason": "测的是 Monaco 内部纯工具类 TextChange(oldPosition/oldText/newPosition/newText 的 serialize/deserialize 与 compressConsecutiveTextChanges),它是 Monaco 撤销栈(SingleModelEditStackElement)存编辑的二进制格式。lite-monaco 的撤销是 core/edit/history 的 ChangeSet 反演,没有这个类;公开 API 只在 IValidEditOperation.textChange 上吐出一个同形状的普通对象(已由 model.test/editableTextModel 覆盖)。垫片要造这个类的序列化与合并就是实现被测行为,不接 lite-monaco 的文件原样跑只是在测 Monaco 自己。"
+  },
+  {
+    "file": "common/services/semanticTokensDto.test",
+    "reason": "测的是 Monaco 内部的 semanticTokensDto(encode/decodeSemanticTokensDto:把语义 token 的 Uint32Array 打包成 VSBuffer 经 web worker/ext host 传输的线路格式)。lite-monaco 的语义 token 提供者与语言服务同进程,没有跨进程序列化层,也没有 VSBuffer;公开面上的语义 token 行为由 tokensStore/documentSemanticTokens 测试覆盖。"
+  }
+]
