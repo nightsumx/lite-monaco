@@ -11,6 +11,8 @@ const here = dirname(fileURLToPath(import.meta.url))
 const out = resolve(here, '_deploy')
 const ORIGIN = 'https://lite-monaco.dev'
 const REPO = 'https://github.com/nightsumx/lite-monaco'
+// IndexNow（Bing、Yandex 等）：站点根目录放 <key>.txt 证明归属，site/indexnow.mjs 在部署后把 sitemap 里的网址报上去
+export const INDEXNOW_KEY = '9604bba44a5444ffa6bda7bee762cffe'
 // 文档的顺序就是侧栏和 llms.txt 的顺序
 const ORDER = ['getting-started', 'migrate-from-monaco', 'react', 'language-features', 'bundle-size', 'differences']
 
@@ -218,6 +220,7 @@ ${docs.map((d, i) => `    <li><a href="/docs/${d.name}/"><i>${String(i + 1).padS
 ${urls.map(u => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod></url>`).join('\n')}
 </urlset>
 `)
+    writeFileSync(resolve(out, INDEXNOW_KEY + '.txt'), INDEXNOW_KEY)
     writeFileSync(resolve(out, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${ORIGIN}/sitemap.xml\n`)
     // llms.txt（llmstxt.org）：给 AI 助手的一页说明，链接指向各篇的 Markdown 原文
     writeFileSync(resolve(out, 'llms.txt'), `# lite-monaco

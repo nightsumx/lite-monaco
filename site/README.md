@@ -4,7 +4,7 @@
 
 - 构建：`node site/build.mjs`（JS 在 `site/dist/`，整站拼在 `site/_deploy/`：首页、`docs-src/*.md` 生成的文档页、sitemap、llms.txt，都不进仓库）
 - 预览：`python3 -m http.server -d site/_deploy 5311`
-- 部署：`sh site/deploy.sh`（Cloudflare Workers 静态资源，`site/wrangler.jsonc`；只部署 HEAD，在临时目录里构建）
+- 部署：`sh site/deploy.sh`（Cloudflare Workers 静态资源，`site/wrangler.jsonc`；只部署 HEAD，在临时目录里构建）。部署完跑 `site/indexnow.mjs`，把 sitemap 里的网址报给 IndexNow（Bing、Yandex 等；归属靠根目录的 `<key>.txt`，key 在 `pages.mjs`）。Google 不接 IndexNow，sitemap 要在 Search Console 里提交一次
 - 体积数字：`node site/measure.mjs` 重新量，改了要同步 `index.html`、`zh/index.html`、`docs-src/bundle-size.md`、`pages.mjs` 里的 llms.txt 和仓库的 `README.md`
 
 单测点阵的数据在构建时从 `PARITY.md` 逐文件读出（`build.mjs` 的 `virtual:parity`）；总数和页面上写的 3863 / 3279 / 584 对不上时构建直接失败。浏览器差分的数字（353/201、338/232、338/227）抄自 `scripts/browser-diff/PROGRESS.md`，是手写的。

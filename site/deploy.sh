@@ -10,3 +10,5 @@ git -C "$root" archive HEAD . | tar -x -C "$tmp"
 ln -s "$root/node_modules" "$tmp/node_modules"
 node "$tmp/site/build.mjs" >/dev/null
 npx wrangler deploy -c "$tmp/site/wrangler.jsonc" "$@"
+# 通知 Bing 等搜索引擎重新抓取；失败不影响已经完成的部署
+node "$tmp/site/indexnow.mjs" || echo "indexnow 没报上，稍后可再跑 node site/indexnow.mjs"
