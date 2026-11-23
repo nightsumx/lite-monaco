@@ -14,7 +14,7 @@ const REPO = 'https://github.com/nightsumx/lite-monaco'
 // IndexNow（Bing、Yandex 等）：站点根目录放 <key>.txt 证明归属，site/indexnow.mjs 在部署后把 sitemap 里的网址报上去
 export const INDEXNOW_KEY = '9604bba44a5444ffa6bda7bee762cffe'
 // 文档的顺序就是侧栏和 llms.txt 的顺序
-const ORDER = ['getting-started', 'migrate-from-monaco', 'react', 'language-features', 'bundle-size', 'differences']
+const ORDER = ['getting-started', 'migrate-from-monaco', 'react', 'language-features', 'bundle-size', 'differences', 'reduce-monaco-bundle-size', 'monaco-without-web-workers']
 
 const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 const slug = s => s.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
@@ -155,7 +155,7 @@ export async function buildPages() {
         const src = readFileSync(resolve(here, 'docs-src', name + '.md'), 'utf8')
         const { meta, md } = frontmatter(src)
         const { title, body, toc } = await markdown(md)
-        docs.push({ name, meta, md, title, body, toc, short: meta.title.replace(/^Using lite-monaco with /, '').replace(/ compared with monaco-editor$/, '') })
+        docs.push({ name, meta, md, title, body, toc, short: meta.short || meta.title.replace(/^Using lite-monaco with /, '').replace(/ compared with monaco-editor$/, '') })
     }
 
     // 首页：英文和中文都插 JSON-LD

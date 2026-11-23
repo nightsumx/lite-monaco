@@ -8,8 +8,6 @@ description: TypeScript IntelliSense, JSON schema validation, CSS and HTML servi
 Every language feature beyond highlighting is an optional dependency: install it and it is on, leave it out and that language gets highlighting only.
 
 > **TypeScript 6, not 7.** `typescript@7` is the native (Go) compiler and has no JavaScript API, which the language service needs. Install `typescript@6`.
->
-> **Vite 8 production builds** of 0.4.0 fail with `"URI" is not exported by "__vite-optional-peer-dep:vscode-uri"` when `vscode-uri` is not installed. Until that is fixed, add `vscode-uri` to your dependencies.
 
 | You want | Install | Notes |
 |---|---|---|

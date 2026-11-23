@@ -6,6 +6,6 @@ A minimal [lite-monaco](https://lite-monaco.dev) editor: Vite, TypeScript, no fr
 npm i && npm run dev
 ```
 
-`src/main.ts` is the whole setup: `import * as monaco from 'lite-monaco'` and `monaco.editor.create(...)`, with no worker configuration. `shiki` adds syntax highlighting; `typescript` adds completion, hover and diagnostics (both optional). `vscode-uri` is only there because lite-monaco 0.4.0's JSON mode imports it by name, which breaks `vite build` when it is missing.
+`src/main.ts` is the whole setup: `import * as monaco from 'lite-monaco'` and `monaco.editor.create(...)`, with no worker configuration. `shiki` adds syntax highlighting; `typescript` adds completion, hover and diagnostics (both optional).
 
 Open it online: https://stackblitz.com/github/nightsumx/lite-monaco/tree/main/templates/vite

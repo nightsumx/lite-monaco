@@ -15,8 +15,6 @@ npm i lite-monaco shiki
 
 `shiki` does the syntax highlighting, loading each language and theme the first time it is used. Without it the editor still works, just without colors.
 
-On Vite 8, also `npm i vscode-uri` for now: 0.4.0's production build fails without it ([details](/docs/language-features/)).
-
 ## Create an editor
 
 ```ts

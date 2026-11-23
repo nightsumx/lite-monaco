@@ -6,6 +6,7 @@
 @font-face { font-family: 'Geist Mono'; src: url(fonts/geist-mono.woff2) format('woff2'); font-weight: 100 900; unicode-range: U+0020-007E, U+00A0-024F, U+2010-2027, U+2190-21FF, U+2318, U+2325; font-display: swap; }
 
 :root {
+  color-scheme: dark;
   --bg: #0a0a0a;
   --bg-1: #0f0f0f;
   --bg-2: #141414;
@@ -413,7 +414,7 @@ html:not(.no-js) .reveal:not(.in) { opacity: 0; transform: translateY(24px); }
 .doc-code::before, .doc-code::after { content: ''; position: absolute; width: 7px; height: 7px; border-color: var(--sig); border-style: solid; pointer-events: none; }
 .doc-code::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
 .doc-code::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-.doc-code pre { margin: 0; padding: 16px 18px; overflow-x: auto; background: transparent !important; font: 400 13px/1.65 var(--mono); }
+.doc-code pre { margin: 0; padding: 16px 18px; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--line-2) transparent; background: transparent !important; font: 400 13px/1.65 var(--mono); }
 .doc-code pre code { color: inherit; font-size: inherit; }
 .doc-lang { position: absolute; top: 8px; right: 10px; font: 400 10px/1 var(--mono); text-transform: uppercase; letter-spacing: .1em; color: var(--faint); }
 
