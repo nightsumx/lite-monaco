@@ -271,7 +271,7 @@ describe('editor.action.showDefinitionPreviewHover', () => {
         provideDefinition: (model, pos) => {
             const w = model.getWordAtPosition(pos)
             if (!w || w.word !== 'target') return null
-            return { uri: { toString: () => 'inmemory://model/1' }, range: { startLineNumber: 1, startColumn: 10, endLineNumber: 1, endColumn: 16 } }
+            return { uri: model.uri, range: { startLineNumber: 1, startColumn: 10, endLineNumber: 1, endColumn: 16 } }
         },
     })
 

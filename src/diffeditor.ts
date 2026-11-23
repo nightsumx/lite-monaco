@@ -25,8 +25,8 @@ import { EditorType, registerDiffEditor } from './api/editorregistry'
 import { liteMonaco, type LiteMonacoFeatures, type ShikiLike } from './litemonaco'
 import { getContextKeyService, type IContextKey } from './api/contextkeys'
 import type { LiteMonacoEditor } from './api/types'
-import type { ITextModel } from './api/model'
-import { getDefaultHighlighter } from './api/create'
+import type { ITextModel, PublicTextModel } from './api/model'
+import { getDefaultHighlighter, markKeybindingContext } from './api/create'
 import { lazyHighlighter } from './api/lazyhighlighter'
 import { getTheme as getGlobalTheme, setTheme as setGlobalTheme, onDidColorThemeChange, resolveShikiThemeName } from './api/themes'
 import type { IDisposable, IEvent } from './lang/tsapi'
@@ -39,6 +39,8 @@ export interface DiffEditorOptions extends IDiffEditorBaseOptions {
     highlighter: ShikiLike
     original: string
     modified: string
+    /** @internal 两侧一开始没有 model(Monaco 的 createDiffEditor 没 setModel 之前 getModel() 是 null):createDiffEditor 两段文本都没给时 */
+    noModel?: boolean
     lang?: string
     theme?: string
     colors?: ThemeColors
@@ -53,7 +55,7 @@ export interface DiffEditorOptions extends IDiffEditorBaseOptions {
 }
 
 /** `createDiffEditor` 的构造项:Monaco 的 IStandaloneDiffEditorConstructionOptions(扁平的 IDiffEditorOptions)加上 lite-monaco 要的几项 */
-export type DiffEditorConstructionOptions = IDiffEditorOptions & Pick<DiffEditorOptions, 'highlighter' | 'lang' | 'theme' | 'colors' | 'features' | 'recomputeDebounceMs'> & {
+export type DiffEditorConstructionOptions = IDiffEditorOptions & Partial<Pick<DiffEditorOptions, 'highlighter' | 'lang' | 'theme' | 'colors' | 'features' | 'recomputeDebounceMs'>> & {
     original?: string
     modified?: string
 }
@@ -96,6 +98,8 @@ export interface IDiffEditorViewModel extends IDisposable {
     readonly model: IDiffEditorModel
     waitForDiff(): Promise<void>
 }
+/** setModel / createViewModel 收的:两侧是 Monaco 公开形状的 ITextModel 即可(见 PublicTextModel) */
+export interface IDiffEditorModelInput { original: PublicTextModel, modified: PublicTextModel }
 /** Monaco IDiffEditorViewState */
 export interface IDiffEditorViewState {
     original: ReturnType<LiteMonacoEditor['saveViewState']>
@@ -430,7 +434,7 @@ export class DiffEditor {
             this.applyHidden()
             e.stopPropagation()
         })
-        this.mountPanes(opts.original, opts.modified)
+        this.mountPanes(opts.original, opts.modified, opts.noModel)
         if (typeof ResizeObserver !== 'undefined') {
             const ro = new ResizeObserver(() => this.layout())
             ro.observe(this.dom)
@@ -523,7 +527,7 @@ export class DiffEditor {
         return raw
     }
 
-    private mountPanes(original: string, modified: string) {
+    private mountPanes(original: string, modified: string, noModel = false) {
         const o = this.opts
         const sbs = this.computeSideBySide()
         this.sbs = sbs
@@ -536,7 +540,7 @@ export class DiffEditor {
         const make = (i: 0 | 1, doc: string) => liteMonaco({
             highlighter: o.highlighter, lang: o.lang, theme: o.theme, colors: o.colors,
             features: { ...o.features, minimap: false, foldGutter: false, lineWrapping: this.wrapFor(i) },
-            parent: this.panes[i], doc, keymap, options: this.sideRaw(i) as core.IEditorOptions,
+            parent: this.panes[i], doc, keymap, options: this.sideRaw(i) as core.IEditorOptions, noModel,
             extensions: [diffField, hiddenField, core.decorations.of(s => s.field(diffField)), core.decorations.of(s => s.field(hiddenField)), this.slots[i].of(this.sideExtension(i))],
         })
         this.originalView = make(0, original)
@@ -1597,7 +1601,7 @@ export class DiffEditor {
      * Monaco setModel:IDiffEditorModel(两个 ITextModel)或 createViewModel 的结果;null = 清空。
      * 为兼容旧用法,`{ original: string, modified: string }` 仍然接受,等同 setModels(重建两侧,撤销栈归新文本)。
      */
-    setModel(model: IDiffEditorModel | IDiffEditorViewModel | { original: string, modified: string } | null): void {
+    setModel(model: IDiffEditorModelInput | { readonly model: IDiffEditorModelInput } | { original: string, modified: string } | null): void {
         const m = model && 'model' in model ? model.model : model
         if (m && typeof m.original === 'string' && typeof m.modified === 'string') { this.setModels(m.original, m.modified); return }
         const dm = m as IDiffEditorModel | null
@@ -1617,8 +1621,8 @@ export class DiffEditor {
         for (const fn of [...this.modelListeners]) fn(ev)
     }
     /** Monaco createViewModel:不挂到编辑器上,只持有 model、能等 diff;setModel 接受它 */
-    createViewModel(model: IDiffEditorModel): IDiffEditorViewModel {
-        return { model, waitForDiff: () => this.waitForDiff(), dispose() { /* 没有额外资源 */ } }
+    createViewModel(model: IDiffEditorModelInput): IDiffEditorViewModel {
+        return { model: model as IDiffEditorModel, waitForDiff: () => this.waitForDiff(), dispose() { /* 没有额外资源 */ } }
     }
     /** Monaco onDidChangeModel */
     readonly onDidChangeModel: IEvent<void> = listener => {
@@ -1922,22 +1926,28 @@ for (const name of DELEGATED) {
  * Monaco `editor.createDiffEditor(container, options)`。选项是扁平的 IDiffEditorOptions(diff 自己的项 + 两侧编辑器的项);
  * lite-monaco 没有 ITextModel,文本用 `original` / `modified` 传,之后用 `setModel({original, modified})` 换。
  */
-export function createDiffEditor(container: Element, options: DiffEditorConstructionOptions): DiffEditor {
+// 选项可以不传(和 Monaco 一样);第三个参数 IEditorOverrideServices 同 createEditor,收下不用
+export function createDiffEditor(container: Element, options: DiffEditorConstructionOptions = {}, _override?: { [index: string]: unknown }): DiffEditor {
     const { original, modified, highlighter, lang, theme, colors, features, recomputeDebounceMs, ...rest } = options
     const { diff, editor } = splitDiffOptions(rest as Record<string, unknown>)
     // Monaco 的 createDiffEditor 不要求前置配置:没传高亮器就用 setDefaultHighlighter 登记的,再没有就用懒加载 shiki;
     // 主题是全局的(同 createEditor):传了就设,没传用当前全局主题
     const themeName = theme ?? (editor as { theme?: string }).theme ?? getGlobalTheme()
     if (themeName !== getGlobalTheme()) setGlobalTheme(themeName)
-    return new DiffEditor({
+    // Monaco 的 DiffEditorWidget 在传进来的容器上建自己的快捷键上下文(没有 data-mode-id,那是两边编辑器各自的)
+    const unmark = markKeybindingContext(container)
+    const d = new DiffEditor({
         ...diff,
         parent: container,
         highlighter: highlighter ?? getDefaultHighlighter() ?? lazyHighlighter,
         original: original ?? '',
         modified: modified ?? '',
+        noModel: original === undefined && modified === undefined,
         lang: lang ?? 'plaintext',
         theme: themeName, colors, features, recomputeDebounceMs,
         readOnly: (editor as { readOnly?: boolean }).readOnly,
         options: editor,
     })
+    d.onDidDispose(unmark)
+    return d
 }

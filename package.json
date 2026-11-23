@@ -1,6 +1,6 @@
 {
   "name": "lite-monaco",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Drop-in replacement for monaco-editor: the same monaco.editor / monaco.languages API, checked against Monaco's own unit tests, under half the size, no workers to configure.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -21,6 +21,11 @@
       "types": "./dist/basic-languages.d.ts",
       "import": "./dist/basic-languages.js",
       "require": "./dist/basic-languages.cjs"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.js",
+      "require": "./dist/react.cjs"
     }
   },
   "publishConfig": {
@@ -29,6 +34,7 @@
   "files": [
     "dist",
     "README.md",
+    "README.zh-CN.md",
     "LICENSE",
     "THIRD-PARTY-NOTICES.md",
     "CHANGELOG.md",
@@ -46,7 +52,7 @@
   "peerDependencies": {
     "react": ">=18",
     "shiki": ">=2",
-    "typescript": ">=5",
+    "typescript": ">=5 <7",
     "vscode-css-languageservice": ">=6",
     "vscode-html-languageservice": ">=5",
     "vscode-json-languageservice": ">=5",
@@ -82,9 +88,14 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "aihand": "0.1.17",
     "esbuild": "^0.27.0",
     "jsdom": "^29.1.1",
     "monaco-editor": "0.55.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "shiki": "~4.4.1",
     "tsup": "^8.4.0",
     "tsx": "^4.0.0",
@@ -96,8 +107,7 @@
     "vscode-json-languageservice": "5.3.11",
     "vscode-languageserver-textdocument": "1.0.12",
     "vscode-languageserver-types": "3.17.5",
-    "vscode-uri": "3.0.8",
-    "aihand": "0.1.17"
+    "vscode-uri": "3.0.8"
   },
   "keywords": [
     "code-editor",
@@ -109,7 +119,9 @@
     "syntax-highlighting",
     "diff-editor",
     "typescript",
-    "lightweight"
+    "lightweight",
+    "monaco-editor-alternative",
+    "react"
   ],
   "license": "MIT",
   "homepage": "https://lite-monaco.dev",

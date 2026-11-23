@@ -4,6 +4,11 @@
   "type": "module",
   "description": "真 Chromium 里同时跑 monaco-editor 0.55.1 和 lite-monaco,同一批场景,比对可观测结果。独立目录,不进 lite-monaco 的依赖。",
   "dependencies": {
-    "playwright-core": "1.61.0"
+    "@monaco-editor/react": "4.7.0",
+    "playwright-core": "1.61.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-dom18": "npm:react-dom@18.3.1",
+    "react18": "npm:react@18.3.1"
   }
 }

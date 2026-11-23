@@ -57,7 +57,7 @@ export class BracketSelectionRangeProvider {
 /** registry:显式给一张 LanguageFeatureRegistry 就只用它的 provider(Monaco 的签名);不给用全局注册表 */
 export async function provideSelectionRanges(model: SelectionModel, positions: IPosition[], options: SelectionRangesOptions, token: CancellationToken, registry?: LanguageFeatureRegistry<SelectionRangeProviderLike>): Promise<IRange[][]> {
     type Any = { provideSelectionRanges(model: never, positions: IPosition[], token: CancellationToken): SelectionRangeM[][] | null | undefined | PromiseLike<SelectionRangeM[][] | null | undefined> }
-    const external = registry ? registry.ordered(model as never) : selectionRangeProvidersFor(model.getLanguageId())
+    const external = registry ? registry.ordered(model as never) : selectionRangeProvidersFor((model as { uri?: unknown }).uri ? model as never : model.getLanguageId())
     const providers: Any[] = [...external, new WordSelectionRangeProvider(options.selectSubwords)] // 词永远有
     // 没有外部 provider 时补括号
     if (providers.length === 1) providers.unshift(new BracketSelectionRangeProvider())

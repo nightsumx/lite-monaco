@@ -35,6 +35,8 @@ export type TSDiagnosticsOptions = TSServiceOptions & {
      * 跑在别的 Worker 里),不想让交互用的语言服务排在它后面的时候。宿主那边用 computeTsDiagnostics 或自己的服务算
      */
     remote?: (req: TsDiagnosticsRequest) => Promise<TsDiagnosticsResult | null>
+    /** 每轮诊断算完(或 onlyVisible 下清空)时调,给 marker 服务发一份(Monaco 每轮都 setModelMarkers,内容没变也发) */
+    onResult?: (diagnostics: readonly Diagnostic[], tags: readonly TsTagMark[]) => void
 }
 
 export const setTsTags = StateEffect.define<TsTagMark[]>()
@@ -106,14 +108,16 @@ export function tsDiagnosticsSession(
     const run = async () => {
         const my = ++seq
         const dopts = defaults.getDiagnosticsOptions()
-        // onlyVisible:编辑器没挂在页面上就不诊断,并清掉自己的结果(Monaco maybeValidate / onDidChangeAttached)
-        if (dopts.onlyVisible && !view.dom.isConnected) {
+        // onlyVisible:编辑器没挂在页面上就不诊断,并清掉自己的结果(Monaco maybeValidate / onDidChangeAttached);
+        // modeConfiguration.diagnostics 为假:Monaco 不装 DiagnosticsAdapter(按真假判断,setModeConfiguration({}) 也算关)
+        if ((dopts.onlyVisible && !view.dom.isConnected) || !defaults.modeConfiguration.diagnostics) {
             const cur = view.state.field(diagnosticsField, false) ?? []
             const kept = mergeDiagnostics(cur, [])
             const effects = []
             if (kept.length !== cur.length) effects.push(setDiagnostics.of(kept))
             if ((view.state.field(tsTagField, false) ?? []).length) effects.push(setTsTags.of([]))
             if (effects.length) view.dispatch(view.state.update({ effects }))
+            opts.onResult?.([], [])
             return
         }
         const docLen = view.state.doc.length
@@ -155,8 +159,8 @@ export function tsDiagnosticsSession(
             // 运行时打开 noSuggestionDiagnostics:已有的淡显 / 删除线 / hint 点撤掉
             effects.push(setTsTags.of([]))
         }
-        if (!effects.length) return
-        view.dispatch(view.state.update({ effects }))
+        if (effects.length) view.dispatch(view.state.update({ effects }))
+        opts.onResult?.(tsDiags, wantTags ? result.tags : [])
     }
 
     const schedule = () => {

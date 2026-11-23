@@ -9,7 +9,7 @@ import { getTheme, onDidColorThemeChange, setTheme } from './themes'
 import { effectiveColorMap, generateTokensCSSForColorMap, onColorMapOverrideChange } from './tokentheme'
 import { renderColorizedLine } from './viewlinerenderer'
 import { MonarchTokenizer } from '../lang/monarch/monarchLexer'
-import type { TextModel } from './model'
+import type { PublicTextModel, TextModel } from './model'
 
 export interface IColorizerOptions { tabSize?: number }
 export interface IColorizerElementOptions extends IColorizerOptions { theme?: string, mimeType?: string }
@@ -118,7 +118,8 @@ export function colorizeElement(domNode: HTMLElement, options?: IColorizerElemen
     )
 }
 
-export function colorizeModelLine(model: TextModel, lineNumber: number, tabSize = 4): string {
+export function colorizeModelLine(publicModel: PublicTextModel, lineNumber: number, tabSize = 4): string {
+    const model = publicModel as TextModel
     if (typeof document !== 'undefined') ensureTokenCSS(document)
     const content = model.getLineContent(lineNumber)
     model.tokenization.forceTokenization(lineNumber)

@@ -3,7 +3,10 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as lsTypes from 'vscode-languageserver-types';
+// 可选 peer:命名空间先取成别名再用。没装时 Vite 把它换成没有导出的空模块,对命名空间成员的静态访问每处都报一条
+// 「is not exported」(json/css/html 加起来近 80 条);别名上的访问是普通属性读取,不报
+import * as lsTypesModule from 'vscode-languageserver-types';
+import lsTypes = lsTypesModule;
 import {
 	languages,
 	editor,
@@ -28,9 +31,22 @@ export interface ILanguageWorkerWithDiagnostics {
 	doValidation(uri: string): Promise<lsTypes.Diagnostic[]>;
 }
 
+// lite-monaco:Monaco 的首次校验要经 worker 往返(第一次还要起 worker),结果总落在建 model 那一轮渲染之后;主线程版不等,
+// 在建 model 的同一串任务里就出结果。@monaco-editor/react 在 onMount 之后的 effect 里才订阅 onDidChangeMarkers,
+// 首次诊断就丢了(onValidate 不调)。所以首次校验等主线程空下来再跑;编辑后的校验照旧防抖 500ms。
+function whenIdle(fn: () => void): IDisposable {
+	if (typeof requestIdleCallback === 'function') {
+		const h = requestIdleCallback(fn, { timeout: 100 });
+		return { dispose: () => cancelIdleCallback(h) };
+	}
+	const h = setTimeout(fn, 16);
+	return { dispose: () => clearTimeout(h) };
+}
+
 export class DiagnosticsAdapter<T extends ILanguageWorkerWithDiagnostics> {
 	protected readonly _disposables: IDisposable[] = [];
 	private readonly _listener: { [uri: string]: IDisposable } = Object.create(null);
+	private readonly _firstValidate: { [uri: string]: IDisposable } = Object.create(null);
 
 	constructor(
 		private readonly _languageId: string,
@@ -49,13 +65,20 @@ export class DiagnosticsAdapter<T extends ILanguageWorkerWithDiagnostics> {
 				handle = window.setTimeout(() => this._doValidate(model.uri, modeId), 500);
 			});
 
-			this._doValidate(model.uri, modeId);
+			const uriStr = model.uri.toString();
+			this._firstValidate[uriStr]?.dispose();
+			this._firstValidate[uriStr] = whenIdle(() => {
+				delete this._firstValidate[uriStr];
+				this._doValidate(model.uri, modeId);
+			});
 		};
 
 		const onModelRemoved = (model: editor.IModel): void => {
 			editor.setModelMarkers(model, this._languageId, []);
 
 			let uriStr = model.uri.toString();
+			this._firstValidate[uriStr]?.dispose();
+			delete this._firstValidate[uriStr];
 			let listener = this._listener[uriStr];
 			if (listener) {
 				listener.dispose();

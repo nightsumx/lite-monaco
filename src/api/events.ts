@@ -244,6 +244,8 @@ export function installEvents(ctx: EditorContext): void {
     const bindModel = () => {
         unbindModel()
         if (!onContent.hasListeners && !onModelOptions.hasListeners && !onModelLanguage.hasListeners && !onModelLanguageConfig.hasListeners) return
+        // 没有 model(还没 setModel、setModel(null)、已销毁):不绑,也不为了绑去建一个;换上 model 时 modelSwitched 会再叫
+        if (ctx.noModel || view.isDestroyed) return
         const m = modelForView(view, ctx.host, fn => ctx.onDispose(fn))
         modelSubs = [
             m.onDidChangeContentSettled(e => onContent.fire(e)),

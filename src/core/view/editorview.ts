@@ -1207,6 +1207,17 @@ export class EditorView {
             this.lastClientH = -1 // 强制下面 onScroll 发几何通知(overlay 按新 contentWidth/行高重画)
         }
         else if (heightResized && this.scrollBeyondLastLine) this.observer.ignore(() => this.updatePadding())
+        const pending = this.pendingScroll
+        if (pending) {
+            // 看不见时设下的滚动位置,现在有高度了才落得上
+            this.pendingScroll = null
+            let top = pending.top
+            if (pending.anchor && pending.anchor.pos <= this.state.doc.length) {
+                const b = this.heightMap.lineAt(pending.anchor.pos, QueryType.ByPos, this.oracle, 0, 0)
+                top = this.scaler.toDOM(b.top + pending.anchor.frac * b.height)
+            }
+            this.scrollToPosition(top, pending.left, ScrollType.Immediate)
+        }
         this.onScroll()
         this.flushViewEvents(true)
     }
@@ -3390,8 +3401,15 @@ export class EditorView {
     }
 
     // ---- 滚动 ----
-    getScrollTop(): number { this.syncView(); return this.scrollDOM.scrollTop }
-    getScrollLeft(): number { this.syncView(); return this.scrollDOM.scrollLeft }
+    getScrollTop(): number { this.syncView(); return this.pendingScroll?.top ?? this.scrollDOM.scrollTop }
+    getScrollLeft(): number { this.syncView(); return this.pendingScroll?.left ?? this.scrollDOM.scrollLeft }
+    /**
+     * 不可见时(display:none、还没布局)要去的滚动位置:浏览器不让滚没有尺寸的元素,写 scrollTop 会被丢掉。
+     * Monaco 的滚动位置是它自己记的数,看不见也照样设得上(@monaco-editor/react 在 display:none 的容器里建编辑器、马上 revealLine)。
+     * 先记在这里,getScrollTop 读它;重新有了高度时(measureGeometry)落到 DOM 上。
+     * 看不见时行高还没量过(估的),所以竖向按「哪一行、行内几成」记(anchor),显示出来按量过的行高换回像素
+     */
+    private pendingScroll: { top?: number, left?: number, anchor?: { pos: number, frac: number } } | null = null
     getScrollHeight(): number { this.syncView(); return this.metrics.height }
     // Monaco 的宽度含竖向滚动条(viewLayout._computeContentWidth:maxLineWidth + 末列留白 + verticalScrollbarWidth);
     // lite 的竖条是自绘的、不占 scrollDOM 的宽,这里按布局的 verticalScrollbarWidth 补回,公共 API 才和 Monaco 同值
@@ -3464,7 +3482,7 @@ export class EditorView {
 
     /** 动画进行中的终点,没有动画就是当前位置(滚轮连续滚动在终点上累加) */
     private futureScroll(): { top: number, left: number } {
-        return this.smooth ? { top: this.smooth.to.top, left: this.smooth.to.left } : { top: this.scrollDOM.scrollTop, left: this.scrollDOM.scrollLeft }
+        return this.smooth ? { top: this.smooth.to.top, left: this.smooth.to.left } : { top: this.getScrollTop(), left: this.getScrollLeft() }
     }
 
     private scrollToPosition(top: number | undefined, left: number | undefined, type: ScrollType) {
@@ -3477,6 +3495,21 @@ export class EditorView {
             top: top === undefined ? fut.top : Math.min(Math.max(0, top), maxTop),
             left: left === undefined ? fut.left : Math.min(Math.max(0, left), maxLeft),
         }
+        if (!sd.clientHeight) {
+            this.cancelSmooth()
+            const p = this.pendingScroll
+            let anchor = p?.anchor
+            if (top !== undefined) {
+                const b = this.heightMap.lineAt(this.scaler.fromDOM(to.top), QueryType.ByHeight, this.oracle, 0, 0)
+                anchor = { pos: b.from, frac: b.height ? Math.max(0, Math.min(1, (this.scaler.fromDOM(to.top) - b.top) / b.height)) : 0 }
+            }
+            this.pendingScroll = { top: top === undefined ? p?.top : to.top, left: left === undefined ? p?.left : to.left, anchor }
+            // 照样写一次:浏览器里看不见的元素会丢掉,没有布局的环境(jsdom)里留得住,和以前一样
+            if (top !== undefined) sd.scrollTop = to.top
+            if (left !== undefined) sd.scrollLeft = to.left
+            return
+        }
+        this.pendingScroll = null
         // Smooth 只有 smoothScrolling 开着才动画(时长 125ms),否则等同 Immediate
         if (type !== ScrollType.Smooth || !this.opts.smoothScrolling) {
             this.cancelSmooth()
@@ -3756,8 +3789,9 @@ export class EditorView {
         this.syncView()
         const sd = this.scrollDOM
         const lh = this.oracle.lineHeight || this.fontInfo().lineHeight
+        // 看不见(高 0)也照算:Monaco 按 0 高的视口算出位置记下,显示出来就在那儿(见 pendingScroll)
         const vh = sd.clientHeight || this.viewH()
-        if (!vh || !lh) return
+        if (!lh) return
         const startY = this.posTop(start)
         const endY = this.posTop(end) + lh
         const nextTop = computeScrollTopToReveal({

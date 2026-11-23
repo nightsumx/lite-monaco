@@ -11,7 +11,7 @@
 import { Position, Range } from './position'
 import { Emitter } from './context'
 import { Uri } from './uri'
-import { modelAttachHooks, getModels, type ITextModel, type TextModel } from './model'
+import { modelAttachHooks, getModels, type ITextModel, type PublicTextModel, type TextModel } from './model'
 import * as core from '../core/index'
 import type { Diagnostic, DiagnosticRelated } from '../core/chrome/ruler'
 import type { HoverMarker } from '../core/feature/hover'
@@ -68,6 +68,13 @@ export interface MarkerFilter {
 // ───────────── 存储(MarkerService) ─────────────
 
 const byOwner = new Map<string, Map<string, IMarker[]>>() // owner → resource key → markers
+/**
+ * 视图自己已经画了的 (owner, resource):TS 诊断直接进 diagnosticsField / tsTagField(随编辑映射、带淡显),
+ * 再经 marker 表进视图就画两遍,所以这些只进表、发 onDidChangeMarkers,syncModel 跳过。
+ * 用户自己 setModelMarkers 同一个 owner 时去掉标记,改由 marker 层画(下一轮 TS 诊断再接回来,同 Monaco 被下一轮覆盖)
+ */
+const drawnByView = new Set<string>()
+const drawnKey = (owner: string, key: string) => owner + '\n' + key
 
 /** Monaco MarkerService._toMarker:没有 message 的丢弃,行列往合法范围夹 */
 function toMarker(owner: string, resource: Uri, data: IMarkerData): IMarker | undefined {
@@ -125,8 +132,65 @@ function changeOne(owner: string, resource: Uri, markerData: readonly IMarkerDat
 }
 
 /** monaco.editor.setModelMarkers(model, owner, markers):整体替换这个 owner 在这个 model 上的 marker */
-export function setModelMarkers(model: ITextModel, owner: string, markers: IMarkerData[]): void {
+export function setModelMarkers(model: PublicTextModel, owner: string, markers: IMarkerData[]): void {
+    drawnByView.delete(drawnKey(owner, model.uri.toString()))
     changeOne(owner, model.uri, markers)
+}
+
+/** 视图上已画好的诊断(from/to 是 doc 偏移;code 形如 '(2304)')。只用到这几个字段,免得 api 层依赖 lang 层的类型 */
+export interface ViewDiagnostic { from: number, to: number, severity: 'error' | 'warning' | 'info', message?: string, code?: string }
+export interface ViewTag { from: number, to: number, tag: 'unnecessary' | 'deprecated' | 'hint', message: string, code?: string }
+
+/** 每个 model 上 publishViewDiagnostics 发过的 owner:model 销毁、换语言时清掉(Monaco onModelRemoved / onModelLanguageChanged) */
+const published = new WeakMap<ITextModel, Set<string>>()
+
+function clearPublished(model: ITextModel): void {
+    const owners = published.get(model)
+    if (!owners) return
+    const key = model.uri.toString()
+    for (const o of owners) if (drawnByView.delete(drawnKey(o, key))) changeOne(o, model.uri, [])
+    owners.clear()
+}
+
+/**
+ * TS 诊断按 Monaco DiagnosticsAdapter 的样子发成 marker:owner 是语言('typescript' / 'javascript'),
+ * code 是数字串,Suggestion 是 Hint,未使用 / 废弃带 tags(同一处的错误和标签合成一条,同 Monaco 一条诊断一个 marker)。
+ * 视图里已经画了,所以只进表(见 drawnByView)。model 销毁时清掉(Monaco onModelRemoved)
+ */
+export function publishViewDiagnostics(model: ITextModel, owner: string, diags: readonly ViewDiagnostic[], tags: readonly ViewTag[]): void {
+    const view = (model as TextModel).attachedView
+    if (!view || model.isDisposed()) return
+    const doc = view.state.doc
+    const pos = (off: number) => {
+        const line = doc.lineAt(Math.min(off, doc.length))
+        return { line: line.number, col: Math.min(off, doc.length) - line.from + 1 }
+    }
+    const code = (c?: string) => c?.replace(/^\((.*)\)$/, '$1')
+    const toData = (from: number, to: number, severity: MarkerSeverity, message: string, c?: string): IMarkerData => {
+        const a = pos(from), b = pos(to)
+        return { severity, message, code: code(c), startLineNumber: a.line, startColumn: a.col, endLineNumber: b.line, endColumn: b.col }
+    }
+    const sev = { error: MarkerSeverity.Error, warning: MarkerSeverity.Warning, info: MarkerSeverity.Info }
+    // Monaco 的 tags 总是数组(没有就是 [])
+    const out = diags.map(d => ({ ...toData(d.from, d.to, sev[d.severity], d.message ?? '', d.code), tags: [] as MarkerTag[] }))
+    const hints: typeof out = []
+    for (const t of tags) {
+        const tag = t.tag === 'unnecessary' ? [MarkerTag.Unnecessary] : t.tag === 'deprecated' ? [MarkerTag.Deprecated] : []
+        const i = diags.findIndex(d => d.from === t.from && d.to === t.to && d.message === t.message)
+        if (i >= 0) out[i].tags.push(...tag)
+        else hints.push({ ...toData(t.from, t.to, MarkerSeverity.Hint, t.message, t.code), tags: tag })
+    }
+    // Monaco 按 suggestion、semantic、syntactic 的顺序发(DiagnosticsAdapter 里 reduce((p, c) => c.concat(p)))
+    out.unshift(...hints)
+    let owners = published.get(model)
+    if (!owners) {
+        published.set(model, owners = new Set())
+        model.onWillDispose(() => clearPublished(model))
+        model.onDidChangeLanguage(() => clearPublished(model))
+    }
+    owners.add(owner)
+    drawnByView.add(drawnKey(owner, model.uri.toString()))
+    changeOne(owner, model.uri, out)
 }
 
 /** monaco.editor.removeAllMarkers(owner):清掉这个 owner 的全部 marker(所有 resource) */
@@ -134,6 +198,7 @@ export function removeAllMarkers(owner: string): void {
     const m = byOwner.get(owner)
     if (!m) return
     const uris = [...m.keys()].map(k => Uri.parse(k))
+    for (const k of m.keys()) drawnByView.delete(drawnKey(owner, k))
     byOwner.delete(owner)
     fireChanged(uris)
     for (const u of uris) syncUri(u)
@@ -272,7 +337,9 @@ function syncModel(model: TextModel): void {
     if (!state.field(core.diagnosticsField, false) && !state.field(markerTagField, false)) return
     const diags: Diagnostic[] = []
     const tags: MarkerTagMark[] = []
+    const key = model.uri.toString()
     for (const m of readMarkers({ resource: model.uri })) {
+        if (drawnByView.has(drawnKey(m.owner, key))) continue
         const r = decorationRange(model, m)
         const from = offsetOf(model, r.getStartPosition()), to = offsetOf(model, r.getEndPosition())
         const code = codeText(m)

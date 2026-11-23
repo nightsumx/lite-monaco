@@ -16,7 +16,9 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    // src/react 按包名 import 'lite-monaco'(发布后就是用户装的那一份);仓库里指回源码
+    "paths": { "lite-monaco": ["./src/index.ts"] }
   },
   "include": ["src", "__tests__"],
   "exclude": ["dist", "node_modules", "poc"]

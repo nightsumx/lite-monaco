@@ -14,7 +14,8 @@
 import { liteMonaco, type LiteMonacoOptions, type ShikiLike } from '../litemonaco'
 import type { IEditorOptions } from '../core/options'
 import type { LiteMonacoEditor } from './types'
-import type { ITextModel, ITextModelExtras } from './model'
+import { resolveLanguageId, type ITextModel, type PublicTextModel } from './model'
+import { guessLanguageId } from './languages'
 import { getTheme, setTheme } from './themes'
 import { lazyHighlighter } from './lazyhighlighter'
 
@@ -26,7 +27,8 @@ export interface IGlobalEditorOptions {
     detectIndentation?: boolean
     trimAutoWhitespace?: boolean
     largeFileOptimizations?: boolean
-    wordBasedSuggestions?: unknown
+    /** 旧的 true / false 照样收(运行时迁移成 'matchingDocuments' / 'off',同 Monaco) */
+    wordBasedSuggestions?: 'off' | 'currentDocument' | 'matchingDocuments' | 'allDocuments'
 }
 
 export interface IStandaloneEditorConstructionOptions extends IEditorOptions, IGlobalEditorOptions {
@@ -34,7 +36,7 @@ export interface IStandaloneEditorConstructionOptions extends IEditorOptions, IG
     language?: string
     theme?: string
     /** Monaco 的 ITextModel 形态即可(类型层不要求带 lite 内部成员);运行时必须是 lite-monaco 的 createModel 产物 */
-    model?: Omit<ITextModel, keyof ITextModelExtras> | null
+    model?: PublicTextModel | null
     dimension?: { width: number, height: number }
     ariaContainerElement?: HTMLElement
     overflowWidgetsDomNode?: HTMLElement
@@ -59,7 +61,9 @@ export function getDefaultHighlighter(): ShikiLike | undefined { return defaultH
 
 const LITE_MONACO_KEYS = ['highlighter', 'features', 'colors', 'keymap', 'extensions', 'diagnostics', 'tsFiles', 'fileName'] as const
 
-export function createEditor(container: HTMLElement, options: IStandaloneEditorConstructionOptions = {}): LiteMonacoEditor {
+// 第三个参数是 Monaco 的 IEditorOverrideServices(换掉编辑器内部的服务)。lite-monaco 没有服务容器,收下不用;
+// 签名留着,照 Monaco 写的调用(比如 @monaco-editor/react 每次都传 overrideServices)类型和运行都照常
+export function createEditor(container: HTMLElement, options: IStandaloneEditorConstructionOptions = {}, _override?: { [index: string]: unknown }): LiteMonacoEditor {
     const { value, language, theme, model, dimension, ...rest } = options
     // 没传也没登记:用懒加载 shiki 的默认高亮器(同 Monaco,create 不需要前置配置)
     const highlighter = options.highlighter ?? defaultHighlighter ?? lazyHighlighter
@@ -76,12 +80,43 @@ export function createEditor(container: HTMLElement, options: IStandaloneEditorC
         highlighter,
         // 带 model 时先建空编辑器,内容整篇由 setModel 带过来(不再 getValue + 切行 + 建树白做一遍:大文件上是几十到上百毫秒)
         doc: model ? '' : value ?? '',
-        lang: model ? model.getLanguageId() : language ?? 'plaintext',
+        noModel: !!model,
+        // 同 Monaco 的 createTextModel:mime 换成 id,没给(含空串)按首行猜,再没有是 plaintext
+        lang: model ? model.getLanguageId() : resolveLanguageId(language) || guessLanguageId(null, (value ?? '').split(/\r\n|\r|\n/, 1)[0]) || 'plaintext',
         theme: theme ?? getTheme(),
         options: monacoOptions as IEditorOptions,
         ...own,
     })
     if (model) ed.setModel(model as ITextModel)
     if (dimension) ed.layout(dimension)
+    markContainer(container, ed)
     return ed
+}
+
+let keybindingContexts = 0
+
+/**
+ * Monaco codeEditorWidget 在容器上写的两个属性:data-mode-id(当前 model 的语言,换 model / 换语言跟着变,没 model 时去掉)
+ * 和 data-keybinding-context(这个编辑器的快捷键上下文编号);销毁时都去掉。有人拿 [data-mode-id="…"] 写样式
+ */
+function markContainer(container: HTMLElement, ed: LiteMonacoEditor): void {
+    const unmark = markKeybindingContext(container)
+    const sync = () => {
+        const m = ed.getModel()
+        if (m) container.setAttribute('data-mode-id', m.getLanguageId())
+        else container.removeAttribute('data-mode-id')
+    }
+    sync()
+    const subs = [ed.onDidChangeModel(sync), ed.onDidChangeModelLanguage(sync)]
+    ed.onDidDispose(() => {
+        for (const s of subs) s.dispose()
+        container.removeAttribute('data-mode-id')
+        unmark()
+    })
+}
+
+/** 容器上的 data-keybinding-context(Monaco 每个编辑器、diff 编辑器各占一个编号);返回去掉它的函数 */
+export function markKeybindingContext(container: Element): () => void {
+    container.setAttribute('data-keybinding-context', String(++keybindingContexts))
+    return () => container.removeAttribute('data-keybinding-context')
 }

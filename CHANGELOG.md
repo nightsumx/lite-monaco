@@ -1,5 +1,26 @@
 # Changelog
 
+## 0.4.1 — 2026-11-24
+
+- **`lite-monaco/react`**：自带的 React 组件，导出和 `@monaco-editor/react` 4.7.0 一样（`Editor`、`DiffEditor`、`useMonaco`、`loader`、类型），迁过来只改 import。不经过 loader，第一次绘制前就建好；StrictMode 下只建一次且编辑器是活的；卸载时按最新的 props 处理。对比脚本 `scripts/browser-diff/react/run.mjs`：真 Chrome 里拿 @monaco-editor/react + monaco-editor 0.55.1 当基准，45 个场景（含 beforeMount 里配 JSON schema 和 TS 编译选项），React 19 和 18。
+- 对比里查出来、按 Monaco 改了的（`loader.config({ monaco })` 的用法同样受益）：
+  - TS 诊断进 marker 服务（owner `typescript` / `javascript`，code、Hint、tags、顺序同 Monaco），`getModelMarkers`、`onDidChangeMarkers`、`onValidate` 看得到；以前只画在视图上。
+  - `createModel` 的语言给空时按 URI / 第一行猜，给 mime type 时换成语言 id；`setModelLanguage` 同样认 mime type。
+  - 建编辑器时传了 `model`，或 diff 编辑器还没 `setModel`，不再先建一个用不上的 model；销毁后 `getModel()` 是 `null`。
+  - `executeEdits` 带 `forceMoveMarkers` 时，正好在编辑边上的光标推到编辑后面（以前留在前面）。
+  - `setModel` 后光标回 1:1、折叠清空（以前恢复上一个 model 的）。
+  - 编辑器隐藏时（`display: none`）设的滚动位置（`revealLine`、`setScrollTop`）等显示出来再落下，以前丢了。
+  - 容器带 `data-mode-id`、`data-keybinding-context`（diff 编辑器的容器只带后者），同 Monaco。
+- 顶层 `monaco.typescript`、`monaco.json`、`monaco.css`、`monaco.html`（monaco-editor 0.55 的位置），和 `monaco.languages.*` 是同一个对象。`typescript` 带上 `ModuleKind`、`ScriptTarget`、`JsxEmit`、`NewLineKind`、`ModuleResolutionKind` 枚举，`typescriptDefaults` 加上 `modeConfiguration` / `setModeConfiguration`（只有 `diagnostics`、`inlayHints` 生效）。
+- 类型和 monaco-editor 0.55.1 对齐（`__tests__/types/react-compat.test-d.ts`：回调里拿到的 lite monaco 整个能当 `typeof import('monaco-editor')` 用，只缺文件里列明的几项）：
+  - `setModelMarkers`、`colorizeModelLine`、diff 编辑器的 `setModel` / `createViewModel` 收 Monaco 公开形状的 `ITextModel`（`PublicTextModel`）；以前要 lite 内部的类型，照 Monaco 类型写的代码过不了 tsc。
+  - `typescriptDefaults.onDidChange` 是 `IEvent<void>`，回调不再带 defaults 对象（同 Monaco 的 `fire(void 0)`）。
+  - `getCompilerOptions()` 返回 Monaco 的 `CompilerOptions`（`monaco.typescript` 的枚举）；`setCompilerOptions` 两种都收。
+  - `wordBasedSuggestions` 的类型是 `'off' | 'currentDocument' | 'matchingDocuments' | 'allDocuments'`；旧的 `true` / `false` 运行时照旧迁移。
+- 定义、折叠、内嵌提示、扩选的 provider 按 Monaco 的打分匹配选择器（`scheme`、`pattern` 也算，以前只看语言），拿到编辑器上那个 model 的 URI（以前没传 `fileName` 时一律是占位的 `inmemory://model/1`，硬写这个 URI 当「本文件」的 provider 要改成 `model.uri`；`liteMonaco({ fileName })` 照旧是 `fileName`）。
+- JSON / CSS 每个 model 的第一次校验等主线程空下来再跑：`@monaco-editor/react` + `loader.config({ monaco })` 时 `onValidate` 以前收不到第一次的诊断（主线程版比 Monaco 的 worker 快，结果在它订阅之前就发了）。
+- 修复：新建的 Vite 项目按 README 只装 `lite-monaco shiki`（不装可选的 vscode-* 语言服务）时，`vite build` 失败（`"URI" is not exported by "__vite-optional-peer-dep:vscode-uri…"`）；装上以后也会刷近 80 条 `is not exported` 警告。可选 peer 改成命名空间别名访问，现在 `vite build`（带 `@vitejs/plugin-react`）零警告。只在 Node 里走的 TS lib 兜底不再让打包器看到 `node:path` 等内置模块。
+
 ## 0.4.0 — 2026-11-23
 
 0.3 是一个「Monaco 风格」的编辑器，有自己的一套 API；0.4 起是 monaco-editor 的平替。

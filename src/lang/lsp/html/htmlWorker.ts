@@ -4,8 +4,11 @@
  *--------------------------------------------------------------------------------------------*/
 
 import type { IWorkerContext } from '../mainthread';
-import * as htmlService from 'vscode-html-languageservice';
-import { IHTMLDataProvider } from 'vscode-html-languageservice';
+// 可选 peer:命名空间先取成别名再用。没装时 Vite 把它换成没有导出的空模块,对命名空间成员的静态访问每处都报一条
+// 「is not exported」(json/css/html 加起来近 80 条);别名上的访问是普通属性读取,不报
+import * as htmlServiceModule from 'vscode-html-languageservice';
+import htmlService = htmlServiceModule;
+import type { IHTMLDataProvider } from 'vscode-html-languageservice';
 import type { Options } from './register';
 
 export class HTMLWorker {

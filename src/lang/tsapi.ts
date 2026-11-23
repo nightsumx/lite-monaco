@@ -46,21 +46,53 @@ export interface InlayHintsOptions {
     readonly includeInlayEnumMemberValueHints?: boolean
 }
 
+/**
+ * 内置的各项语言功能开不开(monaco.d.ts ModeConfiguration,默认全开)。
+ * lite-monaco 里 diagnostics、inlayHints 两项生效(每次运行时读,改了就重算);其余只存值:
+ * 这些功能在编辑器创建时就装好了,开关要用 liteMonaco 的 features。
+ */
+export interface ModeConfiguration {
+    readonly completionItems?: boolean
+    readonly hovers?: boolean
+    readonly documentSymbols?: boolean
+    readonly definitions?: boolean
+    readonly references?: boolean
+    readonly documentHighlights?: boolean
+    readonly rename?: boolean
+    readonly diagnostics?: boolean
+    readonly documentRangeFormattingEdits?: boolean
+    readonly signatureHelp?: boolean
+    readonly onTypeFormattingEdits?: boolean
+    readonly codeActions?: boolean
+    readonly inlayHints?: boolean
+}
+/** Monaco 的默认:全部 true */
+const MODE_ALL_ON: Required<ModeConfiguration> = {
+    completionItems: true, hovers: true, documentSymbols: true, definitions: true, references: true, documentHighlights: true,
+    rename: true, diagnostics: true, documentRangeFormattingEdits: true, signatureHelp: true, onTypeFormattingEdits: true,
+    codeActions: true, inlayHints: true,
+}
+
 export interface IExtraLib { content: string, version: number }
 export type IExtraLibs = Record<string, IExtraLib>
-export type CompilerOptions = import('typescript').CompilerOptions
+/** Monaco typescript.CompilerOptions(枚举是 monaco.typescript 的,数值同 typescript 包) */
+export type CompilerOptions = import('../monaco/typescript').CompilerOptions
+/** setCompilerOptions 也收 typescript 包的 CompilerOptions(lite-monaco 以前的类型;运行时是同一组数) */
+type AnyCompilerOptions = CompilerOptions | import('typescript').CompilerOptions
 
 export interface LanguageServiceDefaults {
     readonly languageId: string
-    readonly onDidChange: IEvent<LanguageServiceDefaults>
+    readonly onDidChange: IEvent<void>
     readonly onDidExtraLibsChange: IEvent<undefined>
     readonly workerOptions: { customWorkerPath?: string }
     readonly inlayHintsOptions: InlayHintsOptions
+    readonly modeConfiguration: ModeConfiguration
+    setModeConfiguration(modeConfiguration: ModeConfiguration): void
     addExtraLib(content: string, filePath?: string): IDisposable
     setExtraLibs(libs: { content: string, filePath?: string }[]): void
     getExtraLibs(): IExtraLibs
     getCompilerOptions(): CompilerOptions
-    setCompilerOptions(options: CompilerOptions): void
+    setCompilerOptions(options: AnyCompilerOptions): void
     getDiagnosticsOptions(): DiagnosticsOptions
     setDiagnosticsOptions(options: DiagnosticsOptions): void
     setWorkerOptions(options: { customWorkerPath?: string }): void
@@ -78,7 +110,7 @@ function libPath(filePath: string): string {
 const rand = () => Math.random().toString(36).substring(2, 15)
 
 class LanguageServiceDefaultsImpl implements LanguageServiceDefaults {
-    private readonly _onDidChange = new Emitter<LanguageServiceDefaults>()
+    private readonly _onDidChange = new Emitter<void>()
     private readonly _onDidExtraLibsChange = new Emitter<undefined>()
     private _extraLibs: IExtraLibs = Object.create(null)
     private _removedExtraLibs: Record<string, number> = Object.create(null)
@@ -87,6 +119,7 @@ class LanguageServiceDefaultsImpl implements LanguageServiceDefaults {
     private _diagnosticsOptions: DiagnosticsOptions
     private _workerOptions: { customWorkerPath?: string }
     private _inlayHintsOptions: InlayHintsOptions
+    private _modeConfiguration: ModeConfiguration = { ...MODE_ALL_ON }
     private _extraLibsTimer: ReturnType<typeof setTimeout> | null = null
     // 已经推给项目的编译选项键:setCompilerOptions 是「替换」,上一次设过、这次没有的键要撤销
     private _pushedKeys = new Set<string>()
@@ -102,10 +135,16 @@ class LanguageServiceDefaultsImpl implements LanguageServiceDefaults {
         this._inlayHintsOptions = {}
     }
 
-    get onDidChange(): IEvent<LanguageServiceDefaults> { return this._onDidChange.event }
+    get onDidChange(): IEvent<void> { return this._onDidChange.event }
     get onDidExtraLibsChange(): IEvent<undefined> { return this._onDidExtraLibsChange.event }
     get workerOptions() { return this._workerOptions }
     get inlayHintsOptions() { return this._inlayHintsOptions }
+    get modeConfiguration(): ModeConfiguration { return this._modeConfiguration }
+
+    setModeConfiguration(modeConfiguration: ModeConfiguration): void {
+        this._modeConfiguration = modeConfiguration || Object.create(null)
+        this._onDidChange.fire(undefined)
+    }
 
     getExtraLibs(): IExtraLibs { return this._extraLibs }
 
@@ -156,32 +195,32 @@ class LanguageServiceDefaultsImpl implements LanguageServiceDefaults {
 
     getCompilerOptions(): CompilerOptions { return this._compilerOptions }
 
-    setCompilerOptions(options: CompilerOptions): void {
-        this._compilerOptions = options || Object.create(null)
+    setCompilerOptions(options: AnyCompilerOptions): void {
+        this._compilerOptions = (options || Object.create(null)) as CompilerOptions
         // 只把宿主设的推给项目(Monaco 默认的 allowNonTsExtensions / target 不去覆盖 lite-monaco 的项目默认)
         const patch: Record<string, unknown> = {}
         for (const k of this._pushedKeys) patch[k] = undefined
         for (const [k, v] of Object.entries(this._compilerOptions)) patch[k] = v
         this._pushedKeys = new Set(Object.keys(this._compilerOptions))
-        setTsCompilerOptions(patch as CompilerOptions, { lang: this.languageId })
-        this._onDidChange.fire(this)
+        setTsCompilerOptions(patch as import('typescript').CompilerOptions, { lang: this.languageId })
+        this._onDidChange.fire(undefined)
     }
 
     getDiagnosticsOptions(): DiagnosticsOptions { return this._diagnosticsOptions }
 
     setDiagnosticsOptions(options: DiagnosticsOptions): void {
         this._diagnosticsOptions = options || Object.create(null)
-        this._onDidChange.fire(this)
+        this._onDidChange.fire(undefined)
     }
 
     setWorkerOptions(options: { customWorkerPath?: string }): void {
         this._workerOptions = options || Object.create(null)
-        this._onDidChange.fire(this)
+        this._onDidChange.fire(undefined)
     }
 
     setInlayHintsOptions(options: InlayHintsOptions): void {
         this._inlayHintsOptions = options || Object.create(null)
-        this._onDidChange.fire(this)
+        this._onDidChange.fire(undefined)
     }
 
     /** 没有 worker,没有空闲回收 */
@@ -209,5 +248,3 @@ export function defaultsFor(lang: string | undefined): LanguageServiceDefaults {
     return familyOf(lang) === 'js' ? javascriptDefaults : typescriptDefaults
 }
 
-/** monaco.languages.typescript 命名空间的形状(只含本实现有的成员) */
-export const typescript = { typescriptDefaults, javascriptDefaults }

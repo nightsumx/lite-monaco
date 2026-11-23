@@ -280,5 +280,6 @@ export function _setModelLanguageHost(h: ModelLanguageHost): void { modelHost = 
 
 export function setModelLanguage(model: unknown, languageId: string): void {
     if (!modelHost) throw new Error('model module not loaded')
-    modelHost.setLanguage(model, languageId, 'api')
+    // 同 Monaco 的 editor.setModelLanguage:mime 换成 id,空的是 plaintext(没登记的 id 原样留着,见 model.ts 的 resolveLanguageId)
+    modelHost.setLanguage(model, (languageId && getLanguageService().getLanguageIdByMimeType(languageId)) || languageId || 'plaintext', 'api')
 }

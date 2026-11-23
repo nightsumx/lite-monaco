@@ -54,8 +54,8 @@ import { installLinkedEditing } from './api/linkedediting'
 import { installProviderContributions } from './lang/providercontrib'
 import { providerHoverSource } from './lang/providerhover'
 import { installParameterHints } from './api/parameterhints'
-import { eolExtension, _registerModelBase } from './api/model'
-import { markerExtensions } from './api/markers'
+import { eolExtension, _registerModelBase, peekViewModel } from './api/model'
+import { markerExtensions, publishViewDiagnostics } from './api/markers'
 import { languageConfigExtensions, installLanguageConfig } from './lang/langconfig'
 import { installTheme, resolveInitialTheme, type ThemeCapableHighlighter } from './api/themes'
 import { bridgeForLanguage } from './api/tokenbridge'
@@ -121,6 +121,11 @@ interface ShikiWithTheme extends ShikiLike {
 export interface LiteMonacoOptions {
     parent: Element
     highlighter: ShikiLike
+    /**
+     * @internal 一开始不带 model,getModel() 是 null,直到 setModel(Monaco:create 传了 model 时不先建一个再换掉;diff 的两侧在 setModel 之前没有 model)。
+     * 不给就和以前一样:第一次要 model 时按 doc / lang 建一个隐式的(Monaco create 自己建的那个)
+     */
+    noModel?: boolean
     doc?: string
     lang?: string
     theme?: string
@@ -616,7 +621,14 @@ function assemble(hl: ShikiWithTheme, opts: AssembleOpts): Assembled {
             extensions.push(core.diagnosticsField)
         if (f.overviewRuler === false)
             extensions.push(core.decorations.of(core.diagnosticSquiggles))
-        overlays.push(view => tsDiagnosticsSession(view, { ...tsOpts, remote: opts.tsDiagnosticsRemote }))
+        // 结果也发进 marker 服务(owner 同 Monaco:'javascript' / 'typescript'),getModelMarkers、onDidChangeMarkers 才看得到
+        overlays.push(view => tsDiagnosticsSession(view, {
+            ...tsOpts, remote: opts.tsDiagnosticsRemote,
+            onResult: (diags, tags) => {
+                const model = peekViewModel(view)
+                if (model) publishViewDiagnostics(model, model.getLanguageId() === 'javascript' ? 'javascript' : 'typescript', diags, tags)
+            },
+        }))
         // 未使用淡显 / 废弃删除线 / hint 小点(Monaco 默认 noSuggestionDiagnostics:false)
         if (f.tsUnusedFade !== false) {
             extensions.push(tsTagField)
@@ -629,8 +641,8 @@ function assemble(hl: ShikiWithTheme, opts: AssembleOpts): Assembled {
     }
     // languages.registerFoldingRangeProvider / registerInlayHintsProvider(非 TS 语言;TS 保留内置)
     if (!tsLang) {
-        if (f.foldGutter !== false) overlays.push(view => providerFoldingSession(view, opts.lang ?? '', () => opts.fileName ?? 'inmemory://model/1'))
-        overlays.push(view => providerInlaySession(view, opts.lang ?? '', () => opts.fileName ?? 'inmemory://model/1'))
+        if (f.foldGutter !== false) overlays.push(view => providerFoldingSession(view, opts.lang ?? '', () => opts.fileName))
+        overlays.push(view => providerInlaySession(view, opts.lang ?? '', () => opts.fileName))
         overlays.push(view => providerHighlightSession(view))
     }
     // M1.3 参数提示
@@ -655,10 +667,10 @@ function assemble(hl: ShikiWithTheme, opts: AssembleOpts): Assembled {
         overlays.push(view => definitionHoverSession(view, tsActions))
     }
     // 非 TS 语言:languages.registerDefinitionProvider(F12 / Alt+F12 / Ctrl+点击 / 悬停预览;没注册 provider 时都不动作)
-    const provActions = tsActions ? null : providerDefinitionActions(opts.lang ?? '', () => opts.fileName ?? 'inmemory://model/1')
+    const provActions = tsActions ? null : providerDefinitionActions(opts.lang ?? '', () => opts.fileName)
     if (provActions) {
         extensions.push(core.clickDefinitionHandler.of(view => {
-            if (!hasDefinitionProvider(opts.lang ?? '')) return false
+            if (!hasDefinitionProvider(view, opts.lang ?? '', opts.fileName)) return false
             return clickDefinition(provActions)(view)
         }))
         extensions.push(definitionLinkField, core.decorations.of(definitionLinkDecorations), core.hoverSources.of(definitionPreviewHoverSource))
@@ -838,9 +850,8 @@ function assemble(hl: ShikiWithTheme, opts: AssembleOpts): Assembled {
         langBindings.push({ key: 'Mod-Shift-o', run: target => { void quickOutlineForLanguage(target as core.EditorView, lang); return true } })
     }
     if (provActions) {
-        const has = () => hasDefinitionProvider(opts.lang ?? '')
         const run = (fn: (v: core.EditorView) => Promise<boolean>): core.StateCommand => target => {
-            if (!has()) return false
+            if (!hasDefinitionProvider(target as core.EditorView, opts.lang ?? '', opts.fileName)) return false
             void fn(target as core.EditorView)
             return true
         }
@@ -1075,7 +1086,7 @@ function mount(opts: LiteMonacoOptions, ts: boolean): LiteMonacoEditor {
             overlays: overlaysFor(cfg),
         })
     }
-    const ctx = createContext(view, { getOptions: () => view.state.facet(core.editorOptions), host })
+    const ctx = createContext(view, { getOptions: () => view.state.facet(core.editorOptions), host, noModel: opts.noModel })
     for (const install of INSTALLERS) install(ctx)
     // 分词器注册表变了(setTokensProvider / 懒工厂解析完 / setColorMap):本语言受影响就重装配,渲染换成新分词器
     const unsubTokenization = getTokenizationRegistry().onDidChange(e => {

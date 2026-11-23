@@ -172,7 +172,8 @@ export function tsInlaySession(view: EditorView, opts: TSInlayOptions): () => vo
         const my = ++seq
         // inlayHints.enabled=off:不请求,清掉已有的;TS 选项空 = Monaco 默认不出 hint
         const prefs = Object.keys(defaults.inlayHintsOptions).length ? defaults.inlayHintsOptions : opts.fallback
-        if (inlayEnabled(view.state) === 'off' || !prefs || !Object.keys(prefs).length) { clear(); return }
+        // modeConfiguration.inlayHints 为假:Monaco 不装 InlayHintsAdapter
+        if (inlayEnabled(view.state) === 'off' || !defaults.modeConfiguration.inlayHints || !prefs || !Object.keys(prefs).length) { clear(); return }
         const sentDoc = view.state.doc
         session.update(materializeDoc(view.state))
         let raw: InlayMark[] = []

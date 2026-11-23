@@ -1,7 +1,8 @@
 // Monaco `languages.register*Provider` 的四件:补全 / 定义 / 折叠范围 / 内联提示。
 //
 // 签名、返回形态跟 Monaco 一致(provider 收 ITextModel 的子集 + IPosition / IRange / CancellationToken),
-// 注册返回 IDisposable。注册表是模块级的:任何编辑器(创建前后注册都行)按语言 id 匹配。
+// 注册返回 IDisposable。注册表是模块级的 LanguageFeatureRegistry:任何编辑器(创建前后注册都行)按 Monaco 的 score
+// 匹配(language / scheme / pattern,和其余 register*Provider 一样);打分用编辑器上挂着的 model 的 uri。
 //   · 补全:接进 completionSources(range / insertTextRules / triggerCharacters / resolveCompletionItem / CompletionContext)
 //   · 定义:Go to Definition(F12)/ Peek Definition(⌥F12)/ ⌘+点击 / ⌘+悬停预览 —— 非 TS 语言;TS 保留内置(见 T.md)
 //   · 折叠:provider 拉取,结果推进 setExtraFolds;onDidChange 触发重算。范围只增不减(缩进折叠仍在,见 T.md)
@@ -14,7 +15,8 @@ import { setExtraFolds } from '../core/edit/fold'
 import { getOption } from '../core/options'
 import { materializeDoc } from '../core/perf'
 import { canonLanguage } from './languageselector'
-import { languageFeatures, type LanguageFeatureRegistry } from './languagefeatures'
+import { peekViewModel } from '../api/model'
+import { languageFeatures, LanguageFeatureRegistry, type FeatureModel, type LanguageFeatureSelector } from './languagefeatures'
 import type { SuggestProvider } from './suggest'
 import { inlayEnabled, inlayField, setInlayHints, type InlayMark } from './tsinlay'
 import { showPeek, type PeekLocation } from './tspeek'
@@ -30,7 +32,8 @@ export interface CancellationToken {
     readonly isCancellationRequested: boolean
     readonly onCancellationRequested: (listener: (e: any) => any, thisArgs?: any, disposables?: IDisposable[]) => IDisposable
 }
-export type LanguageSelector = string | { language?: string, scheme?: string, pattern?: string } | readonly LanguageSelector[]
+/** Monaco languages.LanguageSelector(字符串、{ language, scheme, pattern, exclusive… } 或它们的数组) */
+export type LanguageSelector = LanguageFeatureSelector
 
 /** provider 收到的 model(ITextModel 的常用子集,背后是编辑器当前的 state) */
 export interface ProviderModel {
@@ -51,6 +54,30 @@ export interface ProviderModel {
     getFullModelRange(): IRange
 }
 
+function providerUri(uri: string): ProviderModel['uri'] {
+    const u = new URL(uri.includes(':') ? uri : `file://${uri}`)
+    const path = decodeURIComponent(u.pathname)
+    return { toString: () => uri, path, scheme: u.protocol.replace(/:$/, ''), fsPath: path }
+}
+
+const PLACEHOLDER = 'inmemory://model/1'
+
+/**
+ * 这次查询的 model 身份,同 Monaco 拿真的 model 打分、交给 provider:
+ * - 编辑器挂着真的 model(createModel 建的,create / setModel 挂上的)就用它的 uri 和语言;
+ * - 否则 liteMonaco() 给了 fileName 就用它(以前就是这样,不被编辑器自己的临时 model 盖掉);
+ * - 都没有就是编辑器自己的临时 model(inmemory://model/N,同 Monaco 不传 model 的 create)。
+ */
+function identity(view: EditorView | undefined, lang: string, fileName?: string): { lang: string, uri: string, model: FeatureModel } {
+    const real = view && peekViewModel(view)
+    const m = real && !real.isDisposed() && !real.isImplicit ? real
+        : fileName == null ? (view as { getModel?: () => FeatureModel | null } | undefined)?.getModel?.() : null
+    if (m) return { lang: m.getLanguageId(), uri: m.uri.toString(), model: m }
+    const uri = fileName ?? PLACEHOLDER
+    return { lang, uri, model: { uri: providerUri(uri), getLanguageId: () => lang } }
+}
+const byLanguage = (lang: string): FeatureModel => identity(undefined, lang).model
+
 /** 把编辑器当前内容包成 ProviderModel(getState 每次取最新的,provider 异步返回时也读得到) */
 export function providerModel(getState: () => EditorState, languageId: string, uri = 'inmemory://model/1'): ProviderModel {
     const st = () => getState()
@@ -64,11 +91,10 @@ export function providerModel(getState: () => EditorState, languageId: string, u
         const line = s.doc.line(Math.max(1, Math.min(p.lineNumber, s.doc.lines)))
         return line.from + Math.max(0, Math.min(p.column - 1, line.length))
     }
-    const u = new URL(uri.includes(':') ? uri : `file://${uri}`)
     let version = 1
     let lastDoc = st().doc
     return {
-        uri: { toString: () => uri, path: decodeURIComponent(u.pathname), scheme: u.protocol.replace(/:$/, ''), fsPath: decodeURIComponent(u.pathname) },
+        uri: providerUri(uri),
         getLanguageId: () => languageId,
         getValue: () => materializeDoc(st()),
         getVersionId: () => { if (st().doc !== lastDoc) { lastDoc = st().doc; version++ } return version },
@@ -95,31 +121,6 @@ export function providerModel(getState: () => EditorState, languageId: string, u
         },
         getFullModelRange: () => { const e = posAt(st().doc.length); return { startLineNumber: 1, startColumn: 1, endLineNumber: e.lineNumber, endColumn: e.column } },
     }
-}
-
-// —— 语言选择器 ——
-const canon = canonLanguage
-function matchesSelector(sel: LanguageSelector, lang: string): boolean {
-    if (typeof sel === 'string') return sel === '*' || canon(sel) === canon(lang)
-    if (Array.isArray(sel)) return sel.some(s => matchesSelector(s, lang))
-    const f = sel as { language?: string }
-    return !f.language || f.language === '*' || canon(f.language) === canon(lang)
-}
-
-// —— 注册表 ——
-interface Entry<P> { selector: LanguageSelector, provider: P }
-class Registry<P> {
-    private list: Entry<P>[] = []
-    private listeners = new Set<() => void>()
-    register(selector: LanguageSelector, provider: P): IDisposable {
-        const e = { selector, provider }
-        this.list.push(e)
-        this.fire()
-        return { dispose: () => { const i = this.list.indexOf(e); if (i >= 0) { this.list.splice(i, 1); this.fire() } } }
-    }
-    for(lang: string): P[] { return this.list.filter(e => matchesSelector(e.selector, lang)).map(e => e.provider) }
-    onDidChange(cb: () => void): IDisposable { this.listeners.add(cb); return { dispose: () => { this.listeners.delete(cb) } } }
-    private fire() { for (const l of [...this.listeners]) l() }
 }
 
 function token(): CancellationToken & { cancel(): void } {
@@ -182,20 +183,21 @@ export interface SelectionRangeProvider {
 
 /** 补全 provider 的唯一注册表:Monaco LanguageFeatureRegistry(selector 支持 {language, scheme, pattern, exclusive},按分组取回) */
 const completionProviders = languageFeatures.completionProvider as LanguageFeatureRegistry<SuggestProvider>
-const definitionProviders = new Registry<DefinitionProvider>()
-const foldingProviders = new Registry<FoldingRangeProvider>()
-const inlayProviders = new Registry<InlayHintsProvider>()
-const selectionRangeProviders = new Registry<SelectionRangeProvider>()
+// 语言 id 宽松('ts' / 'typescriptreact' 这类别名),和补全表、以前按语言匹配时一样
+const definitionProviders = new LanguageFeatureRegistry<DefinitionProvider>({ canonLanguage })
+const foldingProviders = new LanguageFeatureRegistry<FoldingRangeProvider>({ canonLanguage })
+const inlayProviders = new LanguageFeatureRegistry<InlayHintsProvider>({ canonLanguage })
+const selectionRangeProviders = new LanguageFeatureRegistry<SelectionRangeProvider>({ canonLanguage })
 
-export const registerCompletionItemProvider = (s: LanguageSelector, p: CompletionItemProvider): IDisposable => completionProviders.register(s as never, p as SuggestProvider)
+export const registerCompletionItemProvider = (s: LanguageSelector, p: CompletionItemProvider): IDisposable => completionProviders.register(s, p as SuggestProvider)
 export const registerDefinitionProvider = (s: LanguageSelector, p: DefinitionProvider) => definitionProviders.register(s, p)
 export const registerFoldingRangeProvider = (s: LanguageSelector, p: FoldingRangeProvider) => foldingProviders.register(s, p)
 export const registerSelectionRangeProvider = (s: LanguageSelector, p: SelectionRangeProvider) => selectionRangeProviders.register(s, p)
-/** 某语言当前注册的 SelectionRangeProvider(扩选 provideSelectionRanges 用) */
-export const selectionRangeProvidersFor = (lang: string): SelectionRangeProvider[] => selectionRangeProviders.for(lang)
-/** 某语言当前注册的折叠 / 定义 provider(测试和宿主查询用,同上) */
-export const foldingProvidersFor = (lang: string): FoldingRangeProvider[] => foldingProviders.for(lang)
-export const definitionProvidersFor = (lang: string): DefinitionProvider[] => definitionProviders.for(lang)
+/** 对这个 model(或只给语言 id:按 inmemory://model/1 打分)当前注册的 SelectionRangeProvider(扩选 provideSelectionRanges 用) */
+export const selectionRangeProvidersFor = (m: string | FeatureModel): SelectionRangeProvider[] => selectionRangeProviders.ordered(typeof m === 'string' ? byLanguage(m) : m)
+/** 当前注册的折叠 / 定义 provider(测试和宿主查询用,同上) */
+export const foldingProvidersFor = (m: string | FeatureModel): FoldingRangeProvider[] => foldingProviders.ordered(typeof m === 'string' ? byLanguage(m) : m)
+export const definitionProvidersFor = (m: string | FeatureModel): DefinitionProvider[] => definitionProviders.ordered(typeof m === 'string' ? byLanguage(m) : m)
 export const registerInlayHintsProvider = (s: LanguageSelector, p: InlayHintsProvider) => inlayProviders.register(s, p)
 
 /** CompletionItemKind(数字,Monaco 枚举)→ 补全控件认的 kind 串 */
@@ -216,8 +218,9 @@ export interface DefinitionProvider {
 interface DefTarget { local: boolean, uri: string, start: number, length: number, line: number, from: number }
 
 /** 定义 provider 的结果 → 目标(同一个文件用 offset;别的文件只带 uri 和行号) */
-export async function provideDefinitions(view: EditorView, lang: string, pos: number, uri: string): Promise<DefTarget[]> {
-    const providers = definitionProviders.for(lang)
+export async function provideDefinitions(view: EditorView, lang0: string, pos: number, fileName?: string): Promise<DefTarget[]> {
+    const { lang, uri, model: fm } = identity(view, lang0, fileName)
+    const providers = definitionProviders.ordered(fm)
     if (!providers.length) return []
     const model = providerModel(() => view.state, lang, uri)
     const position = model.getPositionAt(pos)
@@ -247,11 +250,13 @@ export interface DefinitionActionsLike {
 }
 
 /** 非 TS 语言的 F12 / Peek / 预览,背后是已注册的 DefinitionProvider。没有 provider → 全部返回 false / null */
-export function providerDefinitionActions(lang: string, uriOf: () => string = () => 'inmemory://model/1'): DefinitionActionsLike {
+export function providerDefinitionActions(lang: string, fileOf: () => string | undefined = () => undefined): DefinitionActionsLike {
+    // 「本文件」的 uri:编辑器挂着 model 就是它的(和 provideDefinitions 判断 local 用的是同一个)
+    const self = (view: EditorView) => identity(view, lang, fileOf()).uri
     const toPeek = (view: EditorView, rows: DefTarget[]): PeekLocation[] => rows.map(r => ({
         start: r.start, length: r.length, line: r.line,
         preview: r.local ? view.state.doc.line(Math.min(r.line, view.state.doc.lines)).text.trim() : r.uri,
-        file: r.local ? uriOf() : r.uri, local: r.local, text: r.local ? null : '',
+        file: r.local ? self(view) : r.uri, local: r.local, text: r.local ? null : '',
     }))
     const go = (view: EditorView, r: DefTarget) => {
         const pos = Math.max(0, Math.min(view.state.doc.length, r.start))
@@ -259,7 +264,7 @@ export function providerDefinitionActions(lang: string, uriOf: () => string = ()
     }
     const actions: DefinitionActionsLike = {
         async goToDefinition(view) {
-            const rows = await provideDefinitions(view, lang, view.state.selection.main.head, uriOf())
+            const rows = await provideDefinitions(view, lang, view.state.selection.main.head, fileOf())
             const local = rows.filter(r => r.local)
             if (!rows.length) return false
             if (rows.length === 1 && local.length === 1) { go(view, local[0]); return true }
@@ -267,23 +272,23 @@ export function providerDefinitionActions(lang: string, uriOf: () => string = ()
             const pref = (getOption(view.state, 'gotoLocation') as Record<string, string> | undefined)?.multipleDefinitions ?? 'peek'
             if (pref === 'goto' && local.length) { go(view, local[0]); return true }
             if (pref === 'gotoAndPeek' && local.length) go(view, local[0])
-            showPeek(view, { title: 'Definitions', locations: toPeek(view, rows), file: uriOf() })
+            showPeek(view, { title: 'Definitions', locations: toPeek(view, rows), file: self(view) })
             return true
         },
         async peekDefinition(view) {
-            const rows = await provideDefinitions(view, lang, view.state.selection.main.head, uriOf())
+            const rows = await provideDefinitions(view, lang, view.state.selection.main.head, fileOf())
             if (!rows.length) return false
-            showPeek(view, { title: 'Definitions', locations: toPeek(view, rows), file: uriOf() })
+            showPeek(view, { title: 'Definitions', locations: toPeek(view, rows), file: self(view) })
             return true
         },
         async definitionPreviewAt(view, pos) {
             const w = wordAtPosition(view.state, pos)
             if (!w) return null
-            const rows = await provideDefinitions(view, lang, pos, uriOf())
+            const rows = await provideDefinitions(view, lang, pos, fileOf())
             if (!rows.length) return null
             const r = rows[0]
             return {
-                from: w.from, to: w.to, count: rows.length, local: r.local, file: r.local ? uriOf() : r.uri, line: r.line,
+                from: w.from, to: w.to, count: rows.length, local: r.local, file: r.local ? self(view) : r.uri, line: r.line,
                 text: r.local ? definitionPreviewText(materializeDoc(view.state), r.start) : r.uri,
             }
         },
@@ -292,7 +297,7 @@ export function providerDefinitionActions(lang: string, uriOf: () => string = ()
 }
 
 /** 此语言现在有没有定义 provider(F12 等键位:没有就不吃键) */
-export const hasDefinitionProvider = (lang: string) => definitionProviders.for(lang).length > 0
+export const hasDefinitionProvider = (view: EditorView | undefined, lang: string, fileName?: string): boolean => definitionProviders.has(identity(view, lang, fileName).model)
 
 // ———————————————— 折叠范围 ————————————————
 export interface FoldingRangeM { start: number, end: number, kind?: { value: string } }
@@ -302,14 +307,15 @@ export interface FoldingRangeProvider {
 }
 
 /** 折叠 provider 会话:文档改动防抖(280ms,同 tsFoldSession)和 onDidChange / 注册变化时拉取,结果推进 setExtraFolds */
-export function providerFoldingSession(view: EditorView, lang: string, uriOf: () => string = () => 'inmemory://model/1'): () => void {
+export function providerFoldingSession(view: EditorView, lang: string, fileOf: () => string | undefined = () => undefined): () => void {
     let timer: ReturnType<typeof setTimeout> | null = null
     let seq = 0
     let disposed = false
     const subs: IDisposable[] = []
     const watched = new Set<FoldingRangeProvider>()
+    const who = () => identity(view, lang, fileOf())
     const watch = () => {
-        for (const p of foldingProviders.for(lang)) {
+        for (const p of foldingProviders.ordered(who().model)) {
             if (watched.has(p)) continue
             watched.add(p)
             if (typeof p.onDidChange === 'function') subs.push(p.onDidChange(() => schedule(0)))
@@ -318,13 +324,14 @@ export function providerFoldingSession(view: EditorView, lang: string, uriOf: ()
     const run = async () => {
         const my = ++seq
         watch()
-        const providers = foldingProviders.for(lang)
+        const id = who()
+        const providers = foldingProviders.ordered(id.model)
         if (!providers.length) {
             // 之前推过范围、provider 现在没了 → 清掉
             if (pushed) { pushed = false; view.dispatch(view.state.update({ effects: setExtraFolds.of([]) })) }
             return
         }
-        const model = providerModel(() => view.state, lang, uriOf())
+        const model = providerModel(() => view.state, id.lang, id.uri)
         const nLines = view.state.doc.lines
         const seen = new Map<number, { line: number, from: number, to: number }>()
         let any = false
@@ -380,25 +387,27 @@ export interface InlayHintsProvider {
 }
 
 /** 非 TS 语言的内联提示会话:inlayHints.enabled=off 不请求;改文档(防抖 360ms)/ onDidChangeInlayHints / 注册变化时重取 */
-export function providerInlaySession(view: EditorView, lang: string, uriOf: () => string = () => 'inmemory://model/1'): () => void {
+export function providerInlaySession(view: EditorView, lang: string, fileOf: () => string | undefined = () => undefined): () => void {
     let timer: ReturnType<typeof setTimeout> | null = null
     let seq = 0
     let disposed = false
     let held: InlayHintListM[] = []
     const subs: IDisposable[] = []
     const watched = new Set<InlayHintsProvider>()
+    const who = () => identity(view, lang, fileOf())
     const release = () => { for (const h of held) { try { h.dispose() } catch { /* */ } } held = [] }
     const run = async () => {
         const my = ++seq
-        for (const p of inlayProviders.for(lang)) {
+        const id = who()
+        for (const p of inlayProviders.ordered(id.model)) {
             if (watched.has(p)) continue
             watched.add(p)
             if (typeof p.onDidChangeInlayHints === 'function') subs.push(p.onDidChangeInlayHints(() => schedule(0)))
         }
-        const providers = inlayProviders.for(lang)
+        const providers = inlayProviders.ordered(id.model)
         const clear = () => { if ((view.state.field(inlayField, false) ?? []).length) view.dispatch(view.state.update({ effects: setInlayHints.of([]) })) }
         if (!providers.length || inlayEnabled(view.state) === 'off') { release(); clear(); return }
-        const model = providerModel(() => view.state, lang, uriOf())
+        const model = providerModel(() => view.state, id.lang, id.uri)
         const range = model.getFullModelRange()
         const marks: InlayMark[] = []
         const lists: InlayHintListM[] = []

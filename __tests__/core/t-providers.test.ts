@@ -122,7 +122,7 @@ describe('registerDefinitionProvider', () => {
     it('F12 跳到 provider 给的位置;Location 与 LocationLink 都认', async () => {
         let got: { lineNumber: number, column: number } | undefined
         const d = registerDefinitionProvider('plaintext', {
-            provideDefinition(_model, position) { got = position; return { uri: { toString: () => 'inmemory://model/1' }, range: target } },
+            provideDefinition(model, position) { got = position; return { uri: model.uri, range: target } }, // 本文件:Monaco 的写法,给 model.uri
         })
         disposables.push(d)
         const v = mount(DOC)
@@ -139,7 +139,7 @@ describe('registerDefinitionProvider', () => {
         expect(e.defaultPrevented).toBe(false)
     })
     it('Ctrl+点击:definitionLinkOpensInPeek 默认直接跳', async () => {
-        disposables.push(registerDefinitionProvider('plaintext', { provideDefinition: () => [{ uri: { toString: () => 'inmemory://model/1' }, range: target, targetSelectionRange: target }] }))
+        disposables.push(registerDefinitionProvider('plaintext', { provideDefinition: model => [{ uri: model.uri, range: target, targetSelectionRange: target }] }))
         const v = mount(DOC)
         v.dispatch(v.state.update({ selection: { anchor: DOC.indexOf('foo', 12) + 1 } }))
         const { clickDefinitionHandler } = await import('../../src/core/input/mouseselection')
@@ -147,6 +147,39 @@ describe('registerDefinitionProvider', () => {
         expect(fn(v, v.state.selection.main.head)).toBe(true)
         await until(() => v.state.selection.main.head === 4)
         expect(v.state.selection.main.head).toBe(4)
+    })
+})
+
+describe('provider 看到的 model 身份', () => {
+    const DOC = 'let foo = 1\nlet bar = foo\n'
+    const f12 = (v: { contentDOM: HTMLElement }) => v.contentDOM.dispatchEvent(new KeyboardEvent('keydown', { key: 'F12', bubbles: true, cancelable: true }))
+    it('liteMonaco({ fileName }):provider 拿到的 uri 是 fileName(不被编辑器自己的临时 model 盖掉),查的时候不建 model', async () => {
+        const { editor } = await import('../../src/index')
+        const seen: string[] = []
+        disposables.push(registerDefinitionProvider('plaintext', { provideDefinition(model) { seen.push(model.uri.toString()); return null } }))
+        const host = document.createElement('div'); document.body.appendChild(host); hosts.push(host)
+        const v = liteMonaco({ parent: host, doc: DOC, lang: 'plaintext', fileName: 'file:///src/a.txt', highlighter: fakeHl(), features: QUIET as never })
+        const afterCreate = editor.getModels().length
+        v.dispatch(v.state.update({ selection: { anchor: 15 } }))
+        f12(v)
+        await until(() => seen.length > 0)
+        expect(seen).toEqual(['file:///src/a.txt'])
+        expect(editor.getModels().length).toBe(afterCreate) // 查 provider 不顺手建 model
+    })
+    it('monaco.editor.create 挂着真的 model:按它的 scheme 打分(选择器的 scheme 不对就不问),uri 是它的', async () => {
+        const { editor, Uri } = await import('../../src/index')
+        const seen: string[] = []
+        disposables.push(registerDefinitionProvider({ language: 'plaintext', scheme: 'untitled' }, { provideDefinition: () => { seen.push('untitled'); return null } }))
+        disposables.push(registerDefinitionProvider({ language: 'plaintext', scheme: 'file' }, { provideDefinition(model) { seen.push(model.uri.toString()); return null } }))
+        const model = editor.createModel(DOC, 'plaintext', Uri.parse('file:///real/b.txt'))
+        disposables.push(model)
+        const host = document.createElement('div'); document.body.appendChild(host); hosts.push(host)
+        const ed = editor.create(host, { model, highlighter: fakeHl(), features: QUIET } as never)
+        disposables.push(ed)
+        ed.setPosition({ lineNumber: 2, column: 12 })
+        f12(ed as unknown as { contentDOM: HTMLElement })
+        await until(() => seen.length > 0)
+        expect(seen).toEqual(['file:///real/b.txt'])
     })
 })
 

@@ -52,7 +52,7 @@ describe('typescriptDefaults / javascriptDefaults 形状', () => {
 
     it('onDidChange 在 setDiagnosticsOptions / setCompilerOptions / setInlayHintsOptions 时触发,dispose 后不再触发', () => {
         let n = 0
-        const d = typescriptDefaults.onDidChange(e => { expect(e).toBe(typescriptDefaults); n++ })
+        const d = typescriptDefaults.onDidChange(e => { expect(e).toBeUndefined(); n++ }) // Monaco fire(void 0)
         typescriptDefaults.setDiagnosticsOptions({ noSyntaxValidation: true })
         expect(typescriptDefaults.getDiagnosticsOptions()).toEqual({ noSyntaxValidation: true })
         typescriptDefaults.setInlayHintsOptions({ includeInlayParameterNameHints: 'all' })

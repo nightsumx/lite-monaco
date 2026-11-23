@@ -197,6 +197,12 @@ export interface ITextModelExtras {
     changeDecorations<T>(callback: (changeAccessor: IModelDecorationsChangeAccessor) => T, ownerId?: number): T | null
 }
 
+/**
+ * 参数位置收 Monaco 的 ITextModel 用:只要 monaco.d.ts 声明了的成员,用户照官方类型写的代码原样传得进来。
+ * 运行时仍必须是 lite-monaco createModel 的产物(返回值照旧给完整的 ITextModel)。
+ */
+export type PublicTextModel = Omit<ITextModel, keyof ITextModelExtras>
+
 export interface ITextModel extends ITextModelExtras {
     readonly uri: Uri
     readonly id: string
@@ -409,6 +415,8 @@ export class TextModel implements ITextModel, ITextModelExtras {
     private _ownDeco: DetachedDecorations | null = null
     private _ownDecoSub: IDisposable | null = null
     private _implicit = false
+    /** @internal 编辑器自己建的临时 model(没人 createModel 过;换走就销毁) */
+    get isImplicit(): boolean { return this._implicit }
     /**
      * 内容特征标志(Monaco 语义:建模/setValue 时按全文算一次,之后编辑只会把它们置真)。
      * 文档是不可变 rope,所以只持有「基准文档」的引用(共享结构、零拷贝),真被查询时才扫一遍;
@@ -1453,7 +1461,7 @@ export function createModel(value: string, language?: string, uri?: Uri, opts?: 
     let bom = ''
     if (text.charCodeAt(0) === 0xFEFF) { bom = '\uFEFF'; text = text.slice(1) }
     const firstLine = text.split(/\r\n|\r|\n/, 1)[0]
-    const lang = language ?? guessLanguageId(uri ?? null, firstLine) ?? 'plaintext'
+    const lang = resolveLanguageId(language) || guessLanguageId(uri ?? null, firstLine) || 'plaintext'
     // defaultEOL(创建选项,ModelService 按 files.eol 给):只在文本自己没有换行时决定 EOL
     const m = new TextModel(freshState(text, detectEOL(text, defaultEOL === DefaultEndOfLine.CRLF ? '\r\n' : '\n'), opts?.history), lang, resource, bom)
     if (defaultEOL !== undefined) m._setDefaultEOL(defaultEOL)
@@ -1498,6 +1506,14 @@ _setModelLanguageHost({
     },
 })
 
-/** 语言 id 有没有登记(给 setModelLanguage 的校验用:Monaco 对未知 id 回落 plaintext;lite-monaco 保留原 id,不强制) */
+/**
+ * createModel / editor.create / setModelLanguage 收到的语言:同 Monaco 先把 mime 换成 id(`text/javascript` → javascript);空的返回 ''(调用方去猜或用 plaintext)。
+ * 没登记的 id 原样留着,不像 Monaco 那样回落 plaintext:lite-monaco 默认只登记常用的几十种,其余(zig、vue、svelte……)靠 Shiki 照样能高亮,回落就没了。
+ */
+export function resolveLanguageId(language: string | null | undefined): string {
+    return language ? getLanguageService().getLanguageIdByMimeType(language) || language : ''
+}
+
+/** 语言 id 有没有登记 */
 export { isRegisteredLanguage }
 export { wordClassifier as _wordClassifier }

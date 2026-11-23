@@ -103,6 +103,11 @@ export interface EditorContext {
     events: EventHub
     /** 实例换了 model(setModel 之后触发):按 model 订阅的事件据此重新订阅 */
     readonly modelSwitched: Emitter<void>
+    /**
+     * 现在没有 model(Monaco getModel() === null):setModel(null) 之后、销毁之后,或者一开始就不带(create 传了 model、diff 两侧还没 setModel)。
+     * 这时谁都不许去建隐式 model:Monaco 里没有 model 就是没有,建了会多出一个 getModels() 里的空 model。
+     */
+    noModel: boolean
 }
 
 /** 各方法组的装配函数 */
@@ -111,6 +116,8 @@ export type Installer = (ctx: EditorContext) => void
 export interface ContextHooks {
     getOptions(): ComputedEditorOptions
     host: EditorHost
+    /** 一开始不带 model(见 EditorContext.noModel) */
+    noModel?: boolean
 }
 
 export function createContext(view: core.EditorView, hooks: ContextHooks): EditorContext & { dispose(): void } {
@@ -136,6 +143,7 @@ export function createContext(view: core.EditorView, hooks: ContextHooks): Edito
         api: {},
         events,
         dispose,
+        noModel: !!hooks.noModel,
     }
 }
 

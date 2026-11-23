@@ -3,9 +3,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import * as jsonService from 'vscode-json-languageservice';
+// 可选 peer:命名空间先取成别名再用。没装时 Vite 把它换成没有导出的空模块,对命名空间成员的静态访问每处都报一条
+// 「is not exported」(json/css/html 加起来近 80 条);别名上的访问是普通属性读取,不报
+import * as jsonServiceModule from 'vscode-json-languageservice';
+import jsonService = jsonServiceModule;
 import type { IWorkerContext } from '../mainthread';
-import { URI } from 'vscode-uri';
+import * as vscodeUriModule from 'vscode-uri';
+import vscodeUri = vscodeUriModule;
 import { DiagnosticsOptions } from './register';
 
 let defaultSchemaRequestService: ((url: string) => Promise<string>) | undefined;
@@ -187,7 +191,7 @@ function isAbsolutePath(path: string) {
 
 function resolvePath(uriString: string, path: string): string {
 	if (isAbsolutePath(path)) {
-		const uri = URI.parse(uriString);
+		const uri = vscodeUri.URI.parse(uriString);
 		const parts = path.split('/');
 		return uri.with({ path: normalizePath(parts) }).toString();
 	}
@@ -216,7 +220,7 @@ function normalizePath(parts: string[]): string {
 }
 
 function joinPath(uriString: string, ...paths: string[]): string {
-	const uri = URI.parse(uriString);
+	const uri = vscodeUri.URI.parse(uriString);
 	const parts = uri.path.split('/');
 	for (let path of paths) {
 		parts.push(...path.split('/'));

@@ -359,7 +359,7 @@ const BUILTIN: Record<string, (view: core.EditorView, ctx: ServiceHost) => unkno
     // 提供者(有没有由语言层 / registerXxxProvider 决定;这里只给个保守的默认)
     editorHasCompletionItemProvider: () => false,
     editorHasHoverProvider: v => hasProvider(v, 'hoverProvider'),
-    editorHasDefinitionProvider: (_v, h) => hasDefinitionProvider(h.languageId()),
+    editorHasDefinitionProvider: (v, h) => hasDefinitionProvider(v, h.languageId()),
     editorHasDeclarationProvider: v => hasProvider(v, 'declarationProvider'),
     editorHasImplementationProvider: v => hasProvider(v, 'implementationProvider'),
     editorHasTypeDefinitionProvider: v => hasProvider(v, 'typeDefinitionProvider'),

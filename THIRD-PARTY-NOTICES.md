@@ -65,6 +65,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## @monaco-editor/react
+
+`src/react/` (entry `lite-monaco/react`) reimplements the component API of `@monaco-editor/react` 4.7.0 (props, defaults, the `MonacoContainer` DOM, `useUpdate`, the model and view-state handling) so code written for it runs unchanged. The structure follows its sources closely.
+
+Source: https://github.com/suren-atoyan/monaco-react
+
+```
+MIT License
+
+Copyright (c) 2018 Suren Atoyan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
 ## Codicons
 
 `src/core/chrome/codicon-woff2.ts` embeds the codicon icon font (a separate chunk, loaded when the first editor mounts) (copied from `monaco-editor`), used for the folding, search and completion icons.

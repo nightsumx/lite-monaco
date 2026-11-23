@@ -16,7 +16,10 @@ export {
 export { CodeActionTriggerType } from '../lang/codeaction'
 export { SignatureHelpTriggerKind } from '../lang/signaturehelp'
 export { SymbolKind } from '../lang/quickoutline'
-export { typescriptDefaults, javascriptDefaults, typescript } from '../lang/tsapi'
+export { typescriptDefaults, javascriptDefaults } from '../lang/tsapi'
+// monaco.languages.typescript:0.55 的官方声明里只剩 { deprecated: true },真东西挪到了顶层 monaco.typescript。
+// 这里给同一个对象,老代码照用(不破坏已有用户)
+export * as typescript from './typescript'
 export { DocumentHighlightKind, HoverVerbosityAction, InlayHintKind, NewSymbolNameTag, NewSymbolNameTriggerKind, SymbolTag } from './enums'
 export { InlineCompletionTriggerKind, PartialAcceptTriggerKind, InlineCompletionHintStyle, InlineCompletionEndOfLifeReasonKind } from '../lang/inline/types'
 export {

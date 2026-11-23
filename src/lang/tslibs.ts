@@ -131,16 +131,16 @@ export function libFileName(path: string): string | null {
 async function loadFromNode(): Promise<Map<string, string> | null> {
     try {
         if (typeof process === 'undefined' || !process.versions?.node) return null
-        const fs = await import('node:fs')
-        const path = await import('node:path')
-        const { pathToFileURL } = await import('node:url')
+        // 只在 Node 里走(测试、服务端);模块名运行时才给,打包器不去解析,浏览器构建里不出现 node 内置模块
+        const nodeImport = (name: string) => import(/* @vite-ignore */ /* webpackIgnore: true */ name)
+        const fs = await nodeImport('node:fs') as typeof import('node:fs')
+        const path = await nodeImport('node:path') as typeof import('node:path')
         // createRequire 的 @types 在部分 moduleResolution 下挂不到 named export,宽断言
-        const nodeModule = await import('node:module') as unknown as {
+        const nodeModule = await nodeImport('node:module') as {
             createRequire: (url: string | URL) => NodeRequire
         }
         const require = nodeModule.createRequire(import.meta.url)
         const libDir = path.dirname(require.resolve('typescript'))
-        void pathToFileURL
         const map = new Map<string, string>()
         for (const name of fs.readdirSync(libDir)) {
             if (!name.startsWith('lib.') || !name.endsWith('.d.ts')) continue

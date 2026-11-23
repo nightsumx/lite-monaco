@@ -88,8 +88,9 @@ export { openQuickOutline, quickOutlineForLanguage, languageOutlineSymbols, hasL
 export type { OutlineSymbol } from './lang/quickoutline'
 export { showDefinitionPreviewHover, clickDefinition, definitionHoverSession } from './lang/defhover'
 export { runTsCommand, TS_ACTION_COMMANDS } from './lang/tsactions'
-export { typescriptDefaults, javascriptDefaults, defaultsFor as languageServiceDefaultsFor, typescript as languagesTypescript } from './lang/tsapi'
-export type { LanguageServiceDefaults, DiagnosticsOptions, InlayHintsOptions, IExtraLibs, IExtraLib, IDisposable, IEvent } from './lang/tsapi'
+export { typescriptDefaults, javascriptDefaults, defaultsFor as languageServiceDefaultsFor } from './lang/tsapi'
+export * as languagesTypescript from './monaco/typescript'
+export type { LanguageServiceDefaults, DiagnosticsOptions, InlayHintsOptions, IExtraLibs, IExtraLib, ModeConfiguration, IDisposable, IEvent } from './lang/tsapi'
 export { tsStickyOutline, navTreeToSticky } from './lang/tssticky'
 export type { TSDiagnosticsOptions } from './lang/tsdiagnostics'
 export {
@@ -186,5 +187,10 @@ export * as core from './core/index'
 // ── Monaco 同名命名空间:`import * as monaco from 'lite-monaco'` 后 `monaco.editor.create(...)` / `monaco.languages.register(...)` ──
 export * as editor from './monaco/editor'
 export * as languages from './monaco/languages'
+// monaco-editor 0.55 的顶层语言命名空间(monaco.typescript / css / html / json);monaco.languages.* 下是同一批对象
+export * as typescript from './monaco/typescript'
+export * as css from './lang/lsp/css/register'
+export * as html from './lang/lsp/html/register'
+export * as json from './lang/lsp/json/register'
 // monaco.Token(顶层的经典分词 token 类,languages.TokenizationResult.tokens 的元素)
 export { Token } from './api/tokenization'

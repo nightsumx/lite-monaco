@@ -14,6 +14,7 @@ import { KeyCode } from './keycodes'
 import { Position, Range, Selection, SelectionDirection } from './position'
 import { getContextKeyService } from './contextkeys'
 import { apiEdit, forceMoveMarkers, undoStop } from '../core/edit/history'
+import { mapSelectionByMarkers } from '../core/edit/tracked'
 import { snippetAutoClosedEffects } from '../core/edit/closebrackets'
 import { keymapHandler, type KeyBinding } from '../core/edit/keymap'
 import { EditorSelection } from '../core/model/selection'
@@ -473,14 +474,13 @@ function toSpecs(sorted: Op[]) {
     return sorted.map(o => ({ from: o.from, to: o.to, insert: o.text }))
 }
 
-/** Monaco 默认的光标映射(AlwaysGrowsWhenTypingAtEdges):起点向前粘、终点向后粘;原本空选区不因此变成选中 */
-function mapSelectionLikeMonaco(sel: EditorSelection, changes: ChangeSet): EditorSelection {
-    return EditorSelection.create(sel.ranges.map((r) => {
-        const from = changes.mapPos(r.from, -1)
-        const to = changes.mapPos(r.to, 1)
-        if (r.empty) return EditorSelection.cursor(to)
-        return r.anchor <= r.head ? EditorSelection.range(from, to) : EditorSelection.range(to, from)
-    }), sel.mainIndex)
+/**
+ * Monaco 没给 endCursorState 时的光标:选区是 AlwaysGrowsWhenTypingAtEdges 的 tracked range,随编辑按 nodeAcceptEdit 搬
+ * (和 model.applyEdits 同一份,见 tracked.ts):forceMoveMarkers 的编辑把落在边缘的光标推到插入文本之后,
+ * 所以整篇替换(@monaco-editor/react 改 value 就是这样)光标落在新文本末尾。原本空选区不因此变成选中
+ */
+function mapSelectionLikeMonaco(sel: EditorSelection, changes: ChangeSet, ops: readonly Op[]): EditorSelection {
+    return mapSelectionByMarkers(sel, changes, ops.filter(o => o.force).map(o => [o.from, o.to] as const))
 }
 
 function languageIdOf(view: core.EditorView): () => string {
@@ -527,7 +527,7 @@ export function executeEdits(view: core.EditorView, source: string | null | unde
     if (typeof endCursorState === 'function') {
         // Monaco pushEditOperations:先改 model,再调 cursorStateComputer(回调里读 model / 装饰看到的是编辑之后的样子,
         // snippet 会话就在回调里建装饰),最后才设光标。所以分两步:先落改动(光标随编辑搬),回调算出来的光标再单独落一次。
-        dispatchApiEdit(view, state.update({ changes, selection: mapSelectionLikeMonaco(state.selection, changes), annotations: [apiEdit.of(true), ...forceAnn(sorted)] }))
+        dispatchApiEdit(view, state.update({ changes, selection: mapSelectionLikeMonaco(state.selection, changes, sorted), annotations: [apiEdit.of(true), ...forceAnn(sorted)] }))
         const inverse = inverseOps(doc, newDoc, sortedAll, state.lineBreak.length)
         // Monaco:相邻(touching)时按位置序给逆操作,否则按传入顺序
         if (!sortedAll.some((o, i) => i > 0 && o.from <= sortedAll[i - 1].to)) inverse.sort((a, b) => a.minor - b.minor)
@@ -550,7 +550,7 @@ export function executeEdits(view: core.EditorView, source: string | null | unde
             const { anchor, head } = offsetsOfSelection(newDoc, s)
             return EditorSelection.range(anchor, head)
         }), 0)
-        : mapSelectionLikeMonaco(state.selection, changes)
+        : mapSelectionLikeMonaco(state.selection, changes, sorted)
     dispatchApiEdit(view, state.update({ changes, selection, effects, annotations: [apiEdit.of(true), ...forceAnn(sorted)] }))
     return true
 }
@@ -671,7 +671,7 @@ function runCommands(view: core.EditorView, commands: (ICommand | null | undefin
         if (result) after.push(Selection.liftSelection(result))
     })
     const ranges = after.map((s) => { const { anchor, head } = offsetsOfSelection(newDoc, s); return EditorSelection.range(anchor, head) })
-    const selection = ranges.length ? EditorSelection.create(ranges, 0) : mapSelectionLikeMonaco(selectionsBefore, probe.changes)
+    const selection = ranges.length ? EditorSelection.create(ranges, 0) : mapSelectionLikeMonaco(selectionsBefore, probe.changes, work)
     dispatchApiEdit(view, state.update({ changes: probe.changes, selection, annotations: [apiEdit.of(true), ...forceAnn(work)] }))
     return true
 }

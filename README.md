@@ -1,28 +1,30 @@
 # lite-monaco
 
-Monaco 的手感，不到一半的体积。
+English · [中文](./README.zh-CN.md)
 
-`lite-monaco` 是 [monaco-editor](https://github.com/microsoft/monaco-editor) 的平替：`monaco.editor`、`monaco.languages` 同名同形，一行 import 换掉，不用配 worker。
+The feel of Monaco at less than half the size.
 
-**官网（页面上的编辑器都是真的）：https://lite-monaco.dev**
+`lite-monaco` is a drop-in replacement for [monaco-editor](https://github.com/microsoft/monaco-editor): `monaco.editor` and `monaco.languages` have the same names and shapes. Swap one import, and no workers to configure.
 
-- **同一套 API**：`editor.create`、`createModel`、`createDiffEditor`、`defineTheme`、`setModelMarkers`、`languages.register*Provider`、Monarch……对照 Monaco 0.55.1 的 `monaco.d.ts` 机器校验。
-- **拿 Monaco 自己的测试验收**：VS Code 仓库 `src/vs/editor` 下 3863 条单元测试原样接上来跑，适用的 3279 条全部通过；其余 584 条测的是 VS Code 服务层或渲染器内部，每条都写了不适用的理由。
-- **体积**：核心 gzip 523 KB（图标字体 36 KB 另算，挂载时加载）。同样的 esbuild 压缩下，monaco-editor 的 `editor.main` 加 `editor.worker` 是 1201 KB。
-- **不用 worker**：没有 `MonacoEnvironment.getWorker`，没有打包器的 worker loader。
+**Website (every editor on the page is the real thing): https://lite-monaco.dev**
 
-## 安装
+- **The same API**: `editor.create`, `createModel`, `createDiffEditor`, `defineTheme`, `setModelMarkers`, `languages.register*Provider`, Monarch… checked by machine against Monaco 0.55.1's `monaco.d.ts`.
+- **Accepted by Monaco's own tests**: the 3863 unit tests under `src/vs/editor` in the VS Code repo run unchanged; all 3279 that apply pass. The other 584 test VS Code's service layer or renderer internals, and each one has a written reason why it doesn't apply.
+- **Size**: 523 KB gzip for the core (the 47 KB icon font is separate and loads on mount). With the same esbuild minification, monaco-editor's `editor.main` plus `editor.worker` is 1201 KB.
+- **No workers**: no `MonacoEnvironment.getWorker`, no worker loader in your bundler.
+
+## Install
 
 ```bash
 npm i lite-monaco shiki
 ```
 
-`shiki` 负责语法高亮，按语言和主题懒加载。不装也能用，只是没有颜色。
+`shiki` does the syntax highlighting, loading languages and themes lazily. It works without it, just without colors.
 
-## 用法
+## Usage
 
 ```ts
-import * as monaco from 'lite-monaco' // 原来是 'monaco-editor'
+import * as monaco from 'lite-monaco' // was 'monaco-editor'
 
 const editor = monaco.editor.create(document.getElementById('container')!, {
   value: 'const hello = "world"\n',
@@ -34,9 +36,9 @@ const editor = monaco.editor.create(document.getElementById('container')!, {
 editor.onDidChangeModelContent(() => console.log(editor.getValue()))
 ```
 
-容器要有确定的高度，和 Monaco 一样。
+The container needs a definite height, same as Monaco.
 
-### Diff 编辑器
+### Diff editor
 
 ```ts
 const diff = monaco.editor.createDiffEditor(el, { renderSideBySide: true, automaticLayout: true })
@@ -46,21 +48,23 @@ diff.setModel({
 })
 ```
 
-并排和行内两种模式，折叠未改区、移动块、Revert Block 都有，选项同 Monaco 的 `IDiffEditorOptions`。
+Side-by-side and inline modes, collapsed unchanged regions, moved blocks and Revert Block are all there; options are Monaco's `IDiffEditorOptions`.
 
-## 按需加的能力
+## Optional features
 
-都是可选依赖，装了就生效，不装不影响别的。
+All optional dependencies: install one and it takes effect; leave it out and nothing else is affected.
 
-| 想要 | 装 | 说明 |
+| You want | Install | Notes |
 |---|---|---|
-| TypeScript / JavaScript 补全、hover、诊断、跳转、重命名、Quick Fix | `npm i typescript` | 默认跑在主线程。要放进 Worker，见下文 |
-| JSON 校验、补全（含 JSON Schema） | `npm i vscode-json-languageservice vscode-languageserver-types vscode-uri` | 配置走 `monaco.languages.json.jsonDefaults` |
-| CSS / SCSS / Less 补全、hover、校验 | `npm i vscode-css-languageservice vscode-languageserver-types` | `monaco.languages.css.*Defaults` |
-| HTML 补全、hover、格式化 | `npm i vscode-html-languageservice vscode-languageserver-types` | `monaco.languages.html.*Defaults` |
-| Monarch 高亮（81 种语言，不用 Shiki） | 不用装 | `import 'lite-monaco/basic-languages'` |
+| TypeScript / JavaScript completion, hover, diagnostics, go to definition, rename, Quick Fix | `npm i typescript` | Runs on the main thread by default. To move it into a Worker, see below |
+| JSON validation and completion (with JSON Schema) | `npm i vscode-json-languageservice vscode-languageserver-types vscode-uri` | Configure through `monaco.json.jsonDefaults` |
+| CSS / SCSS / Less completion, hover, validation | `npm i vscode-css-languageservice vscode-languageserver-types` | `monaco.css.*Defaults` |
+| HTML completion, hover, formatting | `npm i vscode-html-languageservice vscode-languageserver-types` | `monaco.html.*Defaults` |
+| Monarch highlighting (81 languages, no Shiki) | nothing | `import 'lite-monaco/basic-languages'` |
 
-### TypeScript 放进 Worker
+`monaco.languages.json` and the other old locations are the same objects.
+
+### TypeScript in a Worker
 
 ```ts
 // ts.worker.ts
@@ -69,59 +73,68 @@ startTsWorker()
 ```
 
 ```ts
-// 主线程，建编辑器之前
+// main thread, before creating editors
 import { setTsWorker } from 'lite-monaco'
 setTsWorker(() => new Worker(new URL('./ts.worker.ts', import.meta.url), { type: 'module' }))
 ```
 
-TypeScript 的标准库（`lib.*.d.ts`）默认从 jsDelivr 取。离线或内网环境用 `setTsLibLoader()` 自己提供。
+TypeScript's standard library (`lib.*.d.ts`) is fetched from jsDelivr by default. For offline or intranet setups, provide it yourself with `setTsLibLoader()`.
 
-## 和 Monaco 的已知差异
+## Known differences from Monaco
 
-- **输入层**：Monaco 用隐藏的 textarea / EditContext，lite-monaco 用 contenteditable。读屏用的 role 和 aria 属性对齐了，无障碍树的结构不同。VoiceOver、NVDA、JAWS 还没测过。
-- **输入法**：Monaco 组字过程中每次更新都改 model，lite-monaco 到提交时才改。提交后的结果一致。
-- **没有的 API**：`editor.createWebWorker`、`languages.*.getWorker`、`editor.createMultiFileDiffEditor`。
-- **浏览器**：Chromium、Firefox、WebKit 都和真 Monaco 逐场景比对过（Playwright 构建）。真 Safari、真触摸屏还没验证。
+- **Input layer**: Monaco uses a hidden textarea / EditContext; lite-monaco uses contenteditable. Roles and aria attributes for screen readers match, but the accessibility tree is structured differently. Not yet tested with VoiceOver, NVDA or JAWS.
+- **IME**: Monaco updates the model on every composition update; lite-monaco only on commit. The committed result is the same.
+- **APIs that aren't there**: `createWebWorker` (top-level and `editor.*`), `lsp`, `typescript.getTypeScriptWorker` / `getJavaScriptWorker` / `typescriptVersion`, `editor.createMultiFileDiffEditor`. Reasons are in MIGRATION.md.
+- **Browsers**: Chromium, Firefox and WebKit have all been compared scenario by scenario against real Monaco (Playwright builds). Real Safari and real touch screens are not yet verified.
 
-逐项说明和迁移步骤见 [MIGRATION.md](./MIGRATION.md)。
+Item-by-item notes and migration steps are in [MIGRATION.md](./MIGRATION.md) (Chinese).
 
-## 体积
+## Size
 
-esbuild 压缩、gzip -9，2026-11-23 实测（`node site/measure.mjs`），两边都不含高亮器和 TypeScript 编译器：
+esbuild minified, gzip -9, measured 2026-11-23 (`node site/measure.mjs`); neither side includes a highlighter or the TypeScript compiler:
 
-| | 压缩后 | gzip |
+| | Minified | gzip |
 |---|---|---|
-| lite-monaco（主包；图标字体 36 KB 是单独一块，第一个编辑器挂载时才加载） | 1.68 MB | **523 KB** |
-| monaco-editor 0.55.1（`editor.main` + `editor.worker`；字体 codicon.ttf 也是单独的文件，不在这里） | 4.30 MB + 0.28 MB | 1113 + 88 KB |
+| lite-monaco (main bundle; the 47 KB icon font is a separate chunk, loaded when the first editor mounts) | 1.68 MB | **523 KB** |
+| monaco-editor 0.55.1 (`editor.main` + `editor.worker`; the codicon.ttf font is also a separate file, not counted here) | 4.30 MB + 0.28 MB | 1113 + 88 KB |
 
-要 TypeScript 智能时两边都得带编译器：monaco-editor 是 ts.worker（gzip 1.54 MB），lite-monaco 是你装的 `typescript`。
+For TypeScript smarts both sides need the compiler: monaco-editor ships ts.worker (1.54 MB gzip); lite-monaco uses the `typescript` you install.
 
 ## React
 
-用 [`@monaco-editor/react`](https://www.npmjs.com/package/@monaco-editor/react) 的，组件不用改，把 monaco 实例交给它的 loader：
+`lite-monaco/react` is built in, with the same exports as [`@monaco-editor/react`](https://www.npmjs.com/package/@monaco-editor/react) 4.7.0 (default export `Editor`, plus `DiffEditor`, `useMonaco`, `loader` and the types). Migrating from it is an import change:
+
+```tsx
+import Editor from 'lite-monaco/react'
+
+export const CodeEditor = () => <Editor height={360} defaultLanguage="typescript" defaultValue="const a = 1" />
+```
+
+- No `loader.config` and no CDN; the monaco that `onMount` receives is the same one as `import * as monaco from 'lite-monaco'`.
+- The editor is created before the first paint, so there's no "Loading..." frame (`loading` only shows in server-rendered HTML).
+- Under StrictMode it's created once and the editor left behind is alive; unmounting uses the latest `path` / `keepCurrentModel` / `saveViewState`.
+- Props, defaults, timing, and when `onChange` / `onValidate` fire all match it: `scripts/browser-diff/react/run.mjs` compares 45 scenarios (React 19 and 18) in real Chrome against "@monaco-editor/react + monaco-editor 0.55.1"; the few intentional differences are listed in the script's `ACCEPTED`.
+
+`react` is an optional peer dependency (>= 18) and isn't installed if you don't use React. If you already use `@monaco-editor/react` and don't want to change imports yet, hand lite-monaco to its loader:
 
 ```tsx
 import Editor, { loader } from '@monaco-editor/react'
 import * as monaco from 'lite-monaco'
 
-loader.config({ monaco }) // 不再从 CDN 加载 Monaco
-
-export const CodeEditor = () => <Editor height={360} defaultLanguage="typescript" defaultValue="const a = 1" />
+loader.config({ monaco })
 ```
 
-`Editor`、`DiffEditor`、`useMonaco`、`beforeMount` / `onMount` / `onChange` / `onValidate`、多 model 的 `path` 都照常（对 4.7.0 实测）。
-
-## 开发
+## Development
 
 ```bash
 npm ci
-npm test            # 自有的 6000 多条单测（vitest + jsdom）
-npm run build       # tsc 检查 + tsup 打包到 dist/
-node site/build.mjs # 官网，预览：python3 -m http.server -d site
+npm test            # 6000+ unit tests of our own (vitest + jsdom)
+npm run build       # tsc check + tsup bundle into dist/
+node site/build.mjs # the website; preview with: python3 -m http.server -d site
 ```
 
-Monaco 原版单测的对照（`PARITY.md` 里的 3279/3279）要一份 VS Code 源码的检出，跑法见 [`__parity__/README.md`](./__parity__/README.md)。
+Comparing against Monaco's original unit tests (the 3279/3279 in `PARITY.md`) needs a checkout of the VS Code source; see [`__parity__/README.md`](./__parity__/README.md).
 
 ## License
 
-MIT。独立项目，与微软、Monaco Editor、VS Code 无关；Monaco 和 VS Code 是微软的产品名，这里只用来说明手感对标谁。内核移植自 CodeMirror 6，部分代码来自 Monaco Editor / VS Code（均为 MIT），原版权声明见 [THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md)。
+MIT. An independent project, not affiliated with Microsoft, Monaco Editor or VS Code; Monaco and VS Code are Microsoft product names, used here only to say what the feel is modeled on. The core is ported from CodeMirror 6, and parts of the code come from Monaco Editor / VS Code (both MIT); the original copyright notices are in [THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md).

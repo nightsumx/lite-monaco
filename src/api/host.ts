@@ -13,7 +13,6 @@ import * as core from '../core/index'
 import { cutCommand, pasteCommand, pasteText, rememberCopied } from '../core/input/clipboard'
 import { clearHistory, historyField, restoreHistory } from '../core/edit/history'
 import { indentConfig } from '../core/edit/enter'
-import { getFoldState, setFoldState } from '../core/feature/foldstate'
 import { eolSlot, hasEolSlot, modelForView, onWillDisposeModel, peekViewModel, setViewModel, EndOfLinePreference, type TextModel } from './model'
 import type { Uri } from './uri'
 import type { IModelChangedEvent } from './types'
@@ -258,12 +257,14 @@ export function installHost(ctx: EditorContext): void {
     const { view, api, host } = ctx
     const model = (): TextModel => modelForView(view, host, fn => ctx.onDispose(fn))
 
+    // 没有 model 时 Monaco 的 setValue 什么都不做、getValue 是空串(不去建隐式 model)
     api.setValue = (value: string): void => {
-        if (value === null || value === undefined) return
+        if (value === null || value === undefined || ctx.noModel || view.isDestroyed) return
         model().setValue(String(value))
     }
 
     api.getValue = (options?: { preserveBOM?: boolean, lineEnding?: string }): string => {
+        if (ctx.noModel || view.isDestroyed) return ''
         const le = options?.lineEnding
         const eol = le === '\n' ? EndOfLinePreference.LF : le === '\r\n' ? EndOfLinePreference.CRLF : EndOfLinePreference.TextDefined
         return model().getValue(eol, !!options?.preserveBOM)
@@ -284,19 +285,19 @@ export function installHost(ctx: EditorContext): void {
     // ── setModel / getModel ──
     const onWill = ctx.events.emitter<IModelChangedEvent>()
     const onDid = ctx.events.emitter<IModelChangedEvent>()
-    let noModel = false
     api.onWillChangeModel = onWill.event
     api.onDidChangeModel = onDid.event
-    api.getModel = (): TextModel | null => (noModel ? null : model())
-    api.hasModel = (): boolean => !noModel
+    // 销毁以后也是 null(Monaco dispose → _detachModel)
+    api.getModel = (): TextModel | null => (ctx.noModel || view.isDestroyed ? null : model())
+    api.hasModel = (): boolean => !ctx.noModel && !view.isDestroyed
 
     api.setModel = (next: TextModel | null): void => {
-        const old: TextModel | null = noModel ? null : peekViewModel(view) ?? null
+        const old: TextModel | null = ctx.noModel ? null : peekViewModel(view) ?? null
         if (next === old) return
-        if (next === null && noModel) return
+        if (next === null && ctx.noModel) return
         if (next && next.isDisposed()) throw new Error('Model is disposed!')
         const urlOf = (m: TextModel | null): Uri | null => (m ? m.uri : null)
-        const oldForEvent = noModel ? null : old ?? model()
+        const oldForEvent = ctx.noModel ? null : old ?? model()
         const ev: IModelChangedEvent = { oldModelUrl: urlOf(oldForEvent), newModelUrl: urlOf(next) }
         onWill.fire(ev)
 
@@ -313,23 +314,19 @@ export function installHost(ctx: EditorContext): void {
         const eol = snap ? snap.lineBreak : view.state.lineBreak
         if (hasEolSlot(view.state) && eol !== view.state.lineBreak) effects.push(eolSlot.reconfigure(core.EditorState.lineSeparator.of(eol)))
         const hist = snap?.field(historyField, false)
-        const sel = snap ? snap.selection : null
+        // 光标回到开头(Monaco setModel 新建 viewModel,光标在 1:1;要接着上次的位置得 saveViewState / restoreViewState)
         view.dispatch(view.state.update({
             changes: { from: 0, to: view.state.doc.length, insert: text },
-            selection: sel ?? { anchor: 0 },
+            selection: { anchor: 0 },
             effects,
             annotations: [flushAnnotation.of(true), flushSearch.of(true), ...(hist ? [restoreHistory.of(hist)] : [clearHistory.of(true)])],
             userEvent: 'setmodel',
         }))
-        // 3. 折叠:先全展开(旧文档的折叠行号不属于新文档),再还原新 model 自己的
+        // 3. 折叠:全展开(Monaco setModel 新建折叠模型,什么都不折;要还原上次的折叠走 restoreViewState 的 contributionsState)
         core.unfoldAll(view)
-        if (snap) {
-            const tr = setFoldState(view.state, getFoldState(snap))
-            if (tr) view.dispatch(tr)
-        }
         // 4. 缩进选项、语言
         if (snap) host.setModelOptions(indentConfig(snap))
-        noModel = next === null
+        ctx.noModel = next === null
         if (next) {
             setViewModel(view, next)
             next._attach(view, host)
@@ -343,7 +340,7 @@ export function installHost(ctx: EditorContext): void {
     // Monaco codeEditorWidget._attachModel:model.onWillDispose(() => this.setModel(null))。显示中的 model 被销毁,编辑器先放下它(getModel() 变 null、发 onDidChangeModel),之后 setModel 别的 model 照常
     // 编辑器销毁时它的隐式 model 跟着销毁,那时不该再 setModel(null)(会再造一个隐式 model)
     const offWillDispose = onWillDisposeModel(m => {
-        if (!view.isDestroyed && !noModel && peekViewModel(view) === m) (api.setModel as (m: TextModel | null) => void)(null)
+        if (!view.isDestroyed && !ctx.noModel && peekViewModel(view) === m) (api.setModel as (m: TextModel | null) => void)(null)
     })
     ctx.onDispose(() => offWillDispose.dispose())
 

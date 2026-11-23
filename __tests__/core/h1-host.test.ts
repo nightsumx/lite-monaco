@@ -81,7 +81,7 @@ describe('H1 setModel', () => {
         done()
     })
 
-    it('折叠跟着 model 走:切走时展开,切回时还原', () => {
+    it('换 model 时折叠清空,切回来也不还原(同 Monaco:要还原用 saveViewState / restoreViewState)', () => {
         const { ed, done } = mount({ doc: 'function f() {\n  return 1\n}\nlet b = 2', lang: 'typescript' })
         const m1 = createModel('function f() {\n  return 1\n}\nlet b = 2', 'typescript', Uri.parse('inmemory://m1f'))
         ed.setModel(m1)
@@ -92,7 +92,7 @@ describe('H1 setModel', () => {
         ed.setModel(m2)
         expect([...(ed.state.field(foldField, false) ?? [])]).toEqual([])
         ed.setModel(m1)
-        expect([...(ed.state.field(foldField, false) ?? [])]).toEqual(folds)
+        expect([...(ed.state.field(foldField, false) ?? [])]).toEqual([])
         done()
     })
 
