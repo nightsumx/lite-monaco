@@ -1,6 +1,6 @@
 // The codicon font is Copyright (c) Microsoft Corporation, licensed CC BY 4.0 (npm: @vscode/codicons). See THIRD-PARTY-NOTICES.md.
 // Monaco/VS Code codicon.ttf: icon font for the search box and other controls.
-// 源文件: src/assets/codicon.ttf（自 monaco-editor 复制）。字体本体在 codicon-woff2.ts,这里按需加载。
+// 源文件: src/assets/codicon.ttf（自 monaco-editor 0.55.1 原样复制;换 Monaco 版本时一起换,不然字形和官方对不上）。字体本体在 codicon-woff2.ts,这里按需加载。
 
 const FONT_ID = 'lite-monaco-codicon-font'
 let face: Promise<string> | null = null

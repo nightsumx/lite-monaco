@@ -17,6 +17,59 @@ const THEME = 'vesper'
 const FONT = "'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace"
 const isMac = /Mac|iPhone|iPad/.test(navigator.platform)
 const K = { mod: isMac ? '⌘' : 'Ctrl', alt: isMac ? '⌥' : 'Alt', shift: isMac ? '⇧' : 'Shift' }
+// 页面语言跟着 <html lang>：/ 是英文，/zh/ 是中文。逻辑只有一份，文字从这里取。
+const ZH = document.documentElement.lang.startsWith('zh')
+const T = ZH ? {
+    copied: '已复制', copyFail: '请手动复制', copy: '复制',
+    groups: ['编辑行为', '查找 / 折叠 / 提示', '纯算法 / 配置', '不适用（每条写了理由）'],
+    na: (n: number) => `不适用 · ${n} 条`, pass: (p: number, t: number) => `${p}/${t} 通过`,
+    tsHead: '// 这是一个真的编辑器。点进来，脚本就停，换你来。',
+    schema: { name: '包名。', version: '语义化版本号。', private: '为 true 时 npm 拒绝发布。', license: '许可证标识。', scripts: '脚本表。' },
+    cssHead: '/* 光标放在 gap: 后面，按 Ctrl+Space 看补全和 MDN 文档。 */',
+    heroLine: '// 从 monaco-editor 迁过来，只改这一行：', heroAria: '可编辑的示例代码',
+    start: '自动演示开始。点一下编辑器，脚本就停。', pickWord: '选中一个词',
+    nextMatch: (i: number) => `选中下一个相同的词（${i}/3）`, fourCursors: '四个光标，同时输入',
+    moveDown: '把这一行往下移', moveUp: '再移回去', comment: '整段加注释，语法高亮跟着重算', uncomment: '再去掉',
+    foldAll: '全部折叠', unfoldAll: '全部展开', selectAll: (w: string) => `选中全部 “${w}”`,
+    upper: (n: number) => `${n} 个光标，一起转大写`, undo: (n: number) => `撤销 ×${n}`,
+    undone: (n: number) => `撤销了 ${n} 步，回到原文。从头再来。`,
+    yours: (mod: string, alt: string) => `交给你了。${mod}D 选下一个相同的词 · ${alt}点击 加光标 · F1 命令面板 · 右键菜单`,
+    notes: {
+        demo: '高亮：Shiki（TextMate 语法）。TS 的补全、hover、诊断要另装可选依赖 typescript，这个页面没带。',
+        json: '校验、补全、hover：vscode-json-languageservice，主线程懒加载。"private" 的类型错了，鼠标放上去看。',
+        css: '补全和文档：vscode-css-languageservice。光标放在 gap: 后面按 Ctrl+Space。',
+    },
+    bigTab: '20 万行', making: (n: string) => `正在生成 ${n} 行…`,
+    bigOut: (a: number, b: number) => `生成文本 ${a} ms，建 model 并画出第一屏 ${b} ms`,
+    bigNote: (n: string) => `${n} 行。滚动、查找、折叠、打字都只碰视口里的那几十行：看右边的 DOM 节点数，它不随文档变大。`,
+    bigSay: '点进去随便打字，右边是每一键的耗时。', jsonSay: '鼠标放在 "yes" 上。', cssSay: '在 gap: 后面按 Ctrl+Space。',
+    goMid: (n: string) => `回到第 ${n} 行`, failed: '编辑器加载失败：',
+} : {
+    copied: 'Copied', copyFail: 'Copy by hand', copy: 'Copy',
+    groups: ['Editing', 'Find / folding / hints', 'Algorithms / config', 'Not applicable (each with a reason)'],
+    na: (n: number) => `not applicable · ${n} cases`, pass: (p: number, t: number) => `${p}/${t} pass`,
+    tsHead: '// This is a real editor. Click in and the script stops; it is yours.',
+    schema: { name: 'Package name.', version: 'Semantic version.', private: 'If true, npm refuses to publish.', license: 'License identifier.', scripts: 'Script table.' },
+    cssHead: '/* Put the cursor after gap: and press Ctrl+Space for completions and MDN docs. */',
+    heroLine: '// From monaco-editor? Change one line:', heroAria: 'Editable sample code',
+    start: 'Autoplay. Click the editor and the script stops.', pickWord: 'Select a word',
+    nextMatch: (i: number) => `Add the next occurrence (${i}/3)`, fourCursors: 'Four cursors, typing at once',
+    moveDown: 'Move the line down', moveUp: 'And back up', comment: 'Comment the block; highlighting follows', uncomment: 'Uncomment',
+    foldAll: 'Fold all', unfoldAll: 'Unfold all', selectAll: (w: string) => `Select every “${w}”`,
+    upper: (n: number) => `${n} cursors, uppercase together`, undo: (n: number) => `Undo ×${n}`,
+    undone: (n: number) => `${n} undos, back to the original. Again.`,
+    yours: (mod: string, alt: string) => `Your turn. ${mod}D next occurrence · ${alt}+click add cursor · F1 command palette · right-click menu`,
+    notes: {
+        demo: 'Highlighting: Shiki (TextMate grammars). TS completions, hover and diagnostics need the optional typescript dependency, which this page does not load.',
+        json: 'Validation, completion, hover: vscode-json-languageservice, lazy-loaded on the main thread. "private" has the wrong type; hover it.',
+        css: 'Completions and docs: vscode-css-languageservice. Put the cursor after gap: and press Ctrl+Space.',
+    },
+    bigTab: '200k lines', making: (n: string) => `Generating ${n} lines…`,
+    bigOut: (a: number, b: number) => `text ${a} ms, model + first paint ${b} ms`,
+    bigNote: (n: string) => `${n} lines. Scrolling, find, folding and typing only touch the few dozen lines in view: watch the DOM node count on the right, it does not grow with the document.`,
+    bigSay: 'Click in and type; the timings on the right are per keystroke.', jsonSay: 'Hover "yes".', cssSay: 'Press Ctrl+Space after gap:.',
+    goMid: (n: string) => `Back to line ${n}`, failed: 'The editor failed to load: ',
+}
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
 const $ = (id: string) => document.getElementById(id)!
 const raf = () => new Promise<number>(r => requestAnimationFrame(r))
@@ -51,8 +104,8 @@ document.querySelectorAll('.reveal').forEach(el => revealIO ? revealIO.observe(e
 
 $('copy').addEventListener('click', async e => {
     const b = e.currentTarget as HTMLButtonElement
-    try { await navigator.clipboard.writeText('npm i lite-monaco shiki'); b.textContent = '已复制' } catch { b.textContent = '请手动复制' }
-    setTimeout(() => { b.textContent = '复制' }, 1600)
+    try { await navigator.clipboard.writeText('npm i lite-monaco shiki'); b.textContent = T.copied } catch { b.textContent = T.copyFail }
+    setTimeout(() => { b.textContent = T.copy }, 1600)
 })
 
 // hero 背景网格跟着指针
@@ -95,7 +148,7 @@ function drawMatrix() {
 
     const legend = $('legend')
     const groups = [
-        { k: 'A', name: '编辑行为' }, { k: 'B', name: '查找 / 折叠 / 提示' }, { k: 'C', name: '纯算法 / 配置' }, { k: 'NA', name: '不适用（每条写了理由）' },
+        { k: 'A', name: T.groups[0] }, { k: 'B', name: T.groups[1] }, { k: 'C', name: T.groups[2] }, { k: 'NA', name: T.groups[3] },
     ]
     legend.innerHTML = groups.map(g => {
         const n = files.filter(f => f.group === g.k).reduce((a, f) => a + f.total, 0)
@@ -160,8 +213,8 @@ function drawMatrix() {
         if (fi < 0) { tip.hidden = true; return }
         const f = files[fi]
         tip.innerHTML = `<b>${esc(f.file)}</b>` + (f.group === 'NA'
-            ? `不适用 · ${f.total} 条<br>${esc(f.reason.length > 150 ? f.reason.slice(0, 150) + '…' : f.reason)}`
-            : `<span class="ok">${f.pass}/${f.total} 通过</span>`)
+            ? `${T.na(f.total)}<br>${esc(f.reason.length > 150 ? f.reason.slice(0, 150) + '…' : f.reason)}`
+            : `<span class="ok">${T.pass(f.pass, f.total)}</span>`)
         tip.hidden = false
         const tw = tip.offsetWidth, th = tip.offsetHeight
         let lx = e.clientX - r.left + 14, ly = e.clientY - r.top + 14
@@ -178,7 +231,7 @@ drawMatrix()
 
 // ───────────────────────── 示例文档 ─────────────────────────
 
-const TS_DOC = `// 这是一个真的编辑器。点进来，脚本就停，换你来。
+const TS_DOC = `${T.tsHead}
 type Listener<T> = (value: T) => void
 
 export class Emitter<T> {
@@ -227,16 +280,16 @@ const JSON_SCHEMA = {
     type: 'object',
     required: ['name', 'version'],
     properties: {
-        name: { type: 'string', description: '包名。' },
-        version: { type: 'string', description: '语义化版本号。' },
-        private: { type: 'boolean', description: '为 true 时 npm 拒绝发布。' },
-        license: { type: 'string', description: '许可证标识。', enum: ['MIT', 'Apache-2.0', 'ISC', 'BSD-3-Clause'] },
-        scripts: { type: 'object', description: '脚本表。', additionalProperties: { type: 'string' } },
+        name: { type: 'string', description: T.schema.name },
+        version: { type: 'string', description: T.schema.version },
+        private: { type: 'boolean', description: T.schema.private },
+        license: { type: 'string', description: T.schema.license, enum: ['MIT', 'Apache-2.0', 'ISC', 'BSD-3-Clause'] },
+        scripts: { type: 'object', description: T.schema.scripts, additionalProperties: { type: 'string' } },
         engines: { type: 'object', properties: { node: { type: 'string' } } },
     },
 }
 
-const CSS_DOC = `/* 光标放在 gap: 后面，按 Ctrl+Space 看补全和 MDN 文档。 */
+const CSS_DOC = `${T.cssHead}
 :root {
   --bg: #0a0a0a;
   --text: #ece7dd;
@@ -346,7 +399,7 @@ async function main() {
 // ── hero:一个大字号的真编辑器,脚本把 'monaco-editor' 改成 'lite-monaco' ──
 function initHero() {
     const host = $('hero-ed')
-    const LINE1 = '// 从 monaco-editor 迁过来，只改这一行：'
+    const LINE1 = T.heroLine
     const LINE2 = "import * as monaco from 'monaco-editor'"
     const model = monaco.editor.createModel(LINE1 + '\n' + LINE2, 'typescript')
     const sizeFor = (w: number) => Math.max(14, Math.min(54, Math.floor(w / 24.4)))
@@ -360,7 +413,7 @@ function initHero() {
         scrollBeyondLastLine: false, wordWrap: 'off', padding: { top: 0, bottom: 0 }, guides: { indentation: false },
         occurrencesHighlight: 'off', selectionHighlight: false, matchBrackets: 'never', cursorWidth: 3, cursorBlinking: 'phase',
         contextmenu: false, stickyScroll: { enabled: false }, automaticLayout: false, fixedOverflowWidgets: true,
-        ariaLabel: '可编辑的示例代码',
+        ariaLabel: T.heroAria,
     } as never) as Editor
     const fit = () => {
         const next = sizeFor(host.clientWidth)
@@ -468,56 +521,56 @@ function initBench() {
             m.setValue(TS_DOC)
             ed.setScrollTop(0)
             ed.setPosition({ lineNumber: 1, column: 1 })
-            say([], '自动演示开始。点一下编辑器，脚本就停。')
+            say([], T.start)
             if (!await pause(1600)) return
 
             // 1. ⌘D 选中下一个相同的词
             const first = m.findMatches('listeners', false, false, true, null, false)[0]
             ed.setSelection(first.range)
-            say([], '选中一个词')
+            say([], T.pickWord)
             if (!await pause(800)) return
             for (let i = 1; i <= 3; i++) {
-                say([K.mod, 'D'], `选中下一个相同的词（${i}/3）`)
+                say([K.mod, 'D'], T.nextMatch(i))
                 act('editor.action.addSelectionToNextFindMatch')
                 if (!await pause(650)) return
             }
             // 2. 四个光标同时输入
-            say([], '四个光标，同时输入')
+            say([], T.fourCursors)
             if (!await type('subscribers')) return
             if (!await pause(900)) return
             act('removeSecondaryCursors')
 
             // 3. ⌥↓ 移动行
             ed.setPosition({ lineNumber: 2, column: 1 })
-            for (let i = 0; i < 3; i++) { say([K.alt, '↓'], '把这一行往下移'); act('editor.action.moveLinesDownAction'); if (!await pause(420)) return }
-            for (let i = 0; i < 3; i++) { say([K.alt, '↑'], '再移回去'); act('editor.action.moveLinesUpAction'); if (!await pause(420)) return }
+            for (let i = 0; i < 3; i++) { say([K.alt, '↓'], T.moveDown); act('editor.action.moveLinesDownAction'); if (!await pause(420)) return }
+            for (let i = 0; i < 3; i++) { say([K.alt, '↑'], T.moveUp); act('editor.action.moveLinesUpAction'); if (!await pause(420)) return }
 
             // 4. ⌘/ 注释一整段
             ed.setSelection(new monaco.Selection(17, 1, 23, 2))
-            say([K.mod, '/'], '整段加注释，语法高亮跟着重算')
+            say([K.mod, '/'], T.comment)
             if (!await pause(500)) return
             act('editor.action.commentLine')
             if (!await pause(1300)) return
-            say([K.mod, '/'], '再去掉')
+            say([K.mod, '/'], T.uncomment)
             act('editor.action.commentLine')
             if (!await pause(900)) return
 
             // 5. 全部折叠 / 展开
             ed.setPosition({ lineNumber: 1, column: 1 })
-            say([K.mod, 'K', K.mod, '0'], '全部折叠')
+            say([K.mod, 'K', K.mod, '0'], T.foldAll)
             act('editor.foldAll')
             if (!await pause(1500)) return
-            say([K.mod, 'K', K.mod, 'J'], '全部展开')
+            say([K.mod, 'K', K.mod, 'J'], T.unfoldAll)
             act('editor.unfoldAll')
             if (!await pause(1000)) return
 
             // 6. 选中全部匹配,转大写
             const t = m.findMatches('fn', false, false, true, null, false)[0]
             ed.setSelection(t.range)
-            say([K.mod, K.shift, 'L'], `选中全部 “fn”`)
+            say([K.mod, K.shift, 'L'], T.selectAll('fn'))
             act('editor.action.selectHighlights')
             if (!await pause(900)) return
-            say([], `${ed.getSelections()!.length} 个光标，一起转大写`)
+            say([], T.upper(ed.getSelections()!.length))
             act('editor.action.transformToUppercase')
             if (!await pause(1300)) return
 
@@ -525,11 +578,11 @@ function initBench() {
             let n = 0
             while (m.getValue() !== TS_DOC && n < 80) {
                 n++
-                say([K.mod, 'Z'], `撤销 ×${n}`)
+                say([K.mod, 'Z'], T.undo(n))
                 act('undo')
                 if (!await pause(90)) return
             }
-            say([], `撤销了 ${n} 步，回到原文。从头再来。`)
+            say([], T.undone(n))
             if (!await pause(2200)) return
         }
     }
@@ -537,21 +590,16 @@ function initBench() {
         if (!benchEl.classList.contains('autoplay')) return
         token++
         benchEl.classList.remove('autoplay')
-        say([], `交给你了。${K.mod}D 选下一个相同的词 · ${K.alt}点击 加光标 · F1 命令面板 · 右键菜单`)
+        say([], T.yours(K.mod, K.alt))
     }
     host.addEventListener('pointerdown', stopTour, true)
     host.addEventListener('keydown', stopTour, true)
 
     // ── tabs ──
-    const notes: Record<string, string> = {
-        demo: '高亮：Shiki（TextMate 语法）。TS 的补全、hover、诊断要另装可选依赖 typescript，这个页面没带。',
-        json: '校验、补全、hover：vscode-json-languageservice，主线程懒加载。"private" 的类型错了，鼠标放上去看。',
-        css: '补全和文档：vscode-css-languageservice。光标放在 gap: 后面按 Ctrl+Space。',
-        big: '',
-    }
+    const notes: Record<string, string> = { ...T.notes, big: '' }
     const narrow = matchMedia('(max-width: 720px)').matches
     const BIG = narrow ? 200_000 : 1_000_000
-    if (narrow) document.querySelector<HTMLButtonElement>('[data-tab=big]')!.textContent = '20 万行'
+    if (narrow) document.querySelector<HTMLButtonElement>('[data-tab=big]')!.textContent = T.bigTab
     let big: Model | null = null
     const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.tabs button'))
     async function select(tab: string) {
@@ -560,7 +608,7 @@ function initBench() {
         stopTour()
         if (tab === 'big') {
             if (!big) {
-                say([], `正在生成 ${fmt(BIG)} 行…`)
+                say([], T.making(fmt(BIG)))
                 await raf(); await raf()
                 const t0 = performance.now()
                 const text = bigDoc(BIG)
@@ -569,15 +617,15 @@ function initBench() {
                 ed.setModel(big)
                 await raf()
                 const t2 = performance.now()
-                $('big-out').textContent = `生成文本 ${Math.round(t1 - t0)} ms，建 model 并画出第一屏 ${Math.round(t2 - t1)} ms`
+                $('big-out').textContent = T.bigOut(Math.round(t1 - t0), Math.round(t2 - t1))
             } else ed.setModel(big)
-            $('tab-note').textContent = `${fmt(BIG)} 行。滚动、查找、折叠、打字都只碰视口里的那几十行：看右边的 DOM 节点数，它不随文档变大。`
-            say([], '点进去随便打字，右边是每一键的耗时。')
+            $('tab-note').textContent = T.bigNote(fmt(BIG))
+            say([], T.bigSay)
         } else {
             ed.setModel(models[tab])
             $('tab-note').textContent = notes[tab]
             if (tab === 'demo') void tour()
-            else say([], tab === 'json' ? '鼠标放在 "yes" 上。' : '在 gap: 后面按 Ctrl+Space。')
+            else say([], tab === 'json' ? T.jsonSay : T.cssSay)
         }
         hud()
     }
@@ -589,7 +637,7 @@ function initBench() {
     }
     $('go-end').addEventListener('click', () => jump(Number.MAX_SAFE_INTEGER))
     $('go-mid').addEventListener('click', () => jump(BIG / 2))
-    $('go-mid').textContent = `回到第 ${fmt(BIG / 2)} 行`
+    $('go-mid').textContent = T.goMid(fmt(BIG / 2))
 
     $('tab-note').textContent = notes.demo
     void tour()
@@ -615,5 +663,5 @@ function initMigration() {
 
 main().catch(e => {
     console.error(e)
-    $('cap-text').textContent = '编辑器加载失败：' + (e && e.message || e)
+    $('cap-text').textContent = T.failed + (e && e.message || e)
 })

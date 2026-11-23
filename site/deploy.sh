@@ -1,7 +1,12 @@
 #!/bin/sh
-# 构建并部署官网到 Cloudflare Workers（静态资源）。部署目录是临时拼出来的，只含页面要的文件。
+# 构建并部署官网到 Cloudflare Workers（静态资源）。
+# 只部署已提交的代码：把 HEAD 解到临时目录里构建，工作区里别的线程没提交的改动不会上线。
 set -e
-cd "$(dirname "$0")"
-rm -rf dist _deploy && node build.mjs >/dev/null
-mkdir -p _deploy && cp -R index.html style.css fonts dist _deploy/
-npx wrangler deploy -c "$PWD/wrangler.jsonc" "$@"
+here=$(cd "$(dirname "$0")" && pwd)
+root=$(cd "$here/.." && pwd)
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+git -C "$root" archive HEAD . | tar -x -C "$tmp"
+ln -s "$root/node_modules" "$tmp/node_modules"
+node "$tmp/site/build.mjs" >/dev/null
+npx wrangler deploy -c "$tmp/site/wrangler.jsonc" "$@"

@@ -1,6 +1,8 @@
 // 官网构建:esbuild 把 site/main.ts(连同 ../src 的 lite-monaco 源码)打成 site/dist/。
-// 用法:node site/build.mjs [--watch];本地预览:python3 -m http.server -d site 5311。
+// 用法:node site/build.mjs [--watch];构建完由 pages.mjs 拼出 site/_deploy(首页、文档页、sitemap、llms.txt)。
+// 本地预览:python3 -m http.server -d site/_deploy 5311。
 import { build, context } from '../node_modules/esbuild/lib/main.js'
+import { buildPages } from './pages.mjs'
 import { stripCssCommentsPlugin } from '../scripts/build/strip-css-comments.mjs'
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -55,4 +57,4 @@ const opts = {
     absWorkingDir: here,
 }
 if (process.argv.includes('--watch')) { const c = await context(opts); await c.watch(); console.log('watching…') }
-else await build(opts)
+else { await build(opts); console.log('pages', await buildPages()) }

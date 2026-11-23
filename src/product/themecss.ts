@@ -303,11 +303,11 @@ div.cm-lightbulb.codicon.cm-lightbulb-gutter { width: 20px; height: 20px; }
 .cm-find-close {
   position: absolute; top: 5px; right: 4px; width: 16px; height: 16px; padding: 3px;
   border-radius: 5px; display: flex; align-items: center; justify-content: center;
-  cursor: pointer; color: inherit; box-sizing: border-box;
+  cursor: pointer; color: inherit; box-sizing: content-box;
 }
 .cm-find-close:hover { background: ${v('toolbar.hoverBackground')}; }
 .cm-find-input-box {
-  position: relative; display: flex; flex: 1; min-width: 0; height: 25px;
+  position: relative; display: flex; flex: 1; min-width: 0; height: 25px; box-sizing: border-box;
   background: ${v('input.background')};
   border: 1px solid ${v('input.border')}; border-radius: 2px;
 }
@@ -366,7 +366,9 @@ div.cm-lightbulb.codicon.cm-lightbulb-gutter { width: 20px; height: 20px; }
 .cm-find-btn {
   width: 16px; height: 16px; padding: 3px; border-radius: 5px; margin-left: 3px;
   display: flex; align-items: center; justify-content: center; cursor: pointer;
-  color: inherit; flex-shrink: 0; box-sizing: border-box;
+  color: inherit; flex-shrink: 0;
+  /* Monaco .button 是 content-box:16 + 2×3 = 22。显式写,宿主页的全局 border-box(Tailwind preflight)会把它压回 16 */
+  box-sizing: content-box;
 }
 .cm-find-btn:hover:not(.disabled) { background: ${v('toolbar.hoverBackground')}; }
 .cm-find-btn.disabled {
@@ -375,9 +377,9 @@ div.cm-lightbulb.codicon.cm-lightbulb-gutter { width: 20px; height: 20px; }
 .cm-find-widget .cm-find-toggle-replace.codicon.disabled { display: none; }
 .cm-find-part .cm-find-input-box { flex: 1; min-width: 0; }
 .cm-replace-part .cm-find-input-box { flex: 1; min-width: 0; }
-/* Monaco replaceInput.width = 查找框总宽:替换栏按钮区占和查找栏按钮区一样宽(计数 3+69、上下 2×19、选区内 2+22) */
-.cm-replace-actions { min-width: 134px; }
-.cm-find-widget.reduced-find-widget .cm-replace-actions { min-width: 62px; }
+/* Monaco replaceInput.width = 查找框总宽:替换栏按钮区占和查找栏按钮区一样宽(计数 3+69、上下 2×(3+22)、选区内 2+22) */
+.cm-replace-actions { min-width: 146px; }
+.cm-find-widget.reduced-find-widget .cm-replace-actions { min-width: 74px; }
 /* F7:窄编辑器(Monaco reduced/narrow/collapsed-find-widget,类名和阈值由 search.ts 按编辑器宽算) */
 .cm-find-widget.reduced-find-widget .cm-matches-count { display: none; }
 .cm-find-widget.narrow-find-widget { max-width: 257px !important; }
