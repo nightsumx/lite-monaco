@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>lite-monaco — a drop-in monaco-editor alternative, half the size</title>
-<meta name="description" content="A drop-in replacement for monaco-editor: the same API, checked against Monaco's own 3279 unit tests, 523 KB gzip, and no web workers to configure.">
-<meta property="og:title" content="lite-monaco — Monaco's feel at under half the size">
-<meta property="og:description" content="Swap monaco-editor with one import. 3279/3279 of Monaco's unit tests pass, 523 KB gzip core, no workers to configure. The editors on the page are real.">
+<meta name="description" content="A drop-in replacement for monaco-editor: the same API, checked against Monaco's own 3279 unit tests, 526 KB gzip, and no web workers to configure.">
+<meta property="og:title" content="lite-monaco — Monaco's feel at half the size">
+<meta property="og:description" content="Swap monaco-editor with one import. 3279/3279 of Monaco's unit tests pass, 526 KB gzip core, no workers to configure. The editors on the page are real.">
 <link rel="canonical" href="https://lite-monaco.dev/">
 <link rel="alternate" hreflang="en" href="https://lite-monaco.dev/">
 <link rel="alternate" hreflang="zh-CN" href="https://lite-monaco.dev/zh/">
@@ -68,7 +68,7 @@
   </figure>
 
   <div class="hero-body">
-    <h1 class="rise" style="--d:2">Monaco's feel,<br>at <em>under half</em> the size.</h1>
+    <h1 class="rise" style="--d:2">Monaco's feel,<br>at <em>half</em> the size.</h1>
     <div class="hero-side rise" style="--d:3">
       <p class="lede">A drop-in replacement for <code>monaco-editor</code> with the same <code>monaco.editor</code> API. Accepted against Monaco's own <b>3279</b> unit tests, then compared scene by scene with real Monaco in Chromium, Firefox and WebKit.</p>
       <div class="actions">
@@ -133,14 +133,14 @@
 
 <!-- ───────── 02 SIZE ───────── -->
 <section class="sec size" id="size">
-  <div class="sec-rule reveal"><span>02</span><span>Size</span><span class="sec-rule-r">esbuild minify · gzip -9 · measured 2026-11-23</span></div>
+  <div class="sec-rule reveal"><span>02</span><span>Size</span><span class="sec-rule-r">esbuild minify · gzip -9 · measured 2026-11-24</span></div>
   <div class="size-top">
-    <div class="giant reveal" aria-label="523 KB">
-      <b data-count="523">523</b><span>KB<small>gzip, core</small></span>
+    <div class="giant reveal" aria-label="526 KB">
+      <b data-count="526">526</b><span>KB<small>gzip, core</small></span>
     </div>
     <header class="sec-head reveal">
       <h2>Same ruler, <em>same bundler.</em></h2>
-      <p>Both sides go through the same esbuild with the same minify settings, neither includes a highlighter or the TypeScript compiler. monaco-editor also needs its worker to run, so that counts too.</p>
+      <p>Both sides go through the same esbuild with the same minify settings and code splitting, and count what loads before the editor can show. Neither includes a highlighter or the TypeScript compiler. monaco-editor also needs its worker to run, so that counts too.</p>
     </header>
   </div>
 
@@ -148,14 +148,14 @@
     <div class="ruler-scale" aria-hidden="true"><span>0</span><span>300</span><span>600</span><span>900</span><span>1200 KB</span></div>
     <div class="bar-row">
       <span class="bar-label">lite-monaco</span>
-      <div class="bar-track"><i class="seg seg-lite" style="--w:523"><em>523 KB</em></i></div>
+      <div class="bar-track"><i class="seg seg-lite" style="--w:526"><em>526 KB</em></i></div>
     </div>
     <div class="bar-row">
       <span class="bar-label">monaco-editor 0.55.1</span>
-      <div class="bar-track"><i class="seg seg-mon" style="--w:1113"><em>editor.main 1113</em></i><i class="seg seg-mon2" style="--w:88"></i></div>
-      <span class="bar-note">+ editor.worker 88 KB = 1201 KB</span>
+      <div class="bar-track"><i class="seg seg-mon" style="--w:962"><em>editor.main 962</em></i><i class="seg seg-mon2" style="--w:88"></i></div>
+      <span class="bar-note">+ editor.worker 88 KB = 1050 KB</span>
     </div>
-    <p class="ruler-foot">For TypeScript completions and diagnostics both sides need the TypeScript compiler: monaco-editor ships ts.worker (1.54 MB gzip), lite-monaco uses the optional <code>typescript</code> dependency. So neither side counts it. Re-measure with <code>node site/measure.mjs</code>. <a href="/docs/bundle-size/">How it was measured</a>.</p>
+    <p class="ruler-foot">For TypeScript completions and diagnostics both sides need the TypeScript compiler: monaco-editor ships ts.worker (1.54 MB gzip), lite-monaco uses the optional <code>typescript</code> dependency. So neither side counts it, nor what loads later (Monaco's 81 languages, 158 KB; lite-monaco's icon font, 47 KB). Re-measure with <code>node site/measure.mjs</code>. <a href="/docs/bundle-size/">How it was measured</a>.</p>
   </div>
 
   <div class="spec reveal" role="table" aria-label="Side by side">

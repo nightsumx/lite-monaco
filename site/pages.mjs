@@ -229,7 +229,7 @@ ${urls.map(u => `  <url><loc>${ORIGIN}${u}</loc><lastmod>${today}</lastmod></url
 
 - Same API as monaco-editor 0.55.1 (\`monaco.editor\`, \`monaco.languages\`, \`monaco.Uri\`, \`monaco.Range\`, \`monaco.KeyCode\`); Monaco's own API reference applies.
 - No \`MonacoEnvironment.getWorker\`, no worker loader, no bundler plugin.
-- 523 KB gzip core, against 1201 KB for monaco-editor's editor.main plus editor.worker.
+- 526 KB gzip core, against 1050 KB for monaco-editor 0.55.1 (editor.main's 962 KB up front plus the 88 KB editor.worker), both with code splitting.
 - All 3279 applicable cases of Monaco's own 3863 editor unit tests pass.
 - Optional dependencies: \`typescript@6\` for TS/JS IntelliSense (not 7, it has no JS API), \`vscode-json-languageservice\` / \`vscode-css-languageservice\` / \`vscode-html-languageservice\` for those languages.
 - Works with @monaco-editor/react via \`loader.config({ monaco })\`.

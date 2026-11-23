@@ -37,10 +37,10 @@ h1 em { font-style: normal; color: #ff5a1f; }
 <span class="tick" style="bottom:28px;left:28px"></span><span class="tick" style="bottom:28px;right:28px"></span>
 <div class="pad">
   <div class="mark"><span class="caret"></span>lite-monaco</div>
-  <h1>Monaco's feel,<br>at <em>under half</em> the size.</h1>
+  <h1>Monaco's feel,<br>at <em>half</em> the size.</h1>
   <div class="code">import * as monaco from <b>'lite-monaco'</b></div>
   <dl class="stats">
-    <div><dt>gzip core</dt><dd>523<small>KB</small></dd></div>
+    <div><dt>gzip core</dt><dd>526<small>KB</small></dd></div>
     <div><dt>Monaco unit tests</dt><dd>3279<small>/ 3279</small></dd></div>
     <div><dt>workers to configure</dt><dd>0</dd></div>
   </dl>

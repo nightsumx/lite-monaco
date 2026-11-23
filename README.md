@@ -2,7 +2,7 @@
 
 English · [中文](./README.zh-CN.md)
 
-The feel of Monaco at less than half the size.
+The feel of Monaco at half the size.
 
 `lite-monaco` is a drop-in replacement for [monaco-editor](https://github.com/microsoft/monaco-editor): `monaco.editor` and `monaco.languages` have the same names and shapes. Swap one import, and no workers to configure.
 
@@ -10,7 +10,7 @@ The feel of Monaco at less than half the size.
 
 - **The same API**: `editor.create`, `createModel`, `createDiffEditor`, `defineTheme`, `setModelMarkers`, `languages.register*Provider`, Monarch… checked by machine against Monaco 0.55.1's `monaco.d.ts`.
 - **Accepted by Monaco's own tests**: the 3863 unit tests under `src/vs/editor` in the VS Code repo run unchanged; all 3279 that apply pass. The other 584 test VS Code's service layer or renderer internals, and each one has a written reason why it doesn't apply.
-- **Size**: 523 KB gzip for the core (the 47 KB icon font is separate and loads on mount). With the same esbuild minification, monaco-editor's `editor.main` plus `editor.worker` is 1201 KB.
+- **Size**: 526 KB gzip for the core (the 47 KB icon font is separate and loads on mount). With the same esbuild minification and code splitting, monaco-editor loads 962 KB of `editor.main` plus the 88 KB `editor.worker` before an editor shows: 1050 KB.
 - **No workers**: no `MonacoEnvironment.getWorker`, no worker loader in your bundler.
 
 ## Install
@@ -91,12 +91,12 @@ Item-by-item notes and migration steps are in [MIGRATION.md](./MIGRATION.md) (Ch
 
 ## Size
 
-esbuild minified, gzip -9, measured 2026-11-23 (`node site/measure.mjs`); neither side includes a highlighter or the TypeScript compiler:
+esbuild minified with code splitting, gzip -9, measured 2026-11-24 (`node site/measure.mjs`). Counted is what loads before an editor shows; neither side includes a highlighter or the TypeScript compiler:
 
 | | Minified | gzip |
 |---|---|---|
-| lite-monaco (main bundle; the 47 KB icon font is a separate chunk, loaded when the first editor mounts) | 1.68 MB | **523 KB** |
-| monaco-editor 0.55.1 (`editor.main` + `editor.worker`; the codicon.ttf font is also a separate file, not counted here) | 4.30 MB + 0.28 MB | 1113 + 88 KB |
+| lite-monaco (main bundle; the 47 KB icon font is a separate chunk, loaded when the first editor mounts) | 1.68 MB | **526 KB** |
+| monaco-editor 0.55.1 (`editor.main` + `editor.worker`; its 81 languages split off and load on demand, 158 KB; the codicon.ttf font is also a separate file, not counted here) | 3.75 MB + 0.28 MB | 962 + 88 = **1050 KB** |
 
 For TypeScript smarts both sides need the compiler: monaco-editor ships ts.worker (1.54 MB gzip); lite-monaco uses the `typescript` you install.
 

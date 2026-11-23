@@ -2,7 +2,7 @@
 
 [English](./README.md) · 中文
 
-Monaco 的手感，不到一半的体积。
+Monaco 的手感，一半的体积。
 
 `lite-monaco` 是 [monaco-editor](https://github.com/microsoft/monaco-editor) 的平替：`monaco.editor`、`monaco.languages` 同名同形，一行 import 换掉，不用配 worker。
 
@@ -10,7 +10,7 @@ Monaco 的手感，不到一半的体积。
 
 - **同一套 API**：`editor.create`、`createModel`、`createDiffEditor`、`defineTheme`、`setModelMarkers`、`languages.register*Provider`、Monarch……对照 Monaco 0.55.1 的 `monaco.d.ts` 机器校验。
 - **拿 Monaco 自己的测试验收**：VS Code 仓库 `src/vs/editor` 下 3863 条单元测试原样接上来跑，适用的 3279 条全部通过；其余 584 条测的是 VS Code 服务层或渲染器内部，每条都写了不适用的理由。
-- **体积**：核心 gzip 523 KB（图标字体 47 KB 另算，挂载时加载）。同样的 esbuild 压缩下，monaco-editor 的 `editor.main` 加 `editor.worker` 是 1201 KB。
+- **体积**：核心 gzip 526 KB（图标字体 47 KB 另算，挂载时加载）。同样的 esbuild 压缩和代码分割下，monaco-editor 在编辑器显示前要加载 `editor.main` 的 962 KB 加 `editor.worker` 的 88 KB，共 1050 KB。
 - **不用 worker**：没有 `MonacoEnvironment.getWorker`，没有打包器的 worker loader。
 
 ## 安装
@@ -89,12 +89,12 @@ TypeScript 的标准库（`lib.*.d.ts`）默认从 jsDelivr 取。离线或内�
 
 ## 体积
 
-esbuild 压缩、gzip -9，2026-11-23 实测（`node site/measure.mjs`），两边都不含高亮器和 TypeScript 编译器：
+esbuild 压缩并开代码分割、gzip -9，2026-11-24 实测（`node site/measure.mjs`）。算的是编辑器显示前要加载的部分，两边都不含高亮器和 TypeScript 编译器：
 
 | | 压缩后 | gzip |
 |---|---|---|
-| lite-monaco（主包；图标字体 47 KB 是单独一块，第一个编辑器挂载时才加载） | 1.68 MB | **523 KB** |
-| monaco-editor 0.55.1（`editor.main` + `editor.worker`；字体 codicon.ttf 也是单独的文件，不在这里） | 4.30 MB + 0.28 MB | 1113 + 88 KB |
+| lite-monaco（主包；图标字体 47 KB 是单独一块，第一个编辑器挂载时才加载） | 1.68 MB | **526 KB** |
+| monaco-editor 0.55.1（`editor.main` + `editor.worker`；81 种语言拆成按需加载的块，158 KB；字体 codicon.ttf 也是单独的文件，不在这里） | 3.75 MB + 0.28 MB | 962 + 88 = **1050 KB** |
 
 要 TypeScript 智能时两边都得带编译器：monaco-editor 是 ts.worker（gzip 1.54 MB），lite-monaco 是你装的 `typescript`。
 

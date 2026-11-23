@@ -1,7 +1,7 @@
 // The whole setup: one import, no MonacoEnvironment, no worker loader.
 import * as monaco from 'lite-monaco'
 
-const value = `// This is lite-monaco: the monaco-editor API, under half the size.
+const value = `// This is lite-monaco: the monaco-editor API, half the size.
 // Type checking comes from the optional \`typescript\` dependency.
 
 interface User {

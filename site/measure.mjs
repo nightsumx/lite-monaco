@@ -27,11 +27,13 @@ const entry = (name, features, lang) => {
 const jobs = {
     // 和 npm 包一样分块(splitting):主包 a.js 之外,codicon 字体是挂载时才加载的单独一块,分开报
     'lite-monaco (不含 shiki / typescript)': { format: 'esm', splitting: true, plugins: [stripCssCommentsPlugin], entryPoints: { a: resolve(root, 'src/index.ts') }, external: ['typescript', 'shiki', 'shiki/*', 'react', 'vscode-*'] },
-    'monaco-editor editor.main': { format: 'esm', entryPoints: { a: mon('editor/editor.main.js') } },
+    // splitting 和 npm 包、Vite、webpack 的默认一样:首屏算 a.js 和它静态引的块,81 种语言是按需的块,另列在 lazy 里
+    'monaco-editor editor.main': { format: 'esm', splitting: true, entryPoints: { a: mon('editor/editor.main.js') } },
+    // 打成一个文件(不分割)的数,2026-11-24 以前官网用的是这个 1113
+    'monaco-editor editor.main (one file)': { format: 'esm', entryPoints: { a: mon('editor/editor.main.js') } },
     'monaco-editor editor.worker': { format: 'iife', entryPoints: { a: mon('editor/editor.worker.js') } },
     'monaco-editor ts.worker': { format: 'iife', entryPoints: { a: mon('language/typescript/ts.worker.js') } },
     // 以下给 /docs/reduce-monaco-bundle-size/ 用:开了 splitting,首屏和按需加载的分开报
-    'monaco-editor editor.main (splitting)': { format: 'esm', splitting: true, entryPoints: { a: mon('editor/editor.main.js') } },
     'monaco-editor edcore.main': { format: 'esm', splitting: true, entryPoints: { a: mon('editor/edcore.main.js') } },
     'monaco-editor editor.api': { format: 'esm', splitting: true, entryPoints: { a: entry('api', []) } },
     'monaco-editor editor.api + 7 features + go': { format: 'esm', splitting: true, entryPoints: { a: entry('go', FEATURES, 'go') } },

@@ -12,12 +12,12 @@ All numbers are gzip -9 of esbuild's minified output, JavaScript only, with code
 
 | Setup | Up front |
 |---|---|
-| `monaco-editor` (`editor.main`) | 962 KB, then 165 KB of languages on demand |
+| `monaco-editor` (`editor.main`) | 962 KB, then 158 KB of languages on demand |
 | `edcore.main`: all features, no languages | 935 KB |
 | `editor.api` + 7 features + JavaScript | 935 KB |
 | `editor.api` + 7 features + Go | 790 KB |
 | `editor.api` alone: no find, suggest or hover | 655 KB |
-| [lite-monaco](/docs/getting-started/): all of the above, diff editor | 523 KB |
+| [lite-monaco](/docs/getting-started/): all of the above, diff editor | 526 KB |
 
 Every monaco-editor row also needs `editor.worker`, another 88 KB; lite-monaco has no worker.
 
@@ -70,7 +70,7 @@ Neither makes Monaco smaller, but both take it off the path to your first paint:
 
 ## 4. Use an editor with the same API that is smaller to begin with
 
-[lite-monaco](/) is a drop-in replacement for monaco-editor: the same `monaco.editor` and `monaco.languages` API, checked against Monaco's own 3279 applicable unit tests. Its core is 523 KB with every feature in the table above and the diff editor, and there is no worker to configure, because it is not built on the VS Code platform layers that make up most of `editor.main`.
+[lite-monaco](/) is a drop-in replacement for monaco-editor: the same `monaco.editor` and `monaco.languages` API, checked against Monaco's own 3279 applicable unit tests. Its core is 526 KB with every feature in the table above and the diff editor, and there is no worker to configure, because it is not built on the VS Code platform layers that make up most of `editor.main`.
 
 ```ts
 // before
@@ -79,4 +79,4 @@ import * as monaco from 'monaco-editor'
 import * as monaco from 'lite-monaco'
 ```
 
-What it changes and what it leaves out is in [Migrating from monaco-editor](/docs/migrate-from-monaco/) and [Differences from Monaco](/docs/differences/). How the 523 KB is measured is in [Bundle size](/docs/bundle-size/).
+What it changes and what it leaves out is in [Migrating from monaco-editor](/docs/migrate-from-monaco/) and [Differences from Monaco](/docs/differences/). How the 526 KB is measured is in [Bundle size](/docs/bundle-size/).

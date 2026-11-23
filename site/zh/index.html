@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>lite-monaco — Monaco 的手感，不到一半的体积</title>
-<meta name="description" content="lite-monaco 是 monaco-editor 的平替：同名同形的 API，拿 Monaco 自己的 3279 条单元测试当验收，核心 gzip 523 KB。页面上每一个编辑器都在你的浏览器里实时运行。">
-<meta property="og:title" content="lite-monaco — Monaco 的手感，不到一半的体积">
-<meta property="og:description" content="一行 import 换掉 monaco-editor。3279/3279 条 Monaco 单测通过，核心 gzip 523 KB。页面上的编辑器都是真的。">
+<title>lite-monaco — Monaco 的手感，一半的体积</title>
+<meta name="description" content="lite-monaco 是 monaco-editor 的平替：同名同形的 API，拿 Monaco 自己的 3279 条单元测试当验收，核心 gzip 526 KB。页面上每一个编辑器都在你的浏览器里实时运行。">
+<meta property="og:title" content="lite-monaco — Monaco 的手感，一半的体积">
+<meta property="og:description" content="一行 import 换掉 monaco-editor。3279/3279 条 Monaco 单测通过，核心 gzip 526 KB。页面上的编辑器都是真的。">
 <link rel="canonical" href="https://lite-monaco.dev/zh/">
 <link rel="alternate" hreflang="en" href="https://lite-monaco.dev/">
 <link rel="alternate" hreflang="zh-CN" href="https://lite-monaco.dev/zh/">
@@ -66,7 +66,7 @@
   </figure>
 
   <div class="hero-body">
-    <h1 class="rise" style="--d:2">Monaco 的手感，<br><em>不到一半</em>的体积。</h1>
+    <h1 class="rise" style="--d:2">Monaco 的手感，<br><em>一半</em>的体积。</h1>
     <div class="hero-side rise" style="--d:3">
       <p class="lede">同名同形的 <code>monaco.editor</code> API。拿 Monaco 自己的 <b>3279</b> 条单元测试当验收，再在 Chromium、Firefox、WebKit 里和真 Monaco 逐场景比对。</p>
       <div class="actions">
@@ -131,14 +131,14 @@
 
 <!-- ───────── 02 体积 ───────── -->
 <section class="sec size" id="size">
-  <div class="sec-rule reveal"><span>02</span><span>体积</span><span class="sec-rule-r">esbuild 压缩 · gzip -9 · 2026-11-23 实测</span></div>
+  <div class="sec-rule reveal"><span>02</span><span>体积</span><span class="sec-rule-r">esbuild 压缩 · gzip -9 · 2026-11-24 实测</span></div>
   <div class="size-top">
-    <div class="giant reveal" aria-label="523 KB">
-      <b data-count="523">523</b><span>KB<small>gzip，核心</small></span>
+    <div class="giant reveal" aria-label="526 KB">
+      <b data-count="526">526</b><span>KB<small>gzip，核心</small></span>
     </div>
     <header class="sec-head reveal">
       <h2>同一把尺子，<em>同一个打包器。</em></h2>
-      <p>两边都用同一个 esbuild、同样的压缩参数，都不含高亮器和 TypeScript 编译器。monaco-editor 还要配 worker 才能跑，那份也算进去。</p>
+      <p>两边都用同一个 esbuild、同样的压缩参数，都开代码分割，算的是编辑器显示出来之前要加载的部分。都不含高亮器和 TypeScript 编译器。monaco-editor 还要配 worker 才能跑，那份也算进去。</p>
     </header>
   </div>
 
@@ -146,14 +146,14 @@
     <div class="ruler-scale" aria-hidden="true"><span>0</span><span>300</span><span>600</span><span>900</span><span>1200 KB</span></div>
     <div class="bar-row">
       <span class="bar-label">lite-monaco</span>
-      <div class="bar-track"><i class="seg seg-lite" style="--w:523"><em>523 KB</em></i></div>
+      <div class="bar-track"><i class="seg seg-lite" style="--w:526"><em>526 KB</em></i></div>
     </div>
     <div class="bar-row">
       <span class="bar-label">monaco-editor 0.55.1</span>
-      <div class="bar-track"><i class="seg seg-mon" style="--w:1113"><em>editor.main 1113</em></i><i class="seg seg-mon2" style="--w:88"></i></div>
-      <span class="bar-note">+ editor.worker 88 KB = 1201 KB</span>
+      <div class="bar-track"><i class="seg seg-mon" style="--w:962"><em>editor.main 962</em></i><i class="seg seg-mon2" style="--w:88"></i></div>
+      <span class="bar-note">+ editor.worker 88 KB = 1050 KB</span>
     </div>
-    <p class="ruler-foot">要 TypeScript 补全和诊断时，两边都得带 TypeScript 编译器：monaco-editor 是 ts.worker（gzip 1.54 MB），lite-monaco 是可选依赖 <code>typescript</code>。所以这一份两边都不计。重新量：<code>node site/measure.mjs</code>。</p>
+    <p class="ruler-foot">要 TypeScript 补全和诊断时，两边都得带 TypeScript 编译器：monaco-editor 是 ts.worker（gzip 1.54 MB），lite-monaco 是可选依赖 <code>typescript</code>。所以这一份两边都不计；之后才加载的也不计（Monaco 的 81 种语言 158 KB，lite-monaco 的图标字体 47 KB）。重新量：<code>node site/measure.mjs</code>。</p>
   </div>
 
   <div class="spec reveal" role="table" aria-label="规格对照">
