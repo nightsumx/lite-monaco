@@ -112,7 +112,7 @@
     "lightweight"
   ],
   "license": "MIT",
-  "homepage": "https://lite-monaco-www.lineryforjs.workers.dev",
+  "homepage": "https://lite-monaco.dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nightsumx/lite-monaco.git"

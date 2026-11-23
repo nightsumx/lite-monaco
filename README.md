@@ -4,7 +4,7 @@ Monaco 的手感，不到一半的体积。
 
 `lite-monaco` 是 [monaco-editor](https://github.com/microsoft/monaco-editor) 的平替：`monaco.editor`、`monaco.languages` 同名同形，一行 import 换掉，不用配 worker。
 
-**官网（页面上的编辑器都是真的）：https://lite-monaco-www.lineryforjs.workers.dev**
+**官网（页面上的编辑器都是真的）：https://lite-monaco.dev**
 
 - **同一套 API**：`editor.create`、`createModel`、`createDiffEditor`、`defineTheme`、`setModelMarkers`、`languages.register*Provider`、Monarch……对照 Monaco 0.55.1 的 `monaco.d.ts` 机器校验。
 - **拿 Monaco 自己的测试验收**：VS Code 仓库 `src/vs/editor` 下 3863 条单元测试原样接上来跑，适用的 3279 条全部通过；其余 584 条测的是 VS Code 服务层或渲染器内部，每条都写了不适用的理由。
