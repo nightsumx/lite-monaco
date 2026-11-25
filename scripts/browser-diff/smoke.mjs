@@ -1,6 +1,6 @@
 // monaco-editor test/smoke/smoke.test.ts 的思路,跑在 lite-monaco(和真 Monaco 对照)上:node smoke.mjs
-import { serve, launch, openBoth } from './lib.mjs'
-const { srv, base } = await serve(); const b = await launch(); const both = await openBoth(b, base); both.lite.page.__kind = 'lite'
+import { serve, launch, openBoth, LITE_KINDS, PACKS } from './lib.mjs'
+const { srv, base } = await serve(); const b = await launch(); const both = await openBoth(b, base); for (const k of LITE_KINDS) both[k].page.__kind = 'lite'
 const sleep = ms => new Promise(r => setTimeout(r, ms))
 const waitSel = async (p, sel, t = 8000) => {
     // lite 的类名带 cm- 前缀(.cm-diagnostic-warning / .cm-diagnostic-error,链接 .cm-link),两边各取自己的
@@ -16,12 +16,16 @@ const cases = {
 const filter = process.argv[2]
 for (const [name, fn] of Object.entries(cases)) {
     if (filter && !name.includes(filter)) continue
-    const row = []
-    for (const k of ['monaco', 'lite']) {
+    const row = [], got = {}
+    for (const k of ['monaco', ...LITE_KINDS]) {
         let ok = false, err = ''
         try { ok = await fn(both[k].page) } catch (e) { err = String(e.message).split('\n')[0].slice(0, 80) }
+        got[k] = ok
         row.push(`${k}:${ok ? 'PASS' : 'FAIL' + (err ? ' ' + err : '')}`)
     }
-    console.log(name.padEnd(11), row.join('  '))
+    // 装出来的包和源码结果不同 = 打包把这门语言弄坏(或弄好)了
+    const packOff = PACKS.filter(pk => got[pk] !== got.lite)
+    if (packOff.length) process.exitCode = 1
+    console.log(name.padEnd(11), row.join('  '), packOff.length ? `  ✗ ${packOff.join(',')} ≠ 源码` : '')
 }
 await b.close(); srv.close()

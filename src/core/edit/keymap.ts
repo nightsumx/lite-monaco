@@ -271,7 +271,7 @@ export function keymapHandler(bindings: readonly KeyBinding[], options: KeymapOp
 }
 
 // 选项 columnSelection(默认 false)为 true 时,Shift+方向键 / 翻页走列选命令(Monaco 在 editorColumnSelection 下绑到 cursorColumnSelect*)。
-// 在分发处按命令换,不改键位表(键位表里仍是普通扩选命令,命令面板 / 延迟表照旧)。懒建:defaultKeymap 在模块加载时就建,循环引用下 import 可能还没就位。
+// 在分发处按命令换,不改键位表(键位表里仍是普通扩选命令,命令面板 / 延迟表照旧)。懒建,理由同 getDefaultKeymap:循环引用下 import 可能还没就位。
 let columnSelectFor: Map<StateCommand, StateCommand> | undefined
 function columnSelectCommand(cmd: StateCommand): StateCommand {
     columnSelectFor ??= new Map<StateCommand, StateCommand>([
@@ -456,7 +456,21 @@ export function buildDefaultKeymap(platform: boolean | KeyOS = keyOS): KeyBindin
     ]
 }
 
-export const defaultKeymap: readonly KeyBinding[] = buildDefaultKeymap()
+// 默认键位第一次用到时才建,不在模块顶层建:keymap.ts 和命令模块之间有循环引用(core 里 350 多个环),
+// 打包后的求值顺序由打包器定,顶层建会抓到还没赋值的命令。0.4.0、0.4.1 的 dist 就是这样:85 条里 70 条 run 是
+// undefined,方向键、Home/End、翻页、Tab 全失效,源码跑(vitest、官网)不出现。__tests__/dist-smoke 查打包产物。
+let builtDefault: readonly KeyBinding[] | undefined
+export function getDefaultKeymap(): readonly KeyBinding[] {
+    return builtDefault ??= buildDefaultKeymap()
+}
+
+/** 旧导出(core.defaultKeymap),行为和数组一样,读的时候才建;内部用 getDefaultKeymap() */
+export const defaultKeymap: readonly KeyBinding[] = new Proxy([] as KeyBinding[], {
+    get: (_, p) => Reflect.get(getDefaultKeymap(), p),
+    has: (_, p) => Reflect.has(getDefaultKeymap(), p),
+    ownKeys: () => Reflect.ownKeys(getDefaultKeymap()),
+    getOwnPropertyDescriptor: (_, p) => Reflect.getOwnPropertyDescriptor(getDefaultKeymap(), p),
+})
 
 // 兜底:keymap 未命中时,是否该 preventDefault 阻断原生 contenteditable。
 // 带命令修饰键(Cmd/Ctrl)但非组字的组合(Cmd+b 加粗、Cmd+i 斜体…)原生只会 mutate DOM 破坏 DOM≡doc

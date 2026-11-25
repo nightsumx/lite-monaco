@@ -1,6 +1,6 @@
 {
   "name": "lite-monaco",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Drop-in replacement for monaco-editor: the same monaco.editor / monaco.languages API, checked against Monaco's own unit tests, half the size, no workers to configure.",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -43,11 +43,13 @@
   "scripts": {
     "dev": "vite --config demo/vite.config.ts",
     "demo": "npm run dev",
-    "build": "tsc --noEmit && tsup",
+    "build": "tsc --noEmit && tsup && node scripts/build/check-dist.mjs",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublishOnly": "npm run build && npm test"
+    "prepublishOnly": "npm run build && npm test",
+    "test:consumer": "cd scripts/browser-diff && npm ci --no-audit --no-fund && node pack.mjs --no-build",
+    "release:check": "npm run build && npm test && npm run test:consumer"
   },
   "peerDependencies": {
     "react": ">=18",

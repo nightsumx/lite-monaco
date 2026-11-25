@@ -1,6 +1,6 @@
 // 三方对比:A(官方 @monaco-editor/react + 真 Monaco)是基准,B(官方 + lite-monaco)、C(lite-monaco/react)逐场景和它比。
 // 用法:node react/run.mjs [场景名的一部分]   REACT=18 用 React 18.3.1 的页面
-import { serve, launch } from '../lib.mjs'
+import { serve, launch, PACKS } from '../lib.mjs'
 import { scenarios } from './scenarios.mjs'
 
 const V = process.env.REACT === '18' ? '18' : ''
@@ -9,12 +9,13 @@ const { srv, base } = await serve()
 const browser = await launch()
 const ctx = await browser.newContext({ viewport: { width: 1000, height: 600 } })
 
-async function runOne(kind, sc) {
+/** kind = a / b / c;pack = 'pack-vite' 等时开装出来的包打的同名页 */
+async function runOne(kind, sc, pack = '') {
     const page = await ctx.newPage()
     const errs = []
     page.on('pageerror', e => errs.push(String(e)))
     page.on('console', m => { if (m.type() === 'error' && !/Download the React DevTools/.test(m.text())) errs.push('console: ' + m.text().slice(0, 300)) })
-    await page.goto(`${base}/react-${kind}${V}.html`)
+    await page.goto(`${base}/${pack ? pack + '/' : ''}react-${kind}${V}.html`)
     await page.waitForFunction(() => !!window.R, null, { timeout: 30000 })
     await page.evaluate(L => { window.R.loader = window.__loader }, null)
     const obs = []
@@ -76,7 +77,7 @@ function real(lines, a, b) {
     })
 }
 
-let bad = { B: 0, C: 0 }
+let bad = { B: 0, C: 0 }, packBad = 0
 for (const sc of scenarios) {
     if (only && !sc.name.includes(only)) continue
     const r = {}
@@ -87,6 +88,13 @@ for (const sc of scenarios) {
         const e = r[k].errs.filter(x => !r.a.errs.includes(x))
         if (d.length || e.length) { bad[K]++; lines.push(`  ${K}: ` + [...d, ...e.map(x => 'error ' + x)].join('\n     ')) }
     }
+    // 装出来的包打的 B、C 和源码打的同一页逐项相同(不经 ACCEPTED:源码和包之间没有可接受的差别)
+    for (const pk of PACKS) for (const k of ['b', 'c']) {
+        const p = await runOne(k, sc, pk)
+        const d = diff(r[k].obs, p.obs).map(String)
+        const e = p.errs.filter(x => !r[k].errs.includes(x))
+        if (d.length || e.length) { packBad++; lines.push(`  ${pk} ${k.toUpperCase()} ≠ 源码: ` + [...d, ...e.map(x => 'error ' + x)].join('\n     ')) }
+    }
     const firsts = ['a', 'b', 'c'].map(k => `${k.toUpperCase()}${r[k].first?.ready ? '建好' : r[k].first?.loading ? 'Loading' : '?'}`).join(' ')
     console.log(`${lines.length ? '✗' : '✓'} ${sc.name}  [挂上那一刻: ${firsts}]${r.a.errs.length ? '  (A 自己报错: ' + r.a.errs.join(' | ').slice(0, 200) + ')' : ''}`)
     if (lines.length) console.log(lines.join('\n'))
@@ -94,4 +102,6 @@ for (const sc of scenarios) {
 }
 for (const [why, n] of skipped) console.log(`  跳过 ${n} 处:${why}`)
 console.log(`\nReact ${V || '19'}: B 不一样 ${bad.B} 个,C 不一样 ${bad.C} 个,共 ${scenarios.filter(s => !only || s.name.includes(only)).length} 个场景`)
+if (PACKS.length) console.log(`装出来的包(${PACKS.join(', ')})和源码不一样:${packBad} 处`)
+if (packBad) process.exitCode = 1
 await browser.close(); srv.close()

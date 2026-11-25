@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.2 — 2026-11-25
+
+- **修：npm 包里默认键位 85 条有 70 条没绑上命令**（0.4.0、0.4.1）。方向键、Home/End、翻页、Tab、⌘A 等在打包产物里不起作用；上下键更是完全不动：补全的 ArrowUp/ArrowDown 绑定先认领了按键，后面默认键位里没有命令，最后连浏览器原生的移动也被拦掉。原因是 `defaultKeymap` 在模块顶层建，核心模块之间有循环引用，tsup 拼出的分块里它先于命令求值，抓到的是还没赋值的变量；源码跑（vitest、官网）的顺序不同，测不出来。现在第一次用到时才建（`core.getDefaultKeymap()`；`core.defaultKeymap` 照旧可用，读的时候才建）。同一类问题加了两道检查：`npm test` 查源码里同一个 import 环中、模块加载时读 import 进来的值的地方（现在 0 处）；`npm run build` 最后的 `scripts/build/check-dist.mjs` 查产物：每个文件加载时有没有读到后面才赋值的变量、默认键位每条都有命令、用公开 API 在 jsdom 里建编辑器按方向键光标真的动。两道在 0.4.1 的产物和当时的源码上都会报错。
+- **修：用 esbuild 打包的项目里 TS/JS 语言功能全没有**（0.4.x）。`typescript` 是 CommonJS，esbuild 的 ESM 产物里 `import('typescript')` 只给 `{ default }`，以前直接取命名导出，拿到 `undefined`；Vite、Rolldown 不受影响。
+- **修：装的是 typescript 6 时控制台一条 404**，es2025 的类型也缺：CDN 上拉哪些 lib 文件以前写死成 5.7 的清单（6 里没有 `lib.esnext.iterator.d.ts`），现在按装的这一版自己的清单（`ts.libMap`）。
+- 发版前的整条链路检查 `npm run test:consumer`（`scripts/browser-diff/pack.mjs`）：`npm pack` 出的包装进 monorepo 外的干净目录，用 Vite 8 和 esbuild 做生产构建，在真 Chrome 里跑全部差分场景（编辑、React 组件、剪贴板、各语言冒烟），结果必须和源码一模一样；再用官方模板（`tsc` + `vite build`）和只装 `lite-monaco shiki` 的项目从头起一遍，打字、方向键、撤销、TS 诊断、无页面错误。上面两条就是它查出来的。
+- 宿主装的 `typescript` 是 7（Go 写的编译器，没有 JS 语言服务）时，TS 语言功能报一句说清楚的错，不再先去 CDN 拉 lib 再报 `createLanguageService is not a function`。
+
 ## 0.4.1 — 2026-11-24
 
 - **`lite-monaco/react`**：自带的 React 组件，导出和 `@monaco-editor/react` 4.7.0 一样（`Editor`、`DiffEditor`、`useMonaco`、`loader`、类型），迁过来只改 import。不经过 loader，第一次绘制前就建好；StrictMode 下只建一次且编辑器是活的；卸载时按最新的 props 处理。对比脚本 `scripts/browser-diff/react/run.mjs`：真 Chrome 里拿 @monaco-editor/react + monaco-editor 0.55.1 当基准，45 个场景（含 beforeMount 里配 JSON schema 和 TS 编译选项），React 19 和 18。

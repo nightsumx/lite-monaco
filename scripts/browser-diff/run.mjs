@@ -3,7 +3,7 @@
 import { readdirSync, writeFileSync } from 'node:fs'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import { dirname, resolve } from 'node:path'
-import { serve, launch, openBoth, ENGINE } from './lib.mjs'
+import { serve, launch, openBoth, openKind, ENGINE, LITE_KINDS, PACKS } from './lib.mjs'
 import { known } from './known.mjs'
 import { axSummary } from './ax-states.mjs'
 
@@ -94,16 +94,18 @@ try {
     for (const scn of picked) {
         const r = { group: scn.group, name: scn.name, diffs: [], err: null }
         const snaps = {}
-        for (const kind of ['monaco', 'lite']) {
-            if (scn.only && !scn.only.includes(kind)) continue
+        for (const kind of ['monaco', ...LITE_KINDS]) {
+            if (scn.only && !scn.only.includes(kind.startsWith('pack-') ? 'lite' : kind)) continue
             try { snaps[kind] = await runSteps(both[kind], scn) } catch (e) {
                 snaps[kind] = { __fatal: String(e.message).split('\n')[0] }
                 // 页面可能被搞坏了,换一个干净的
                 await both[kind].ctx.close().catch(() => {})
-                const fresh = await openBoth(browser, base); await fresh[kind === 'monaco' ? 'lite' : 'monaco'].ctx.close().catch(() => {})
-                both[kind] = fresh[kind]
+                both[kind] = await openKind(browser, base, kind)
             }
         }
+        // 装出来的包和源码同一场景的结果应当一模一样(同容差);不一样就是打包、安装或用户的打包器把行为改了
+        r.pack = {}
+        for (const pk of PACKS) if (snaps.lite && snaps[pk]) r.pack[pk] = diff(snaps.lite, snaps[pk], scn.tol ?? 1)
         r.snaps = snaps
         if (snaps.monaco && snaps.lite) {
             const tol = scn.tol ?? 1
@@ -112,12 +114,14 @@ try {
         }
         results.push(r)
         const bad = r.diffs.filter(d => d.cls === '未分类').length
-        console.log(`${r.diffs.length ? (bad ? '✗' : '~') : '✓'} ${r.group}/${r.name}  diffs=${r.diffs.length}${bad ? ` (未分类 ${bad})` : ''}`)
+        const packBad = Object.entries(r.pack).filter(([, d]) => d.length)
+        console.log(`${r.diffs.length ? (bad ? '✗' : '~') : '✓'} ${r.group}/${r.name}  diffs=${r.diffs.length}${bad ? ` (未分类 ${bad})` : ''}`
+            + packBad.map(([pk, d]) => `\n    ✗ ${pk} ≠ 源码 ${d.length} 处: ` + d.slice(0, 3).map(x => `${x.path} 源码=${JSON.stringify(x.monaco)?.slice(0, 60)} 包=${JSON.stringify(x.lite)?.slice(0, 60)}`).join(' | ')).join(''))
     }
 } finally {
     await browser.close(); srv.close()
 }
-const envTag = [ENGINE !== 'chromium' ? ENGINE : '', process.env.DPR ? 'dpr' + process.env.DPR : '', process.env.TOUCH ? 'touch' + process.env.TOUCH : ''].filter(Boolean).join('-')
+const envTag = [PACKS.join('+'), ENGINE !== 'chromium' ? ENGINE : '', process.env.DPR ? 'dpr' + process.env.DPR : '', process.env.TOUCH ? 'touch' + process.env.TOUCH : ''].filter(Boolean).join('-')
 const tag = (filter ? '-' + filter.replace(/[^\w]+/g, '_') : '') + (envTag ? '@' + envTag : '')
 writeFileSync(resolve(here, `out/result${tag}.json`), JSON.stringify(results, null, 1))
 
@@ -142,3 +146,10 @@ for (const r of results) {
 }
 if (!filter) writeFileSync(resolve(here, envTag ? `REPORT@${envTag}.md` : 'REPORT.md'), L.join('\n'))
 console.log(`\n场景 ${tot},一致 ${clean},差异 ${tot - clean};报告 scripts/browser-diff/REPORT.md`)
+let packFail = 0
+for (const pk of PACKS) {
+    const bad = results.filter(r => r.pack?.[pk]?.length)
+    packFail += bad.length
+    console.log(`${pk}:和源码不一样的场景 ${bad.length} / ${results.length}${bad.length ? ':' + bad.map(r => `${r.group}/${r.name}`).join(', ') : ''}`)
+}
+if (packFail) process.exitCode = 1

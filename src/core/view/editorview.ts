@@ -34,7 +34,7 @@ import { measureTextMetrics, posAtCoordsLayout, snapToCluster, moveToLineBoundar
 import type { KeyBinding } from '../edit/keymap'
 import { DOMObserver } from '../input/domobserver'
 import { handleCopy, handleCut, handleDragOver, handleDrop, handlePaste } from '../input/clipboard'
-import { defaultKeymap, keymapHandler, shouldBlockNative } from '../edit/keymap'
+import { getDefaultKeymap, keymapHandler, shouldBlockNative } from '../edit/keymap'
 import { materialize } from './materialize'
 import { planLinePatch, planViewportShift, type ViewportShiftPlan } from './linepatch'
 import { Facet } from '../model/state'
@@ -403,7 +403,7 @@ export class EditorView {
         this.lineWidthMap.seedEstimate()
 
         this.observer = new DOMObserver(this)
-        this.keymapBindings = config.keymap || defaultKeymap
+        this.keymapBindings = config.keymap || getDefaultKeymap()
         this.runKeys = keymapHandler(this.keymapBindings)
 
         // 攒着的视图更新在微任务里画,浏览器的下一个事件本来就在它之后;这里再兜一道:

@@ -1,6 +1,6 @@
 // 系统剪贴板差分(Chromium,grantPermissions clipboard-read/write):真 ⌘C/⌘X/⌘V 走系统剪贴板,
 // 读回 text/plain、text/html,再粘到另一处,Monaco 与 lite 两边同场景比对。用法:node clipboard.mjs [过滤]
-import { serve, launch, openBoth, ENGINE } from './lib.mjs'
+import { serve, launch, openBoth, ENGINE, LITE_KINDS, PACKS } from './lib.mjs'
 const CR = ENGINE === 'chromium' && !process.env.NOPERM // 其余引擎没有 clipboard-read/write 权限名:只跑「⌘C/⌘X → ⌘V 往返」(读不了剪贴板内容本身),要预置剪贴板的 case 跳过
 const mod = process.platform === 'darwin' ? 'Meta' : 'Control'
 const sleep = ms => new Promise(r => setTimeout(r, ms))
@@ -159,13 +159,15 @@ let bad = 0
 for (const [name, fn] of Object.entries(cases)) {
     if (filter && !name.includes(filter)) continue
     const r = {}
-    for (const k of ['monaco', 'lite']) {
-        try { r[k] = await fn(both[k].page, k) } catch (e) { r[k] = /^SKIP/.test(e.message) ? { __skip: e.message } : { __fatal: String(e.message).split('\n')[0] } }
+    for (const k of ['monaco', ...LITE_KINDS]) {
+        try { r[k] = await fn(both[k].page, k.startsWith('pack-') ? 'lite' : k) } catch (e) { r[k] = /^SKIP/.test(e.message) ? { __skip: e.message } : { __fatal: String(e.message).split('\n')[0] } }
     }
     if (r.monaco.__skip) { console.log('- 跳过', name, r.monaco.__skip); continue }
     const a = JSON.stringify(r.monaco), c = JSON.stringify(r.lite)
     if (/__fatal/.test(a + c)) { bad++; console.log('✗ (脚本错)', name, a.slice(0, 200), c.slice(0, 200)); continue }
     if (process.env.VERBOSE) console.log('  ·', name, c.slice(0, 300))
+    // 装出来的包必须和源码一模一样
+    for (const pk of PACKS) if (JSON.stringify(r[pk]) !== c) { bad++; console.log(`✗ ${pk} ≠ 源码`, name); console.log('   源码:', c.slice(0, 400)); console.log('   包  :', JSON.stringify(r[pk]).slice(0, 400)) }
     if (a === c) console.log('✓', name)
     else { bad++; console.log('✗', name); console.log('   monaco:', a.slice(0, 600)); console.log('   lite  :', c.slice(0, 600)) }
 }

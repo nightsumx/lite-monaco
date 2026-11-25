@@ -17,7 +17,7 @@
 // 这个文件不依赖编辑器:Worker 的入口(tsworker.ts)和同线程回环(tsbackend.ts)都用它。
 
 import type * as TS from 'typescript'
-import { loadTsLibs, readLib } from './tslibs'
+import { libNamesOf, loadTsLibs, readLib } from './tslibs'
 import { textChange } from './tsbudget'
 import { computeTsDiagnostics } from './tsdiagcore'
 import { skipRangesIn, tsSkipTree, type TsSkipTree } from './tsskip'
@@ -171,8 +171,15 @@ export class TsProject {
         if (this.service) return Promise.resolve(this.service)
         if (this.loading) return this.loading
         this.loading = (async () => {
-            const ts = await import('typescript')
-            const loaded = await loadTsLibs(ts.version)
+            // typescript 是 CommonJS:esbuild 的 ESM 产物里动态 import 只给 { default: ts },命名导出不在命名空间上
+            // (Vite、Rolldown 两边都给)。0.4.x 用 esbuild 打包的用户 TS 语言功能全没有,装出来的包测出来的(pack.mjs)
+            const mod = await import('typescript')
+            const ts: typeof TS = typeof mod.createLanguageService === 'function' ? mod : mod.default ?? mod
+            // TypeScript 7 是 Go 写的编译器,包里没有 JS 的语言服务。宿主 devDependencies 里是 7 时打包器照样把它接进来:
+            // 先说清楚,不去 CDN 拉 typescript@7 的 lib,也不在下面报 createLanguageService is not a function
+            if (typeof ts.createLanguageService !== 'function')
+                throw new Error(`lite-monaco: typescript ${ts.version ?? '(unknown version)'} has no language service API (TypeScript 7 is the native compiler). Install typescript 5 or 6 for TS/JS language features.`)
+            const loaded = await loadTsLibs(ts.version, libNamesOf(ts))
             const libs = new Map<string, string>()
             const libRoots: string[] = []
             for (const [name, text] of loaded) {

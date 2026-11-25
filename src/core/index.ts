@@ -19,7 +19,7 @@ export type { YScaler } from './view/viewport'
 export { HeightMap, HeightOracle, BlockInfo, QueryType, MeasuredHeights } from './view/heightmap'
 export { LineWidthMap, LineWidthOracle } from './view/linewidthmap'
 
-export { buildDefaultKeymap, defaultKeymap, keymapHandler } from './edit/keymap'
+export { buildDefaultKeymap, defaultKeymap, getDefaultKeymap, keymapHandler } from './edit/keymap'
 export type { KeyBinding, KeymapTarget } from './edit/keymap'
 export { keyOS, detectKeyOS } from './keyos'
 export type { KeyOS } from './keyos'

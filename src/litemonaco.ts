@@ -534,8 +534,8 @@ function assemble(hl: ShikiWithTheme, opts: AssembleOpts): Assembled {
     // Monaco editor.action.removeBrackets:⌥⌘⌫ / Ctrl+Alt+Backspace
     const bracketBindings: core.KeyBinding[] = [{ key: 'Mod-Alt-Backspace', run: core.removeBrackets }]
     const editKeys = f.tabIndent === false
-        ? core.defaultKeymap.filter(b => b.key !== 'Tab' && b.key !== 'Shift-Tab')
-        : core.defaultKeymap
+        ? core.getDefaultKeymap().filter(b => b.key !== 'Tab' && b.key !== 'Shift-Tab')
+        : core.getDefaultKeymap()
     const keymap: core.KeyBinding[] = [
         ...completionBindings, ...searchBindings, ...gotoBindings, ...foldBindings,
         ...commentBindings, ...tabFocusBindings, ...hoverBindings, ...problemBindings, ...bracketBindings, ...closeBracketBindings, ...editKeys,

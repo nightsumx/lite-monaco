@@ -3,7 +3,11 @@ import { EditorState } from '../../src/core/model/state'
 import { EditorSelection } from '../../src/core/model/selection'
 import { fuzzyScore } from '../../src/core/feature/fuzzy'
 import { mountSuggest, cleanupSuggest, provideTs, until } from './_suggest-harness'
-import { loadTsLibs, libFileName, clearTsLibCache, readLib, setTsLibLoader } from '../../src/lang/tslibs'
+import { loadTsLibs, libFileName, clearTsLibCache, readLib, setTsLibLoader, libNamesOf, TS_LIB_FILE_NAMES } from '../../src/lang/tslibs'
+import * as tsModule from 'typescript'
+import { existsSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { createRequire } from 'node:module'
 import { isProgramLib } from '../../src/lang/tsservice'
 import { toPeekLocations } from '../../src/lang/tspeek'
 import { clearTSServiceCache } from '../../src/lang/tsservice'
@@ -24,6 +28,17 @@ describe('tslibs', () => {
         expect(isProgramLib('lib.es5.full.d.ts')).toBe(false)
         expect(isProgramLib('lib.d.ts')).toBe(false)
         expect(isProgramLib('main.ts')).toBe(false)
+    })
+
+    it('libNamesOf:CDN 按装的这一版自己的清单拉,每个文件都真有(TS 6 没有 lib.esnext.iterator.d.ts,写死的清单 404)', () => {
+        const ts = (tsModule as { default?: typeof tsModule }).default ?? tsModule
+        const names = libNamesOf(ts)
+        expect(names).toContain('lib.esnext.d.ts')
+        expect(names).toContain('lib.dom.d.ts')
+        const libDir = dirname(createRequire(import.meta.url).resolve('typescript'))
+        expect(names.filter(n => !existsSync(join(libDir, n)))).toEqual([])
+        expect(libNamesOf({})).toBe(TS_LIB_FILE_NAMES)
+        expect(libNamesOf({ libMap: new Map() })).toBe(TS_LIB_FILE_NAMES)
     })
 
     it('setTsLibLoader 优先于 Node/CDN', async () => {

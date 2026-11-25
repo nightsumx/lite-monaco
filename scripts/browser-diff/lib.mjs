@@ -6,7 +6,18 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve, extname } from 'node:path'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.ttf': 'font/ttf', '.map': 'application/json' }
+const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.ttf': 'font/ttf', '.woff': 'font/woff', '.woff2': 'font/woff2',
+    '.wasm': 'application/wasm', '.json': 'application/json', '.svg': 'image/svg+xml', '.map': 'application/json' }
+
+/**
+ * 装出来的包:PACK=vite,esbuild 时,lite 之外再开 pack-vite、pack-esbuild 页(out/pack-<名>/,pack.mjs 打的:
+ * npm pack 出的 tarball 装进 monorepo 外的干净目录,用户的打包器生产构建)。它们和 lite(源码)同场景同时跑,结果应当一模一样。
+ */
+export const PACKS = (process.env.PACK ?? '').split(',').map(s => s.trim()).filter(Boolean).map(s => 'pack-' + s)
+/** lite 一侧的全部页:源码 + 每种装出来的包 */
+export const LITE_KINDS = ['lite', ...PACKS]
+// 页面地址:monaco、lite 在 out 下,pack-<名> 在 out/pack-<名> 下(同名页)
+export const pageUrl = (base, kind, page) => kind.startsWith('pack-') ? `${base}/${kind}/${page}.html` : `${base}/${page}.html`
 
 export function serve() {
     const srv = createServer((req, res) => {
@@ -25,22 +36,26 @@ export async function launch() {
     return chromium.launch({ channel: 'chrome', args: ['--disable-renderer-backgrounding', '--disable-backgrounding-occluded-windows', '--font-render-hinting=none'] })
 }
 
-/** 每个实现一个 page,返回 {monaco, lite} */
+/** 每个实现一个 page,返回 {monaco, lite, pack-*…} */
 export async function openBoth(browser, base) {
     const out = {}
-    for (const kind of ['monaco', 'lite']) {
-        const dpr = Number(process.env.DPR || 1)
-        const ctxOpts = { viewport: { width: 1000, height: 600 }, deviceScaleFactor: dpr }
-        if (ENGINE === 'chromium' && !process.env.NOPERM) ctxOpts.permissions = ['clipboard-read', 'clipboard-write']
-        if (process.env.TOUCH) { ctxOpts.hasTouch = true; ctxOpts.isMobile = process.env.TOUCH === 'mobile' }
-        const ctx = await browser.newContext(ctxOpts)
-        const page = await ctx.newPage()
-        const errs = []
-        page.on('pageerror', e => errs.push(String(e)))
-        page.on('console', m => { if (m.type() === 'error') errs.push('console: ' + m.text()) })
-        await page.goto(`${base}/${kind}.html`)
-        await page.waitForFunction(() => !!window.H, null, { timeout: 30000 })
-        out[kind] = { page, ctx, errs, cdp: ENGINE === 'chromium' ? await ctx.newCDPSession(page) : null }
-    }
+    for (const kind of ['monaco', ...LITE_KINDS]) out[kind] = await openKind(browser, base, kind)
     return out
 }
+
+/** 开一个实现的页(场景把页面搞坏时换一个干净的) */
+export async function openKind(browser, base, kind) {
+    const dpr = Number(process.env.DPR || 1)
+    const ctxOpts = { viewport: { width: 1000, height: 600 }, deviceScaleFactor: dpr }
+    if (ENGINE === 'chromium' && !process.env.NOPERM) ctxOpts.permissions = ['clipboard-read', 'clipboard-write']
+    if (process.env.TOUCH) { ctxOpts.hasTouch = true; ctxOpts.isMobile = process.env.TOUCH === 'mobile' }
+    const ctx = await browser.newContext(ctxOpts)
+    const page = await ctx.newPage()
+    const errs = []
+    page.on('pageerror', e => errs.push(String(e)))
+    page.on('console', m => { if (m.type() === 'error') errs.push('console: ' + m.text()) })
+    await page.goto(pageUrl(base, kind, kind === 'monaco' ? 'monaco' : 'lite'))
+    await page.waitForFunction(() => !!window.H, null, { timeout: 30000 })
+    return { page, ctx, errs, cdp: ENGINE === 'chromium' ? await ctx.newCDPSession(page) : null }
+}
+

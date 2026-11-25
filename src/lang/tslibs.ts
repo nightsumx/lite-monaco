@@ -153,11 +153,21 @@ async function loadFromNode(): Promise<Map<string, string> | null> {
     }
 }
 
-async function loadFromCdn(version: string): Promise<Map<string, string>> {
+/**
+ * 这一版 typescript 自己的 lib 清单(ts.libMap:`lib` 选项和 /// <reference lib> 能点名的全部文件)。
+ * 上面的 5.7 清单只在拿不到它时用:TS 6 去掉了 lib.esnext.iterator.d.ts(CDN 上 404,用户控制台一条红)、多了 es2025.*(没拉,类型缺)
+ */
+export function libNamesOf(ts: unknown): readonly string[] {
+    const map = (ts as { libMap?: unknown }).libMap
+    if (!(map instanceof Map) || !map.size) return TS_LIB_FILE_NAMES
+    return [...new Set([...map.values()].filter((v): v is string => typeof v === 'string'))]
+}
+
+async function loadFromCdn(version: string, names: readonly string[]): Promise<Map<string, string>> {
     const base = `https://cdn.jsdelivr.net/npm/typescript@${version}/lib/`
     const map = new Map<string, string>()
     // 并行拉取;失败跳过(个别版本缺文件)
-    await Promise.all(TS_LIB_FILE_NAMES.map(async (name) => {
+    await Promise.all(names.map(async (name) => {
         try {
             const res = await fetch(base + name)
             if (!res.ok) return
@@ -171,8 +181,9 @@ async function loadFromCdn(version: string): Promise<Map<string, string>> {
 /**
  * 加载全部 lib 文本到 Map(key = 文件名如 lib.dom.d.ts)。
  * @param tsVersion typescript.version,CDN 路径用
+ * @param names CDN 上拉哪些文件,默认 5.7 的清单;tsproject 传 libNamesOf(ts)
  */
-export async function loadTsLibs(tsVersion: string): Promise<Map<string, string>> {
+export async function loadTsLibs(tsVersion: string, names: readonly string[] = TS_LIB_FILE_NAMES): Promise<Map<string, string>> {
     if (cache) return cache
 
     if (customLoader) {
@@ -187,7 +198,7 @@ export async function loadTsLibs(tsVersion: string): Promise<Map<string, string>
         return cache
     }
 
-    const fromCdn = await loadFromCdn(tsVersion)
+    const fromCdn = await loadFromCdn(tsVersion, names)
     if (fromCdn.size < 10)
         throw new Error(`tslibs: failed to load TypeScript libs (got ${fromCdn.size} files)`)
     cache = fromCdn
